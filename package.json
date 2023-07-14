@@ -1,0 +1,19 @@
+{
+  "name": "wbs2-quizduelapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run frontend\" \"npm run backend\"",
+    "dev": "concurrently \"npm run frontend\" \"npm run backend:dev\"",
+    "frontend": "cd frontend && npm start",
+    "backend": "cd backend && npm start",
+    "backend:dev": "cd backend && npm run start:dev",
+    "setup": "concurrently \"cd frontend && npm i\" \"cd backend && npm i\""
+  },
+  "dependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "author": "",
+  "license": "ISC"
+}
