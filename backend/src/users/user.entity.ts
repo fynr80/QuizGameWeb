@@ -4,11 +4,13 @@ import {
   PrimaryGeneratedColumn,
   JoinTable,
   ManyToMany,
+  Unique,
 } from 'typeorm';
 
 export type UserRole = 'admin' | 'user';
 
 @Entity()
+@Unique(['username'])
 export class User {
   @PrimaryGeneratedColumn()
   id: number;

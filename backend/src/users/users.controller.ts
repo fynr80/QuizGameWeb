@@ -10,7 +10,7 @@ export class UsersController {
     return 'auth register';
   }
 
-  @Get('invite')
+  @Post('invite')
   invite(): string {
     return 'auth login';
   }
@@ -21,7 +21,7 @@ export class UsersController {
   }
 
   @Post('statistic')
-  upddateStatistic(): string {
+  updateStatistic(): string {
     return 'auth login';
   }
 }
