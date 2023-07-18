@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { UsersService } from './users.service';
 
 @Controller('api/users')
@@ -6,22 +6,29 @@ export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
   @Get('addFriend')
-  addFriend(): string {
-    return 'auth register';
+  async addFriend(@Body('username') username, @Body('friendname') friendname) {
+    this.userService.addFriend(username, friendname);
+    return { msg: 'Friend request has been succesfully sent' };
   }
 
   @Post('invite')
-  invite(): string {
-    return 'auth login';
+  async invite() {
+    return { msg: 'Duel challenge has been sent' };
   }
 
   @Get('statistic')
-  getStatistic(): string {
-    return 'auth login';
+  async getStatistic() {
+    return { msg: 'User statistic has been updated' };
   }
 
   @Post('statistic')
-  updateStatistic(): string {
-    return 'auth login';
+  async updateStatistic() {
+    return { msg: 'User statistic has been updated' };
+  }
+
+  @Post('admin')
+  async creaetAdmin() {
+    await this.userService.createAdmin();
+    return { msg: 'admin created' };
   }
 }

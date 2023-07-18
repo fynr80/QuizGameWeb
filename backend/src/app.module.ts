@@ -6,7 +6,6 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { User } from './users/user.entity';
 import { QuestionsModule } from './questions/questions.module';
 
 @Module({
@@ -17,8 +16,8 @@ import { QuestionsModule } from './questions/questions.module';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: './db.sqlite',
-      entities: [User],
       synchronize: true,
+      entities: [`${__dirname}/entity/**/*.{js,ts}`],
     }),
     AuthModule,
     UsersModule,

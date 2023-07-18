@@ -31,4 +31,10 @@ export class User {
   @ManyToMany(() => User)
   @JoinTable()
   friendRequests: User[];
+
+  @Column({ default: 0 })
+  gamesWon: number;
+
+  @Column('simple-array', { default: '' })
+  history: string[];
 }

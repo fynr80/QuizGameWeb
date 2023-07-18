@@ -1,15 +1,21 @@
-import { Controller, Post, UseGuards, Request, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  UseGuards,
+  Request,
+  Get,
+  Body,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LocalAuthGuard } from './local-auth.guard';
-import { AuthenticatedGuard } from './authenticated.guard';
+import { AuthenticatedGuard } from '../guards/authenticated.guard';
+import { LocalAuthGuard } from './../guards/local-auth.guard';
 
 @Controller('api/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')
-  async register(@Request() req) {
-    const { username, password } = req.body;
+  async register(@Body('username') username, @Body('password') password) {
     return await this.authService.registerUser(username, password);
   }
 
@@ -22,7 +28,7 @@ export class AuthController {
   @Post('logout')
   async logout(@Request() req) {
     req.session.destroy();
-    return { msg: 'The user session has ended' };
+    return { msg: 'Logged out succesfully' };
   }
 
   @UseGuards(AuthenticatedGuard)
@@ -32,9 +38,7 @@ export class AuthController {
   }
 
   @Post('delete')
-  async delete(@Request() req) {
-    const { username } = req.body;
-
+  async delete(@Body('username') username) {
     await this.authService.deleteUser(username);
     return { msg: 'User succesfully deleted' };
   }
