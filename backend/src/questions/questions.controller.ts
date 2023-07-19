@@ -10,30 +10,33 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { QuestionsService } from './questions.service';
-import { Roles } from './roles.decorator';
-import { Role } from './role.enum';
 import { AuthenticatedGuard } from 'src/guards/authenticated.guard';
+import { RolesGuard } from 'src/guards/roles.guard';
+import { Roles } from './roles.decorator';
 
 @Controller('api/questions')
 export class QuestionsController {
   constructor(private readonly questionService: QuestionsService) {}
 
   @Get()
-  @UseGuards(AuthenticatedGuard)
+  @Roles('admin')
+  @UseGuards(AuthenticatedGuard, RolesGuard)
   async getAllQuestions() {
     const result = await this.questionService.getAllQuestions();
     return { result };
   }
 
   @Get(':id')
-  @UseGuards(AuthenticatedGuard)
+  @Roles('admin')
+  @UseGuards(AuthenticatedGuard, RolesGuard)
   async getQuestionById(@Param('id', ParseIntPipe) id: number) {
     const result = await this.questionService.getQuestionById(id);
     return { result };
   }
 
   @Post()
-  @UseGuards(AuthenticatedGuard)
+  @Roles('admin')
+  @UseGuards(AuthenticatedGuard, RolesGuard)
   async createQuestion(
     @Body('description') description,
     @Body('answers') answers,
@@ -48,14 +51,16 @@ export class QuestionsController {
   }
 
   @Put(':id')
-  @UseGuards(AuthenticatedGuard)
+  @Roles('admin')
+  @UseGuards(AuthenticatedGuard, RolesGuard)
   async updateQuestion(@Param('id', ParseIntPipe) id: number) {
     await this.questionService.updateQuestion(id);
     return { msg: 'Question successfully updated' };
   }
 
   @Delete(':id')
-  @UseGuards(AuthenticatedGuard)
+  @Roles('admin')
+  @UseGuards(AuthenticatedGuard, RolesGuard)
   async deleteQuestion(@Param('id', ParseIntPipe) id: number) {
     await this.questionService.deleteQeustion(id);
     return { msg: 'Question successfully deleted' };
