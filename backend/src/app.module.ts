@@ -11,7 +11,7 @@ import { QuestionsModule } from './questions/questions.module';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '..', 'frontend', 'src'),
+      rootPath: join(__dirname, '..', '..', 'frontend', 'dist', 'frontend'),
     }),
     TypeOrmModule.forRoot({
       type: 'sqlite',
