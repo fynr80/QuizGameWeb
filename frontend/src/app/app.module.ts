@@ -9,9 +9,16 @@ import { RegistrationComponent } from './pages/registration/registration.compone
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { PasswordForgotComponent } from './pages/password-forgot/password-forgot.component';
+import { HomepageComponent } from './pages/homepage/homepage.component';
 
 @NgModule({
-  declarations: [AppComponent, RegistrationComponent, LoginComponent, PasswordForgotComponent],
+  declarations: [
+    AppComponent,
+    RegistrationComponent,
+    LoginComponent,
+    PasswordForgotComponent,
+    HomepageComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -21,7 +28,8 @@ import { PasswordForgotComponent } from './pages/password-forgot/password-forgot
       { path: 'registration', component: RegistrationComponent },
       { path: 'login', component: LoginComponent },
       { path: '', redirectTo: '/login', pathMatch: 'full' },
-      { path: 'passwordForgot', component: PasswordForgotComponent }
+      { path: 'passwordForgot', component: PasswordForgotComponent },
+      { path: 'homepage', component: HomepageComponent },
     ]),
   ],
   providers: [],
