@@ -9,16 +9,16 @@
       </h1>
     </div>
     <div class="shadow p-5" style="border-radius: 25px">
-      <button
-        [routerLink]="['/login']"
-        style="border: none; background: none"
-        class="material-icons"
-      >
-        backspace
-      </button>
-
       <form>
-        <h2>Jetzt registrieren</h2>
+        <h2>
+          <button
+            [routerLink]="['/login']"
+            style="border: none; background: none"
+            class="material-icons"
+          >
+            backspace</button
+          >Jetzt registrieren
+        </h2>
         <div>
           <label for="inputEmail">E-Mail-Adresse:</label>
           <input
