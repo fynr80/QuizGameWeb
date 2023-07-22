@@ -8,9 +8,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
+import { PasswordForgotComponent } from './pages/password-forgot/password-forgot.component';
 
 @NgModule({
-  declarations: [AppComponent, RegistrationComponent, LoginComponent],
+  declarations: [AppComponent, RegistrationComponent, LoginComponent, PasswordForgotComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -20,6 +21,7 @@ import { LoginComponent } from './pages/login/login.component';
       { path: 'registration', component: RegistrationComponent },
       { path: 'login', component: LoginComponent },
       { path: '', redirectTo: '/login', pathMatch: 'full' },
+      { path: 'passwordForgot', component: PasswordForgotComponent }
     ]),
   ],
   providers: [],
