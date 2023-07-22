@@ -18,68 +18,70 @@
     </div>
   </div>
 
-  <!-- Center -->
-  <div class="col-md-6 mx-3">
+  <!-- Center Header-->
+  <div class="col-md-7 mx-3">
     <div class="row d-flex align-items-center">
       <button
-        class="col"
-        style="border: none; background-color: white"
-        (onClick)="showQuizGame()"
+        class="col btn btn-outline-dark"
+        style="border: none"
+        (click)="showQuizGame()"
       >
         <h4>Quizgame</h4>
       </button>
       <button
-        class="col"
-        style="border: none; background-color: white"
-        (onClick)="showProfil()"
+        class="col btn btn-outline-dark"
+        style="border: none"
+        (click)="showProfil()"
       >
         <h4 class="col" style="text-align: center">Profil</h4>
       </button>
       <button
-        class="col"
-        style="border: none; background-color: white"
-        (onClick)="showStatistik()"
+        class="col btn btn-outline-dark"
+        style="border: none"
+        (click)="showStatistik()"
       >
-        <h4 class="col" style="text-align: right">Statistik</h4>
+        <h4 class="col" style="text-align: center">Statistik</h4>
       </button>
       <button
-        class="col"
-        style="border: none; background-color: white"
-        (onClick)="showVerlauf()"
+        class="col btn btn-outline-dark"
+        style="border: none"
+        (click)="showVerlauf()"
       >
-        <h4 class="col" style="text-align: end">Verlauf</h4>
+        <h4 class="col" style="text-align: center">Verlauf</h4>
       </button>
       <hr />
     </div>
+    <!-- Center Body -->
 
+    <!-- GameArea -->
     <div
-      class="shadow d-flex justify-content-center box"
-      id="gameDisplayId"
-      [ngClass]="['displayShow']"
+      class="shadow box"
+      [ngClass]="toggleQuizGame ? ['displayShow'] : ['displayHide']"
     >
-      <!-- GameArea -->
       <p>GameArea</p>
     </div>
+
+    <!-- ProfilArea -->
     <div
-      class="shadow d-flex justify-content-center box"
-      [ngClass]="['displayHide']"
+      class="shadow box"
+      [ngClass]="toggleProfil ? ['displayShow'] : ['displayHide']"
     >
-      <!-- ProfilArea -->
       <p>Profil</p>
     </div>
+
+    <!-- StatistikArea -->
     <div
-      class="shadow d-flex justify-content-center box"
-      [ngClass]="['displayHide']"
+      class="shadow box"
+      [ngClass]="toggleStatistik ? ['displayShow'] : ['displayHide']"
     >
-      <!-- StatistikArea -->
       <p>Statistik</p>
     </div>
+
+    <!-- VerlaufArea -->
     <div
-      class="shadow d-flex justify-content-center box"
-      style="height: 200%; display: none !important"
-      [ngClass]="['displayHide']"
+      class="shadow box"
+      [ngClass]="toggleVerlauf ? ['displayShow'] : ['displayHide']"
     >
-      <!-- VerlaufArea -->
       <p>Verlauf</p>
     </div>
   </div>
