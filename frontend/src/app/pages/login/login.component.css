@@ -1,0 +1,8 @@
+.main {
+  margin-left: 15%;
+  margin-right: 15%;
+  height: 100%;
+}
+::placeholder {
+  color: gray;
+}
