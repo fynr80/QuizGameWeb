@@ -21,14 +21,66 @@
   <!-- Center -->
   <div class="col-md-6 mx-3">
     <div class="row d-flex align-items-center">
-      <h4 class="col">Profil</h4>
-      <h4 class="col" style="text-align: center">Statistik</h4>
-      <h4 class="col" style="text-align: end">Verlauf</h4>
+      <button
+        class="col"
+        style="border: none; background-color: white"
+        (onClick)="showQuizGame()"
+      >
+        <h4>Quizgame</h4>
+      </button>
+      <button
+        class="col"
+        style="border: none; background-color: white"
+        (onClick)="showProfil()"
+      >
+        <h4 class="col" style="text-align: center">Profil</h4>
+      </button>
+      <button
+        class="col"
+        style="border: none; background-color: white"
+        (onClick)="showStatistik()"
+      >
+        <h4 class="col" style="text-align: right">Statistik</h4>
+      </button>
+      <button
+        class="col"
+        style="border: none; background-color: white"
+        (onClick)="showVerlauf()"
+      >
+        <h4 class="col" style="text-align: end">Verlauf</h4>
+      </button>
       <hr />
     </div>
 
-    <div class="shadow d-flex justify-content-center box" style="height: 200%">
+    <div
+      class="shadow d-flex justify-content-center box"
+      id="gameDisplayId"
+      [ngClass]="['displayShow']"
+    >
       <!-- GameArea -->
+      <p>GameArea</p>
+    </div>
+    <div
+      class="shadow d-flex justify-content-center box"
+      [ngClass]="['displayHide']"
+    >
+      <!-- ProfilArea -->
+      <p>Profil</p>
+    </div>
+    <div
+      class="shadow d-flex justify-content-center box"
+      [ngClass]="['displayHide']"
+    >
+      <!-- StatistikArea -->
+      <p>Statistik</p>
+    </div>
+    <div
+      class="shadow d-flex justify-content-center box"
+      style="height: 200%; display: none !important"
+      [ngClass]="['displayHide']"
+    >
+      <!-- VerlaufArea -->
+      <p>Verlauf</p>
     </div>
   </div>
 

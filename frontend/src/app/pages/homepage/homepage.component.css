@@ -2,3 +2,11 @@
   border-radius: 15px;
   padding: 10px;
 }
+
+.displayHide {
+  display: none !important;
+}
+.displayShow {
+  height: 200%;
+  display: block !important;
+}
