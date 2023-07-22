@@ -8,21 +8,21 @@
       <h1 style="font-size: 75px; font-weight: bold">
         Quiz<span class="text-warning">App</span>
       </h1>
-      <p>
+      <h4>
         Jeder Spieler registriert sich zunächst einmal. Daraufhin kann ich
         andere Spieler als Freund hinzufugen. Mir wird auch angezeigt, ob
         Spieler online sind. Ich kann einen Freund herausfordern und wenn dieser
         annimmt sind wir in einem Duell. Ein Duell funktioniert wie Quizduell,
         also wird erst dem einen, dann dem anderen die gleiche Frage gestellt
-        und es gibt jeweils vier Antwortm¨oglichkeiten. Insgesamt zehn Fragen
-        pro Duell. Es soll außerdem eine Statistik geben, wo ich sehen kann, wie
+        und es gibt jeweils vier Antwortmöglichkeiten. Insgesamt zehn Fragen pro
+        Duell. Es soll außerdem eine Statistik geben, wo ich sehen kann, wie
         viele Spiele ich gewonnen habe und gegen wen ich so gespielt habe.
         Admins sollen die Fragen verwalten können.
-      </p>
+      </h4>
     </div>
 
     <!-- Rightside -->
-    <div class="col-6 shadow p-3" style="border-radius: 25px">
+    <div class="col-6 shadow p-5" style="border-radius: 25px">
       <div>
         <form>
           <h2>Anmelden und loslegen</h2>
@@ -50,7 +50,9 @@
             </button>
           </div>
           <div class="mt-3 mb-4 d-flex justify-content-center">
-            <a href="#!">Passwort vergessen?</a>
+            <a [routerLink]="['/passwordForgot']" href="#!"
+              >Passwort vergessen?</a
+            >
           </div>
           <div class="d-flex justify-content-center">
             <button
