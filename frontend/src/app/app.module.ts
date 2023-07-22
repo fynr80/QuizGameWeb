@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { PasswordForgotComponent } from './pages/password-forgot/password-forgot.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
+import { AdminComponent } from './pages/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { HomepageComponent } from './pages/homepage/homepage.component';
     LoginComponent,
     PasswordForgotComponent,
     HomepageComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +32,7 @@ import { HomepageComponent } from './pages/homepage/homepage.component';
       { path: '', redirectTo: '/login', pathMatch: 'full' },
       { path: 'passwordForgot', component: PasswordForgotComponent },
       { path: 'homepage', component: HomepageComponent },
+      { path: 'admin', component: AdminComponent },
     ]),
   ],
   providers: [],
