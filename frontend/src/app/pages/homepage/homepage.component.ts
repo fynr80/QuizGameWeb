@@ -6,8 +6,8 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
   styleUrls: ['./homepage.component.css'],
 })
 export class HomepageComponent {
-  toggleQuizGame = false;
-  toggleProfil = true;
+  toggleQuizGame = true;
+  toggleProfil = false;
   toggleStatistik = false;
   toggleVerlauf = false;
 

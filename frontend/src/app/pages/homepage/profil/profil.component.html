@@ -6,15 +6,26 @@
 </h2>
 
 <!-- Body -->
-<div class="d-flex align-items-start" style="background-color: aquamarine">
-  <span
-    class="material-icons"
-    style="font-size: 140px; background-color: antiquewhite"
-    >face</span
-  >
-  <div class="row mx-3">
-    <h3>Username: Username</h3>
-    <h3>E-Mail: E-Mail</h3>
+<div class="d-flex align-items-start my-3">
+  <span class="material-icons" style="font-size: 140px">person</span>
+  <div class="row mx-3 my-3">
+    <h3>Username: {{ username }}</h3>
+    <h3>E-Mail: {{ email }}</h3>
+    <h3>Punkte: {{ points }} (Sieg +3 Niederlage -2 ?)</h3>
   </div>
 </div>
 <!-- Bottom -->
+<div class="row" style="justify-content: center">
+  <button
+    class="col-md-3 p-2 m-5 bg-warning text-dark changebtn"
+    (click)="changeUsername()"
+  >
+    Username ändern
+  </button>
+  <button
+    class="col-md-3 p-2 m-5 bg-warning text-dark changebtn"
+    (click)="changePassword()"
+  >
+    Passwort ändern
+  </button>
+</div>

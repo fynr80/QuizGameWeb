@@ -15,6 +15,7 @@ import { ProfilComponent } from './pages/homepage/profil/profil.component';
 import { QuizGameComponent } from './pages/homepage/quiz-game/quiz-game.component';
 import { StatistikComponent } from './pages/homepage/statistik/statistik.component';
 import { VerlaufComponent } from './pages/homepage/verlauf/verlauf.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { VerlaufComponent } from './pages/homepage/verlauf/verlauf.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     NgbModule,
+    FormsModule,
     RouterModule.forRoot([
       { path: 'registration', component: RegistrationComponent },
       { path: 'login', component: LoginComponent },

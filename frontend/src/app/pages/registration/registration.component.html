@@ -9,50 +9,52 @@
       </h1>
     </div>
     <div class="shadow p-5" style="border-radius: 25px">
-      <form>
-        <h2>
-          <button
-            [routerLink]="['/login']"
-            style="border: none; background: none"
-            class="material-icons"
-          >
-            backspace</button
-          >Jetzt registrieren
-        </h2>
-        <div>
-          <label for="inputEmail">E-Mail-Adresse:</label>
-          <input
-            type="email"
-            id="inputEmail"
-            class="form-control"
-            placeholder="Max.Mustermann@gmail.com"
-          />
-        </div>
-        <div class="mt-4 mb-4">
-          <label for="inputUsername">Username:</label>
-          <input
-            type="text"
-            id="inputUsername"
-            class="form-control"
-            placeholder="MaxMuster"
-          />
-        </div>
+      <h2>
+        <button
+          [routerLink]="['/login']"
+          style="border: none; background: none"
+          class="material-icons"
+        >
+          backspace</button
+        >Jetzt registrieren
+      </h2>
+      <div>
+        <label>E-Mail-Adresse:</label>
+        <input
+          type="email"
+          [(ngModel)]="inputEmail"
+          class="form-control"
+          placeholder="Max.Mustermann@gmail.com"
+        />
+      </div>
+      <div class="mt-4 mb-4">
+        <label>Username:</label>
+        <input
+          type="text"
+          [(ngModel)]="inputUsername"
+          class="form-control"
+          placeholder="MaxMuster"
+        />
+      </div>
 
-        <div class="mt-4 mb-4">
-          <label for="inputPassword">Passwort:</label>
-          <input
-            type="password"
-            id="inputPassword"
-            class="form-control"
-            placeholder="Passwort"
-          />
-        </div>
-        <div class="d-flex justify-content-center">
-          <button type="button" class="btn btn-warning btn-lg w-100">
-            Registrieren
-          </button>
-        </div>
-      </form>
+      <div class="mt-4 mb-4">
+        <label>Passwort:</label>
+        <input
+          type="password"
+          [(ngModel)]="inputPassword"
+          class="form-control"
+          placeholder="Passwort"
+        />
+      </div>
+      <div class="d-flex justify-content-center">
+        <button
+          type="button"
+          class="btn btn-warning btn-lg w-100"
+          (click)="submit()"
+        >
+          Registrieren
+        </button>
+      </div>
     </div>
   </div>
 </div>
