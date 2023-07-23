@@ -1,7 +1,6 @@
 .main {
-  margin-left: 15%;
-  margin-right: 15%;
-  height: 100%;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 ::placeholder {
   color: gray;

@@ -8,6 +8,19 @@
   display: none !important;
 }
 .displayShow {
-  height: 200%;
+  overflow-y: scroll;
+  height: 600px;
   display: block !important;
+}
+
+.onlinedot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: gray;
+  border-radius: 50%;
+}
+
+.headerButton {
+  border: none;
 }
