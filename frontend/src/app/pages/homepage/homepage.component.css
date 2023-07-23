@@ -9,7 +9,7 @@
 }
 .displayShow {
   overflow-y: scroll;
-  height: 600px;
+  height: 500px;
   display: block !important;
 }
 
