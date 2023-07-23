@@ -16,6 +16,7 @@ import { QuizGameComponent } from './pages/homepage/quiz-game/quiz-game.componen
 import { StatistikComponent } from './pages/homepage/statistik/statistik.component';
 import { VerlaufComponent } from './pages/homepage/verlauf/verlauf.component';
 import { FormsModule } from '@angular/forms';
+import { PieChartComponent } from './pages/pie-chart/pie-chart.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { FormsModule } from '@angular/forms';
     QuizGameComponent,
     StatistikComponent,
     VerlaufComponent,
+    PieChartComponent,
   ],
   imports: [
     BrowserModule,
