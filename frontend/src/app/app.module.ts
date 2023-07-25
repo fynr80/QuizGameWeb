@@ -17,6 +17,7 @@ import { StatistikComponent } from './pages/homepage/statistik/statistik.compone
 import { VerlaufComponent } from './pages/homepage/verlauf/verlauf.component';
 import { FormsModule } from '@angular/forms';
 import { PieChartComponent } from './pages/pie-chart/pie-chart.component';
+import { PlayerModalComponent } from './pages/homepage/player-modal/player-modal.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { PieChartComponent } from './pages/pie-chart/pie-chart.component';
     StatistikComponent,
     VerlaufComponent,
     PieChartComponent,
+    PlayerModalComponent,
   ],
   imports: [
     BrowserModule,

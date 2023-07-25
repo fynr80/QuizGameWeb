@@ -7,7 +7,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 })
 export class LoginComponent {
   @ViewChild('btnSecondClick') btnSecondClick: ElementRef | undefined;
-  loginbool = false;
+  loginbool = true;
   inputEmail: string | undefined;
   inputPassword: string | undefined;
 
