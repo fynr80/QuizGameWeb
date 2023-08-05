@@ -18,6 +18,8 @@ import { VerlaufComponent } from './pages/homepage/verlauf/verlauf.component';
 import { FormsModule } from '@angular/forms';
 import { PieChartComponent } from './pages/pie-chart/pie-chart.component';
 import { PlayerModalComponent } from './pages/homepage/player-modal/player-modal.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { PlayerModalComponent } from './pages/homepage/player-modal/player-modal
     PlayerModalComponent,
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -43,7 +46,11 @@ import { PlayerModalComponent } from './pages/homepage/player-modal/player-modal
     RouterModule.forRoot([
       { path: 'registration', component: RegistrationComponent },
       { path: 'login', component: LoginComponent },
-      { path: '', redirectTo: '/login', pathMatch: 'full' },
+      {
+        path: '',
+        redirectTo: '/login',
+        pathMatch: 'full',
+      },
       { path: 'passwordForgot', component: PasswordForgotComponent },
       { path: 'homepage', component: HomepageComponent },
       { path: 'admin', component: AdminComponent },

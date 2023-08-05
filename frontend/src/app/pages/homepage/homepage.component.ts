@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AuthService } from '../login/auth.service';
+import { UserModel } from 'app/models/user.model';
 
 @Component({
   selector: 'app-homepage',
@@ -10,6 +12,16 @@ export class HomepageComponent {
   toggleProfil = false;
   toggleStatistik = false;
   toggleVerlauf = false;
+
+  users: string[] = [];
+
+  userModel: UserModel | undefined;
+
+  constructor(private authService: AuthService) {
+    this.authService.getSession().subscribe((data) => {
+      this.userModel = data;
+    });
+  }
 
   showQuizGame() {
     this.toggleQuizGame = true;

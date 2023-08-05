@@ -18,6 +18,9 @@
           backspace</button
         >Jetzt registrieren
       </h2>
+      <div *ngIf="showErrorMessage" class="alert alert-danger" role="alert">
+        <h4>{{ errorMessage }}</h4>
+      </div>
       <div>
         <label>E-Mail-Adresse:</label>
         <input
@@ -42,6 +45,15 @@
         <input
           type="password"
           [(ngModel)]="inputPassword"
+          class="form-control"
+          placeholder="Passwort"
+        />
+      </div>
+      <div class="mt-4 mb-4">
+        <label>Confirm Passwort</label>
+        <input
+          type="password"
+          [(ngModel)]="repeatPassword"
           class="form-control"
           placeholder="Passwort"
         />

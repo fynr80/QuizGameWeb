@@ -1,4 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -6,22 +8,39 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  @ViewChild('btnSecondClick') btnSecondClick: ElementRef | undefined;
-  loginbool = true;
+  showErrorMessage: boolean = false;
+  showPassword: boolean = false;
+  errorMessage!: string;
+  loginbool = false;
   inputEmail: string | undefined;
   inputPassword: string | undefined;
 
-  submit() {
-    //let btn: HTMLElement = this.btnSecondClick?.nativeElement as HTMLElement;
-    console.log('Submit Log-In');
-    console.log(this.inputEmail);
-    console.log(this.inputPassword);
+  constructor(public authService: AuthService, private router: Router) {}
 
-    // if login correct
-    if (true) {
-      this.loginbool = true;
-      //btn.click();
-      //console.log('click');
+  // TODO: bug -> if you click on login button and then on register button, the login button is still clicked
+  async submit() {
+    if (
+      this.inputEmail == undefined ||
+      this.inputPassword == undefined ||
+      this.inputEmail == '' ||
+      this.inputPassword == ''
+    ) {
+      this.showErrorMessage = true;
+      this.errorMessage = 'Bitte füllen Sie alle Felder aus';
+      return;
+    }
+
+    var user = await this.authService
+      .login(this.inputEmail!, this.inputPassword!)
+      .catch((err) => {
+        console.log(err);
+      });
+
+    if (user == undefined) {
+      this.errorMessage = 'Falsche E-Mail oder Passwort';
+      this.showErrorMessage = true;
+    } else {
+      this.router.navigate(['/homepage']);
     }
   }
 }
