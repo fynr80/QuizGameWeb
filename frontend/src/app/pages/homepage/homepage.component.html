@@ -71,7 +71,7 @@
       class="shadow box"
       [ngClass]="toggleProfil ? ['displayShow'] : ['displayHide']"
     >
-      <app-profil></app-profil>
+      <app-profil [userModel]="userModel" *ngIf="userModel"> </app-profil>>
     </div>
 
     <!-- StatistikArea -->

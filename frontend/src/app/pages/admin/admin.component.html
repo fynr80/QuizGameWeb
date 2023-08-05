@@ -5,8 +5,8 @@
 </header>
 <div class="row d-flex justify-content-center">
   <!-- LeftSide -->
-  <div class="col-md-3 shadow mx-3 box">
-    <div class="row">
+  <div class="col-md-3">
+    <div class="shadow mx-3 box">
       <h2 class="d-flex justify-content-center">Fragen</h2>
       <div class="list-group list-group-flush">
         <button type="button" class="list-group-item list-group-item-action">
@@ -26,15 +26,48 @@
         </button>
       </div>
     </div>
+    <div class="mx-3 mt-5">
+      <button class="btn btn-warning btn-lg w-100">
+        Neue Frage hinzufügen
+      </button>
+    </div>
   </div>
 
-  <!-- Center -->
+  <!-- RightSide -->
   <div class="col-md-8 mx-3">
-    <!-- Center Body -->
+    <!-- RightBody -->
+    <div class="shadow box">
+      <div class="row d-flex">
+        <div class="col-md-1">
+          <label>Q-ID:</label>
+          <p>15</p>
+        </div>
+        <div class="col-md-11">
+          <label>Frage:</label>
+          <input class="form-control" placeholder="Cras justo odio" />
+        </div>
+      </div>
+      <hr />
+      <div style="margin-top: 20px">
+        <label>Antwort1:</label>
+        <input class="form-control" placeholder="Cras justo odio" />
+      </div>
+      <div style="margin-top: 20px">
+        <label>Antwort2:</label>
+        <input class="form-control" placeholder="Cras justo odio" />
+      </div>
+      <div style="margin-top: 20px">
+        <label>Antwort3:</label>
+        <input class="form-control" placeholder="Cras justo odio" />
+      </div>
+      <div style="margin-top: 20px">
+        <label>Antwort4:</label>
+        <input class="form-control" placeholder="Cras justo odio" />
+      </div>
 
-    <!-- GameArea -->
-    <div class="shadow box" style="height: 200%">
-      <p>Fragen und Antworten</p>
+      <div class="d-flex justify-content-center" style="margin-top: 20px">
+        <button class="btn btn-warning btn-large" type="button">Submit</button>
+      </div>
     </div>
   </div>
 </div>

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { UserModel } from 'app/models/user.model';
+import { AuthService } from 'app/pages/login/auth.service';
 
 @Component({
   selector: 'app-profil',
@@ -6,9 +8,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./profil.component.css'],
 })
 export class ProfilComponent {
-  username = 'Username';
-  email = 'E-Mail';
+  @Input() userModel: UserModel | undefined;
+
+  constructor(public authService: AuthService) {}
+
+  ngOnInit() {}
+
+  username = 'this.userModel.username';
+  email = 'this.userModel.username';
   points = 1231;
   changeUsername() {}
   changePassword() {}
+  signOut() {
+    this.authService.signOut('', '');
+    localStorage.removeItem('userInfo');
+    window.location.reload();
+  }
 }

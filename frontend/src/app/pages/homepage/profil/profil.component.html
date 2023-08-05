@@ -9,7 +9,7 @@
 <div class="d-flex align-items-start my-3">
   <span class="material-icons" style="font-size: 140px">person</span>
   <div class="mx-3 my-3">
-    <h3>Username: {{ username }}</h3>
+    <h3>Username: {{ userModel?.username }}</h3>
     <h3>E-Mail: {{ email }}</h3>
     <h3>Punkte: {{ points }} (Sieg +3 Niederlage -2 ?)</h3>
   </div>
@@ -27,5 +27,11 @@
     (click)="changePassword()"
   >
     Passwort ändern
+  </button>
+  <button
+    class="col-md-3 p-2 m-5 bg-warning text-dark changebtn"
+    (click)="signOut()"
+  >
+    Abmelden
   </button>
 </div>
