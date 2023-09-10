@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { lastValueFrom } from 'rxjs';
+import { catchError, lastValueFrom, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -34,14 +34,29 @@ export class AuthService {
     return a;
   }
 
-  public isAuthenticatedd(): Boolean {
-    let userData = localStorage.getItem('userInfo');
-    if (userData && JSON.parse(userData)) {
-      console.log('User is logged in');
-      return true;
+  public async isAuthenticatedd(): Promise<Boolean> {
+    console.log('Istek yollaniyor');
+
+    try {
+      var a = await lastValueFrom(
+        this.http.get<any>('http://localhost:3000/api/auth/getSession')
+      );
+
+      console.log('Istek yollandi');
+
+      console.log(a);
+
+      let userData = localStorage.getItem('userInfo');
+      if (a) {
+        console.log('User is logged in from Service');
+        return true;
+      }
+      console.log('User is not logged in from Service');
+      return false;
+    } catch (error) {
+      console.error('Error: söyle bir sey', error); // Hata mesajını konsola yazdır
+      return false;
     }
-    console.log('User is not logged in');
-    return false;
   }
 
   async register(

@@ -52,7 +52,11 @@ import { AuthGuard } from './guards/auth.guard';
         pathMatch: 'full',
       },
       { path: 'passwordForgot', component: PasswordForgotComponent },
-      { path: 'homepage', component: HomepageComponent },
+      {
+        path: 'homepage',
+        component: HomepageComponent,
+        canActivate: [AuthGuard],
+      },
       { path: 'admin', component: AdminComponent },
     ]),
   ],
