@@ -1,0 +1,32 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="column d-flex">
+      <caption>
+        List of users
+      </caption>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="column">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">GamesWon</th>
+            <th scope="col">Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of allUsers">
+            <td>{{ user!.id }}</td>
+            <td>{{ user!.username }}</td>
+            <td>{{ user!.gamesWon }}</td>
+            <td>{{ user!.role }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

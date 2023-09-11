@@ -26,6 +26,8 @@ import { FriendRequestComponent } from './pages/homepage/friend-request/friend-r
 import { QuestionEditComponent } from './pages/admin/question-list/question-edit.component';
 import { QuestionEditModalComponent } from './pages/admin/question-edit-modal/question-edit-modal.component';
 import { QuestionCreateModalComponent } from './pages/admin/question-create-modal/question-create-modal.component';
+import { UserListComponent } from './pages/admin/user-list/user-list.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -47,11 +49,12 @@ import { QuestionCreateModalComponent } from './pages/admin/question-create-moda
     QuestionEditComponent,
     QuestionEditModalComponent,
     QuestionCreateModalComponent,
+    UserListComponent,
   ],
   imports: [
     HttpClientModule,
     FormsModule,
-
+    MatIconModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

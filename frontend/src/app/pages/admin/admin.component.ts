@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { questionModal } from 'app/models/question.model';
+import { AuthService } from '../login/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -12,6 +14,8 @@ export class AdminComponent {
   showErrorMessage: boolean = false;
   errorMessage!: string;
   answers: string[] = ['', '', '', ''];
+  showQuestionEdit: boolean = false;
+  showUsers: boolean = false;
 
   checkboxValues: boolean[] = [false, false, false, false];
 
@@ -21,8 +25,12 @@ export class AdminComponent {
 
   trueAnswer: string = '';
 
-  constructor(public http: HttpClient) {
-    this.getAllQuestions();
+  constructor(
+    public authService: AuthService,
+    public http: HttpClient,
+    private router: Router
+  ) {
+    //this.getAllQuestions();
   }
   apiUrl: string = 'http://localhost:3000/api/questions';
   getAllQuestions() {
@@ -105,6 +113,15 @@ export class AdminComponent {
       console.log('Question changed');
       window.location.reload();
     }
+  }
+
+  signOut() {
+    console.log('signOut');
+    this.authService.signOut('', '');
+
+    this.router.navigate(['/login']);
+
+    //localStorage.removeItem('userInfo');
   }
 
   async createQuestion() {
