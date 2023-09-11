@@ -57,34 +57,25 @@
         </div>
       </div>
       <hr />
-      <input
-        style="margin-top: 20px"
-        type="text"
-        class="form-control"
-        placeholder="1. Antwort"
-        [(ngModel)]="answer1"
-      />
-      <input
-        style="margin-top: 20px"
-        type="text"
-        class="form-control"
-        placeholder="2. Antwort"
-        [(ngModel)]="answer2"
-      />
-      <input
-        style="margin-top: 20px"
-        type="text"
-        class="form-control"
-        placeholder="3. Antwort"
-        [(ngModel)]="answer3"
-      />
-      <input
-        style="margin-top: 20px"
-        type="text"
-        class="form-control"
-        placeholder="4. Antwort"
-        [(ngModel)]="answer4"
-      />
+      <div
+        *ngFor="let index of [0, 1, 2, 3]"
+        class="d-flex align-items-center justify-content-center"
+      >
+        <input
+          type="radio"
+          [checked]="this.checkboxValues[index]"
+          name="radAnswer"
+          class="form-check-input mx-3"
+          (click)="checkCorrectAnswers(answers[index])"
+        />
+        <input
+          style="margin-top: 20px"
+          type="text"
+          class="form-control"
+          [placeholder]="'Antwort ' + index"
+          [(ngModel)]="answers[index]"
+        />
+      </div>
 
       <div class="d-flex justify-content-center" style="margin-top: 20px">
         <button
