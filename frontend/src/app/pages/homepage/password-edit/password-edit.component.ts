@@ -21,7 +21,6 @@ export class PasswordEditComponent {
 
   async submit() {
     console.log('submit password');
-    console.log(this.password);
     var a = await lastValueFrom(
       this.http.post<any>('http://localhost:3000/api/users/updatePassword', {
         password: this.password,

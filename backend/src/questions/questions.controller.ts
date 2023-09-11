@@ -53,8 +53,18 @@ export class QuestionsController {
   @Put(':id')
   @Roles('admin')
   @UseGuards(AuthenticatedGuard, RolesGuard)
-  async updateQuestion(@Param('id', ParseIntPipe) id: number) {
-    await this.questionService.updateQuestion(id);
+  async updateQuestion(
+    @Param('id', ParseIntPipe) id: number,
+    @Body('description') description,
+    @Body('answers') answers,
+    @Body('correctAnswers') correctAnswers,
+  ) {
+    await this.questionService.updateQuestion(
+      id,
+      description,
+      answers,
+      correctAnswers,
+    );
     return { msg: 'Question successfully updated' };
   }
 

@@ -44,15 +44,9 @@ export class QuestionsService {
     const question = await this.questionsRepositroy.findOne({
       where: { id: id },
     });
-
-    if (description) {
-      question.description = description;
-    } else if (answers) {
-      question.answers = answers;
-    } else if (correctAnswers) {
-      question.correctAnswers = correctAnswers;
-    }
-
+    question.description = description;
+    question.answers = answers;
+    question.correctAnswers = correctAnswers;
     await this.questionsRepositroy.save(question);
   }
 
