@@ -54,70 +54,23 @@
         </div>
       </div>
       <hr />
-      <div class="d-flex align-items-center justify-content-center">
+      <div
+        *ngFor="let index of [0, 1, 2, 3]"
+        class="d-flex align-items-center justify-content-center"
+      >
         <input
-          type="checkbox"
+          type="radio"
+          [checked]="this.checkboxValues[index]"
+          name="radAnswer"
           class="form-check-input mx-3"
-          [(ngModel)]="checkBox1"
-          (change)="checkCorrectAnswers()"
-          [checked]="checkBox1"
+          (click)="checkCorrectAnswers(answers[index])"
         />
         <input
           style="margin-top: 20px"
           type="text"
           class="form-control"
-          placeholder="1. Antwort"
-          [(ngModel)]="answer1"
-        />
-      </div>
-      <div class="d-flex align-items-center justify-content-center">
-        <input
-          type="checkbox"
-          class="form-check-input mx-3"
-          [(ngModel)]="checkBox2"
-          (change)="checkCorrectAnswers()"
-          [checked]="checkBox2"
-        />
-
-        <input
-          style="margin-top: 20px"
-          type="text"
-          class="form-control"
-          placeholder="2. Antwort"
-          [(ngModel)]="answer2"
-        />
-      </div>
-
-      <div class="d-flex align-items-center justify-content-center">
-        <input
-          type="checkbox"
-          class="form-check-input mx-3"
-          [(ngModel)]="checkBox3"
-          (change)="checkCorrectAnswers()"
-        />
-
-        <input
-          style="margin-top: 20px"
-          type="text"
-          class="form-control"
-          placeholder="3. Antwort"
-          [(ngModel)]="answer3"
-        />
-      </div>
-      <div class="d-flex align-items-center justify-content-center">
-        <input
-          type="checkbox"
-          class="form-check-input mx-3"
-          [(ngModel)]="checkBox4"
-          (change)="checkCorrectAnswers()"
-        />
-
-        <input
-          style="margin-top: 20px"
-          type="text"
-          class="form-control"
-          placeholder="4. Antwort"
-          [(ngModel)]="answer4"
+          [placeholder]="'Antwort ' + index"
+          [(ngModel)]="answers[index]"
         />
       </div>
 

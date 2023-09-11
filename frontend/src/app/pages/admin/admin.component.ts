@@ -9,20 +9,15 @@ import { questionModal } from 'app/models/question.model';
   styleUrls: ['./admin.component.css'],
 })
 export class AdminComponent {
-  answer1: string = '';
-  answer2: string = '';
-  answer3: string = '';
-  answer4: string = '';
+  answers: string[] = ['', '', '', ''];
+
+  checkboxValues: boolean[] = [false, false, false, false];
+
   question: string = '';
   id: number | undefined;
   allQuestions: [questionModal?] = [];
 
   trueAnswer: string = '';
-
-  checkBox1: boolean = false;
-  checkBox2: boolean = false;
-  checkBox3: boolean = false;
-  checkBox4: boolean = false;
 
   constructor(public http: HttpClient) {
     this.getAllQuestions();
@@ -44,37 +39,43 @@ export class AdminComponent {
   }
 
   fillInput(question: questionModal) {
-    this.answer1 = question.answers![1];
-    this.answer2 = question.answers![2];
-    this.answer3 = question.answers![3];
-    this.answer4 = question.answers![4];
+    question.answers!.forEach((element, index) => {
+      this.answers[index] = element;
+    });
 
     this.question = question.description!;
-
     this.id = question.id;
-  }
+    this.checkboxValues[0] = false;
+    this.checkboxValues[1] = false;
+    this.checkboxValues[2] = false;
+    this.checkboxValues[3] = false;
 
-  checkCorrectAnswers() {
-    if (this.checkBox1 === true) {
-      this.trueAnswer = this.answer1;
-      this.checkBox2 = false;
-      this.checkBox3 = false;
-      this.checkBox4 = false;
-    } else if (this.checkBox2 === true) {
-      this.trueAnswer = this.answer2;
-      this.checkBox1 = false;
-      this.checkBox3 = false;
-      this.checkBox4 = false;
-    } else if (this.checkBox3 === true) {
-      this.trueAnswer = this.answer3;
-      this.checkBox1 = false;
-      this.checkBox2 = false;
-      this.checkBox4 = false;
-    } else if (this.checkBox4 === true) {
-      this.trueAnswer = this.answer4;
-      this.checkBox1 = false;
-      this.checkBox2 = false;
-      this.checkBox3 = false;
+    switch (question.correctAnswers![0]) {
+      case this.answers[0]: {
+        console.log('case 0');
+        this.checkboxValues[0] = true;
+        this.trueAnswer = this.answers[0];
+        break;
+      }
+      case this.answers[1]: {
+        console.log('case 1');
+        this.checkboxValues[1] = true;
+        this.trueAnswer = this.answers[1];
+        break;
+      }
+      case this.answers[2]: {
+        console.log('case 2');
+        this.checkboxValues[2] = true;
+        this.trueAnswer = this.answers[2];
+
+        break;
+      }
+      case this.answers[3]: {
+        console.log('case 3');
+        this.checkboxValues[3] = true;
+        this.trueAnswer = this.answers[3];
+        break;
+      }
     }
   }
 
@@ -87,19 +88,9 @@ export class AdminComponent {
 
       const description: string = this.question;
 
-      const answers: String[] = [
-        this.answer1,
-        this.answer2,
-        this.answer3,
-        this.answer4,
-      ];
+      const answers: String[] = this.answers;
 
-      const correctAnswers: String[] = [
-        this.answer1,
-        this.answer2,
-        this.answer3,
-        this.answer4,
-      ];
+      const correctAnswers: String[] = [this.trueAnswer];
       await lastValueFrom(
         this.http.put<any>(url, {
           id,
@@ -129,6 +120,9 @@ export class AdminComponent {
     );
     console.log('Question added');
     window.location.reload();
+  }
+  checkCorrectAnswers(answer: string) {
+    this.trueAnswer = answer;
   }
 
   async deleteQuestion(id: number | undefined) {
