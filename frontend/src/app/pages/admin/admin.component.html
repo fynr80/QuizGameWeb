@@ -1,91 +1,158 @@
-<header class="d-flex justify-content-center">
-  <h1 style="font-size: 75px; font-weight: bold">
-    Quiz<span class="text-warning">App</span>
-  </h1>
-</header>
-<div class="row d-flex justify-content-center">
-  <!-- LeftSide -->
-  <div class="col-md-3">
-    <div class="shadow mx-3 box">
-      <h2 class="d-flex justify-content-center">Fragen</h2>
+<div class="container-fluid">
+  <div class="row flex-nowrap">
+    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
       <div
-        class="list-group list-group-flush"
-        *ngFor="let question of allQuestions"
+        class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100"
       >
-        <button
-          type="button"
-          class="list-group-item list-group-item-action"
-          (click)="fillInput(question!)"
+        <a
+          href="/"
+          class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none"
         >
-          {{ question!.description }}
-          <button
-            style="border: none; background: none; float: right"
-            class="material-icons"
-            (click)="deleteQuestion(question!.id)"
+          <span class="fs-5 d-none d-sm-inline">Menu</span>
+        </a>
+        <ul
+          class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+          id="menu"
+        >
+          <li class="nav-item">
+            <a href="#" class="nav-link align-middle px-0">
+              <i class="fs-4 bi-house"></i>
+              <span class="ms-1 d-none d-sm-inline">Home</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#submenu1"
+              data-bs-toggle="collapse"
+              class="nav-link px-0 align-middle"
+            >
+              <i class="fs-4 bi-speedometer2"></i>
+              <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+            </a>
+            <ul
+              class="collapse show nav flex-column ms-1"
+              id="submenu1"
+              data-bs-parent="#menu"
+            >
+              <li class="w-100">
+                <a href="#" class="nav-link px-0">
+                  <span class="d-none d-sm-inline">Item</span> 1
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link px-0">
+                  <span class="d-none d-sm-inline">Item</span> 2
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#" class="nav-link px-0 align-middle">
+              <i class="fs-4 bi-table"></i>
+              <span class="ms-1 d-none d-sm-inline">Orders</span></a
+            >
+          </li>
+          <li>
+            <a
+              href="#submenu2"
+              data-bs-toggle="collapse"
+              class="nav-link px-0 align-middle"
+            >
+              <i class="fs-4 bi-bootstrap"></i>
+              <span class="ms-1 d-none d-sm-inline">Bootstrap</span></a
+            >
+            <ul
+              class="collapse nav flex-column ms-1"
+              id="submenu2"
+              data-bs-parent="#menu"
+            >
+              <li class="w-100">
+                <a href="#" class="nav-link px-0">
+                  <span class="d-none d-sm-inline">Item</span> 1</a
+                >
+              </li>
+              <li>
+                <a href="#" class="nav-link px-0">
+                  <span class="d-none d-sm-inline">Item</span> 2</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a
+              href="#submenu3"
+              data-bs-toggle="collapse"
+              class="nav-link px-0 align-middle"
+            >
+              <i class="fs-4 bi-grid"></i>
+              <span class="ms-1 d-none d-sm-inline">Products</span>
+            </a>
+            <ul
+              class="collapse nav flex-column ms-1"
+              id="submenu3"
+              data-bs-parent="#menu"
+            >
+              <li class="w-100">
+                <a href="#" class="nav-link px-0">
+                  <span class="d-none d-sm-inline">Product</span> 1</a
+                >
+              </li>
+              <li>
+                <a href="#" class="nav-link px-0">
+                  <span class="d-none d-sm-inline">Product</span> 2</a
+                >
+              </li>
+              <li>
+                <a href="#" class="nav-link px-0">
+                  <span class="d-none d-sm-inline">Product</span> 3</a
+                >
+              </li>
+              <li>
+                <a href="#" class="nav-link px-0">
+                  <span class="d-none d-sm-inline">Product</span> 4</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#" class="nav-link px-0 align-middle">
+              <i class="fs-4 bi-people"></i>
+              <span class="ms-1 d-none d-sm-inline">Customers</span>
+            </a>
+          </li>
+        </ul>
+        <hr />
+        <div class="dropdown pb-4">
+          <a
+            href="#"
+            class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+            id="dropdownUser1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
           >
-            delete
-          </button>
-        </button>
-      </div>
-    </div>
-    <div class="mx-3 mt-5">
-      <button class="btn btn-warning btn-lg w-100" (click)="createQuestion()">
-        Neue Frage hinzufügen
-      </button>
-    </div>
-  </div>
-
-  <!-- RightSide -->
-  <div class="col-md-8 mx-3">
-    <!-- RightBody -->
-    <div class="shadow box">
-      <div *ngIf="showErrorMessage" class="alert alert-danger" role="alert">
-        <h4>{{ errorMessage }}</h4>
-      </div>
-      <div class="row d-flex">
-        <div class="col-md-1">
-          <label>Q-ID:</label>
-          <p>{{ id }}</p>
-        </div>
-        <div class="col-md-11">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Frage"
-            [(ngModel)]="question"
-          />
+            <img
+              src="https://github.com/mdo.png"
+              alt="hugenerd"
+              width="30"
+              height="30"
+              class="rounded-circle"
+            />
+            <span class="d-none d-sm-inline mx-1">loser</span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+            <li><a class="dropdown-item" href="#">New project...</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li><a class="dropdown-item" href="#">Sign out</a></li>
+          </ul>
         </div>
       </div>
-      <hr />
-      <div
-        *ngFor="let index of [0, 1, 2, 3]"
-        class="d-flex align-items-center justify-content-center"
-      >
-        <input
-          type="radio"
-          [checked]="this.checkboxValues[index]"
-          name="radAnswer"
-          class="form-check-input mx-3"
-          (click)="checkCorrectAnswers(answers[index])"
-        />
-        <input
-          style="margin-top: 20px"
-          type="text"
-          class="form-control"
-          [placeholder]="'Antwort ' + index"
-          [(ngModel)]="answers[index]"
-        />
-      </div>
-
-      <div class="d-flex justify-content-center" style="margin-top: 20px">
-        <button
-          class="btn btn-warning btn-large"
-          type="button"
-          (click)="changeQuestion()"
-        >
-          Frage ändern
-        </button>
-      </div>
+    </div>
+    <div class="col py-3">
+      <app-question-edit></app-question-edit>
     </div>
   </div>
 </div>

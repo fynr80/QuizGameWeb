@@ -1,0 +1,41 @@
+<header class="d-flex justify-content-center">
+  <h1 style="font-size: 75px; font-weight: bold">
+    Quiz<span class="text-warning">App</span>
+  </h1>
+</header>
+<div class="row d-flex justify-content-center">
+  <!-- LeftSide -->
+  <div class="col-md-3">
+    <div class="shadow mx-3 box">
+      <h2 class="d-flex justify-content-center">Fragen</h2>
+      <div
+        class="list-group list-group-flush"
+        *ngFor="let question of allQuestions"
+      >
+        <button
+          type="button"
+          class="list-group-item list-group-item-action"
+          (click)="openQuestionCreateModal(question!)"
+        >
+          {{ question!.description }}
+          <button
+            style="border: none; background: none; float: right"
+            class="material-icons"
+            (click)="deleteQuestion(question!.id)"
+          >
+            delete
+          </button>
+        </button>
+      </div>
+    </div>
+    <div class="mx-3 mt-5">
+      <button
+        class="btn btn-warning btn-lg w-100"
+        (click)="openQuestionEditModal()"
+      >
+        Neue Frage hinzufügens
+        <span class="onlinedot"></span>
+      </button>
+    </div>
+  </div>
+</div>

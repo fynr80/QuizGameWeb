@@ -1,0 +1,51 @@
+<div class="row d-flex justify-content-center">
+  <!-- RightSide -->
+  <div class="col-md-8 mx-3">
+    <!-- RightBody -->
+    <div class="shadow box">
+      <div class="row d-flex">
+        <div class="col-md-1">
+          <p>{{ id }}</p>
+        </div>
+        <div class="col-md-11">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Fragee"
+            [(ngModel)]="questionn!.description!"
+          />
+        </div>
+      </div>
+      <hr />
+      <div
+        *ngFor="let index of [0, 1, 2, 3]"
+        class="d-flex align-items-center justify-content-center"
+      >
+        <input
+          type="radio"
+          [checked]="this.checkboxValues[index]"
+          name="radAnswer"
+          class="form-check-input mx-3"
+          (click)="checkCorrectAnswers(answers[index])"
+        />
+        <input
+          style="margin-top: 20px"
+          type="text"
+          class="form-control"
+          [placeholder]="'Antwort ' + index"
+          [(ngModel)]="questionn!.answers![index]"
+        />
+      </div>
+
+      <div class="d-flex justify-content-center" style="margin-top: 20px">
+        <button
+          class="btn btn-warning btn-large"
+          type="button"
+          (click)="changeQuestion()"
+        >
+          Frage ändern
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
