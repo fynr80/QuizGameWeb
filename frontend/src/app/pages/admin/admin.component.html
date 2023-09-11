@@ -8,26 +8,28 @@
   <div class="col-md-3">
     <div class="shadow mx-3 box">
       <h2 class="d-flex justify-content-center">Fragen</h2>
-      <div class="list-group list-group-flush">
-        <button type="button" class="list-group-item list-group-item-action">
-          Cras justo odio
-        </button>
-        <button type="button" class="list-group-item list-group-item-action">
-          Dapibus ac facilisis in
-        </button>
-        <button type="button" class="list-group-item list-group-item-action">
-          Morbi leo risus
-        </button>
-        <button type="button" class="list-group-item list-group-item-action">
-          Porta ac consectetur ac
-        </button>
-        <button type="button" class="list-group-item list-group-item-action">
-          Vestibulum at eros
+      <div
+        class="list-group list-group-flush"
+        *ngFor="let question of allQuestions"
+      >
+        <button
+          type="button"
+          class="list-group-item list-group-item-action"
+          (click)="fillInput(question!)"
+        >
+          {{ question!.description }}
+          <button
+            style="border: none; background: none; float: right"
+            class="material-icons"
+            (click)="deleteQuestion(question!.id)"
+          >
+            delete
+          </button>
         </button>
       </div>
     </div>
     <div class="mx-3 mt-5">
-      <button class="btn btn-warning btn-lg w-100">
+      <button class="btn btn-warning btn-lg w-100" (click)="createQuestion()">
         Neue Frage hinzufügen
       </button>
     </div>
@@ -40,33 +42,55 @@
       <div class="row d-flex">
         <div class="col-md-1">
           <label>Q-ID:</label>
-          <p>15</p>
+          <p>{{ id }}</p>
         </div>
         <div class="col-md-11">
-          <label>Frage:</label>
-          <input class="form-control" placeholder="Cras justo odio" />
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Frage"
+            [(ngModel)]="question"
+          />
         </div>
       </div>
       <hr />
-      <div style="margin-top: 20px">
-        <label>Antwort1:</label>
-        <input class="form-control" placeholder="Cras justo odio" />
-      </div>
-      <div style="margin-top: 20px">
-        <label>Antwort2:</label>
-        <input class="form-control" placeholder="Cras justo odio" />
-      </div>
-      <div style="margin-top: 20px">
-        <label>Antwort3:</label>
-        <input class="form-control" placeholder="Cras justo odio" />
-      </div>
-      <div style="margin-top: 20px">
-        <label>Antwort4:</label>
-        <input class="form-control" placeholder="Cras justo odio" />
-      </div>
+      <input
+        style="margin-top: 20px"
+        type="text"
+        class="form-control"
+        placeholder="1. Antwort"
+        [(ngModel)]="answer1"
+      />
+      <input
+        style="margin-top: 20px"
+        type="text"
+        class="form-control"
+        placeholder="2. Antwort"
+        [(ngModel)]="answer2"
+      />
+      <input
+        style="margin-top: 20px"
+        type="text"
+        class="form-control"
+        placeholder="3. Antwort"
+        [(ngModel)]="answer3"
+      />
+      <input
+        style="margin-top: 20px"
+        type="text"
+        class="form-control"
+        placeholder="4. Antwort"
+        [(ngModel)]="answer4"
+      />
 
       <div class="d-flex justify-content-center" style="margin-top: 20px">
-        <button class="btn btn-warning btn-large" type="button">Submit</button>
+        <button
+          class="btn btn-warning btn-large"
+          type="button"
+          (click)="changeQuestion()"
+        >
+          Frage ändern
+        </button>
       </div>
     </div>
   </div>
