@@ -1,13 +1,23 @@
-<div class="row d-flex justify-content-center">
+<div class="modal-header">
+  <h5 class="modal-title">Frage erstellen</h5>
+
+  <button
+    type="button"
+    class="btn-close"
+    (click)="closeModal()"
+    aria-label="Close"
+  ></button>
+</div>
+<div
+  class="row d-flex justify-content-center modal-body modal-lg"
+  style="margin: 20px"
+>
   <!-- RightSide -->
-  <div class="col-md-8 mx-3">
+  <div class="col-md-11 mx-3">
     <!-- RightBody -->
-    <div class="shadow box">
+    <div class="shadow box" style="padding: 10px">
       <div class="row d-flex">
-        <div class="col-md-1">
-          <p>{{ id }}</p>
-        </div>
-        <div class="col-md-11">
+        <div class="col-md-12">
           <input
             type="text"
             class="form-control"
@@ -36,15 +46,19 @@
           [(ngModel)]="questionn!.answers![index]"
         />
       </div>
-
-      <div class="d-flex justify-content-center" style="margin-top: 20px">
-        <button
-          class="btn btn-warning btn-large"
-          type="button"
-          (click)="changeQuestion()"
-        >
-          Frage ändern
-        </button>
+      <div
+        class="d-flex justify-content-center modal-footer"
+        style="margin-top: 20px"
+      >
+        <div class="d-flex justify-content-center" style="margin-top: 20px">
+          <button
+            class="btn btn-warning btn-large"
+            type="button"
+            (click)="changeQuestion()"
+          >
+            Frage ändern
+          </button>
+        </div>
       </div>
     </div>
   </div>

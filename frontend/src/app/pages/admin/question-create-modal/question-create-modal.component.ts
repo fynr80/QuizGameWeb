@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { questionModal } from 'app/models/question.model';
 import { lastValueFrom } from 'rxjs';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-question-create-modal',
@@ -22,11 +23,13 @@ export class QuestionCreateModalComponent {
 
   trueAnswer: string = '';
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, private modalService: NgbModal) {
     console.log('this.questionn');
   }
   apiUrl: string = 'http://localhost:3000/api/questions';
-
+  closeModal() {
+    this.modalService.dismissAll();
+  }
   fillInput(question: questionModal) {
     question.answers!.forEach((element, index) => {
       this.answers[index] = element;
@@ -69,9 +72,6 @@ export class QuestionCreateModalComponent {
   }
 
   async changeQuestion() {
-    console.log('asdas');
-    console.log(this.questionn!);
-
     const id = this.questionn!.id;
     const url = this.apiUrl + '/' + id;
 
