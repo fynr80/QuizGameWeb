@@ -17,6 +17,13 @@ export class AdminComponent {
   id: number | undefined;
   allQuestions: [questionModal?] = [];
 
+  trueAnswer: string = '';
+
+  checkBox1: boolean = false;
+  checkBox2: boolean = false;
+  checkBox3: boolean = false;
+  checkBox4: boolean = false;
+
   constructor(public http: HttpClient) {
     this.getAllQuestions();
   }
@@ -46,6 +53,31 @@ export class AdminComponent {
 
     this.id = question.id;
   }
+
+  checkCorrectAnswers() {
+    if (this.checkBox1 === true) {
+      this.trueAnswer = this.answer1;
+      this.checkBox2 = false;
+      this.checkBox3 = false;
+      this.checkBox4 = false;
+    } else if (this.checkBox2 === true) {
+      this.trueAnswer = this.answer2;
+      this.checkBox1 = false;
+      this.checkBox3 = false;
+      this.checkBox4 = false;
+    } else if (this.checkBox3 === true) {
+      this.trueAnswer = this.answer3;
+      this.checkBox1 = false;
+      this.checkBox2 = false;
+      this.checkBox4 = false;
+    } else if (this.checkBox4 === true) {
+      this.trueAnswer = this.answer4;
+      this.checkBox1 = false;
+      this.checkBox2 = false;
+      this.checkBox3 = false;
+    }
+  }
+
   async changeQuestion() {
     if (this.id === undefined) {
       console.log('Error MSG NO ID');
