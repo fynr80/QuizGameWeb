@@ -23,6 +23,9 @@ import { AuthGuard } from './guards/auth.guard';
 import { PlyerEditComponent } from './pages/homepage/plyer-edit/plyer-edit.component';
 import { PasswordEditComponent } from './pages/homepage/password-edit/password-edit.component';
 import { FriendRequestComponent } from './pages/homepage/friend-request/friend-request.component';
+import { QuestionEditComponent } from './pages/admin/question-list/question-edit.component';
+import { QuestionEditModalComponent } from './pages/admin/question-edit-modal/question-edit-modal.component';
+import { QuestionCreateModalComponent } from './pages/admin/question-create-modal/question-create-modal.component';
 
 @NgModule({
   declarations: [
@@ -41,9 +44,14 @@ import { FriendRequestComponent } from './pages/homepage/friend-request/friend-r
     PlyerEditComponent,
     PasswordEditComponent,
     FriendRequestComponent,
+    QuestionEditComponent,
+    QuestionEditModalComponent,
+    QuestionCreateModalComponent,
   ],
   imports: [
     HttpClientModule,
+    FormsModule,
+
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
