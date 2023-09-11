@@ -20,6 +20,9 @@ import { PieChartComponent } from './pages/pie-chart/pie-chart.component';
 import { PlayerModalComponent } from './pages/homepage/player-modal/player-modal.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './guards/auth.guard';
+import { PlyerEditComponent } from './pages/homepage/plyer-edit/plyer-edit.component';
+import { PasswordEditComponent } from './pages/homepage/password-edit/password-edit.component';
+import { FriendRequestComponent } from './pages/homepage/friend-request/friend-request.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +38,9 @@ import { AuthGuard } from './guards/auth.guard';
     VerlaufComponent,
     PieChartComponent,
     PlayerModalComponent,
+    PlyerEditComponent,
+    PasswordEditComponent,
+    FriendRequestComponent,
   ],
   imports: [
     HttpClientModule,

@@ -18,13 +18,15 @@
 <div class="row" style="justify-content: center">
   <button
     class="col-md-3 p-2 m-5 bg-warning text-dark changebtn"
-    (click)="changeUsername()"
+    data-bs-toggle="modal"
+    data-bs-target="#playerEdit"
   >
     Username ändern
   </button>
   <button
     class="col-md-3 p-2 m-5 bg-warning text-dark changebtn"
-    (click)="changePassword()"
+    data-bs-toggle="modal"
+    data-bs-target="#passwordEdit"
   >
     Passwort ändern
   </button>
@@ -35,3 +37,5 @@
     Abmelden
   </button>
 </div>
+<app-plyer-edit></app-plyer-edit>
+<app-password-edit></app-password-edit>
