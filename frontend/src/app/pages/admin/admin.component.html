@@ -39,6 +39,9 @@
   <div class="col-md-8 mx-3">
     <!-- RightBody -->
     <div class="shadow box">
+      <div *ngIf="showErrorMessage" class="alert alert-danger" role="alert">
+        <h4>{{ errorMessage }}</h4>
+      </div>
       <div class="row d-flex">
         <div class="col-md-1">
           <label>Q-ID:</label>

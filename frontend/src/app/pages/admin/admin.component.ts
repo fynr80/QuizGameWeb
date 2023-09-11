@@ -9,6 +9,8 @@ import { questionModal } from 'app/models/question.model';
   styleUrls: ['./admin.component.css'],
 })
 export class AdminComponent {
+  showErrorMessage: boolean = false;
+  errorMessage!: string;
   answer1: string = '';
   answer2: string = '';
   answer3: string = '';
@@ -48,7 +50,8 @@ export class AdminComponent {
   }
   async changeQuestion() {
     if (this.id === undefined) {
-      console.log('Error MSG NO ID');
+      this.showErrorMessage = true;
+      this.errorMessage = 'Bitte eine Frage auswählen';
     } else {
       const id = this.id;
       const url = this.apiUrl + '/' + id;
