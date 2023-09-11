@@ -24,37 +24,26 @@ export class AuthService {
   }
 
   async signOut(username: string, password: string): Promise<void> {
-    console.log('User logged out');
-
     var a = await lastValueFrom(
       this.http.post<any>('http://localhost:3000/api/auth/logout', {})
     );
-    console.log('User logged out');
-    console.log(a);
+
     return a;
   }
 
   public async isAuthenticatedd(): Promise<Boolean> {
-    console.log('Istek yollaniyor');
-
     try {
       var a = await lastValueFrom(
         this.http.get<any>('http://localhost:3000/api/auth/getSession')
       );
 
-      console.log('Istek yollandi');
-
-      console.log(a);
-
       let userData = localStorage.getItem('userInfo');
       if (a) {
-        console.log('User is logged in from Service');
         return true;
       }
-      console.log('User is not logged in from Service');
+
       return false;
     } catch (error) {
-      console.error('Error: söyle bir sey', error); // Hata mesajını konsola yazdır
       return false;
     }
   }

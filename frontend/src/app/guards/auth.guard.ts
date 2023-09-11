@@ -22,13 +22,10 @@ export class AuthGuard {
 
   async canActivate(): Promise<boolean> {
     if (!(await this.authService.isAuthenticatedd())) {
-      console.log('User is not logged in from Guard');
       this.router.navigate(['/login']);
 
       return false;
     } else {
-      console.log('User is  logged in from Guard');
-
       return true;
     }
   }

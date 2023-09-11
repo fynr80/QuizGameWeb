@@ -19,6 +19,12 @@ export class UsersService {
     });
   }
 
+  async getAllUsers(): Promise<User[]> {
+    return await this.userRepository.find({
+      select: ['id', 'username'],
+    });
+  }
+
   async create(username: string, password: string) {
     const userExists = await this.userRepository.findOne({
       where: {
@@ -32,12 +38,9 @@ export class UsersService {
         description: 'User with the given name already exists',
       });
     }
-
     const newUser = new User();
     newUser.username = username;
-
     const hashedPassword = await bcrypt.hash(password, 10);
-
     newUser.password = hashedPassword;
     newUser.role = 'user';
     newUser.friends = [];
@@ -48,8 +51,20 @@ export class UsersService {
     await this.userRepository.save(newUser);
 
     return {
-      message: 'User succesfully registered',
+      message: 'User succesfullsy registered',
     };
+  }
+
+  async updatePassword(newPassword: string, userName: string) {
+    const user = await this.userRepository.findOne({
+      where: {
+        username: userName,
+      },
+    });
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    user.password = hashedPassword;
+    await this.userRepository.save(user);
   }
 
   async deleteByName(name: string) {
@@ -66,22 +81,50 @@ export class UsersService {
     };
   }
 
-  async addFriend(name: string, friendname: string) {
+  async getRequests(id: number): Promise<User[]> {
+    const user = await this.userRepository.findOne({
+      where: {
+        id: id,
+      },
+      relations: {
+        friendRequests: true,
+      },
+    });
+
+    return user.friendRequests;
+  }
+
+  async addFriend(userId: number, friendId: number): Promise<User> {
     const friend = await this.userRepository.findOne({
       where: {
-        username: friendname,
+        id: friendId,
       },
     });
 
     const user = await this.userRepository.findOne({
       where: {
-        username: name,
+        id: userId,
       },
     });
 
+    if (!friend.friendRequests) {
+      friend.friendRequests = [];
+    }
+
     friend.friendRequests.push(user);
 
-    await this.userRepository.save(friend);
+    return await this.userRepository.save(friend);
+  }
+
+  async updateUsername(newUserName: string, id: number) {
+    const user = await this.userRepository.findOne({
+      where: {
+        id: id,
+      },
+    });
+    user.username = newUserName;
+
+    await this.userRepository.save(user);
   }
 
   async createAdmin() {

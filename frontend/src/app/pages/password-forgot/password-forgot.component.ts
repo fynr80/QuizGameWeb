@@ -12,5 +12,8 @@ export class PasswordForgotComponent {
 
   submit() {
     console.log('submit forgotten password');
+    console.log(this.inputEmail);
+    console.log(this.inputPassword1);
+    console.log(this.inputPassword2);
   }
 }

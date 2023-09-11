@@ -11,14 +11,12 @@
       <h2 style="text-align: center" class="d-flex justify-content-center">
         Spieler online
       </h2>
-      <div class="list-group list-group-flush">
+      <div class="list-group list-group-flush" *ngFor="let user of allUsers">
         <button
-          type="button"
           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-          data-bs-toggle="modal"
-          data-bs-target="#playerModal"
+          (click)="openPlayerModal(user)"
         >
-          Cras justo odio
+          {{ user!.username }}
           <span class="onlinedot"></span>
         </button>
       </div>
@@ -53,6 +51,12 @@
         (click)="showVerlauf()"
       >
         <h4 class="col">Verlauf</h4>
+      </button>
+      <button
+        class="col btn btn-outline-dark headerButton"
+        (click)="showFriendRequest()"
+      >
+        <h4 class="col">Freundschaftsanfragen</h4>
       </button>
       <hr />
     </div>
@@ -89,6 +93,14 @@
     >
       <app-verlauf></app-verlauf>
     </div>
+
+    <!-- Friend Request Area -->
+    <div
+      class="shadow box"
+      [ngClass]="toggleFriendRequest ? ['displayShow'] : ['displayHide']"
+    >
+      <app-friend-request></app-friend-request>
+    </div>
   </div>
 
   <!-- RightSide -->
@@ -120,4 +132,4 @@
 </footer>
 
 <!-- Needs to be addet. entrance for MoadalId -->
-<app-player-modal></app-player-modal>
+<app-plyer-edit></app-plyer-edit>

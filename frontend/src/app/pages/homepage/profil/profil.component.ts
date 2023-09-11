@@ -21,7 +21,7 @@ export class ProfilComponent {
   changePassword() {}
   signOut() {
     this.authService.signOut('', '');
-    localStorage.removeItem('userInfo');
+    //localStorage.removeItem('userInfo');
     window.location.reload();
   }
 }

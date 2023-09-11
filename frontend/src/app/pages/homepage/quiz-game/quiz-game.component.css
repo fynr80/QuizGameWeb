@@ -2,3 +2,22 @@
   text-align: center;
   border-radius: 15px;
 }
+
+.questionField {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  padding: 10px;
+  background-color: rgb(255, 193, 7);
+}
+
+.answerField {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  padding: 10px;
+  background-color: rgb(255, 193, 7);
+  margin: 15px;
+}
