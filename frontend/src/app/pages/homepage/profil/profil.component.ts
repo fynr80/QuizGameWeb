@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { UserModel } from 'app/models/user.model';
 import { AuthService } from 'app/pages/login/auth.service';
+import { FriendService } from 'app/services/friend-service';
 
 @Component({
   selector: 'app-profil',
@@ -10,7 +11,10 @@ import { AuthService } from 'app/pages/login/auth.service';
 export class ProfilComponent {
   @Input() userModel: UserModel | undefined;
 
-  constructor(public authService: AuthService) {}
+  constructor(
+    public authService: AuthService,
+    public friendService: FriendService
+  ) {}
 
   ngOnInit() {}
 
@@ -20,7 +24,9 @@ export class ProfilComponent {
   changeUsername() {}
   changePassword() {}
   signOut() {
+    this.friendService.sendLogoutMessage(this.userModel!.id!);
     this.authService.signOut('', '');
+
     //localStorage.removeItem('userInfo');
     window.location.reload();
   }

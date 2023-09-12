@@ -1,10 +1,15 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../login/auth.service';
 import { UserModel } from 'app/models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PlayerModalComponent } from './player-modal/player-modal.component';
-
+import { FriendService } from 'app/services/friend-service';
+import { lastValueFrom } from 'rxjs';
+interface User {
+  socketId: string;
+  userId: number;
+}
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
@@ -19,6 +24,7 @@ export class HomepageComponent {
   toggleFriendRequest = false;
 
   //users: string[] = [];
+  onlineUsers: [User?] = [];
 
   userModel: UserModel | undefined;
 
@@ -27,29 +33,48 @@ export class HomepageComponent {
   constructor(
     private authService: AuthService,
     public http: HttpClient,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private friendService: FriendService
   ) {
     this.getAllUsers();
+    console.log('Online Userss');
+    this.getOnlineUsers();
+    this.friendService.sendLoginMessage(-1);
+
     this.authService.getSession().subscribe((data) => {
       this.userModel = data;
     });
   }
 
-  getAllUsers() {
-    this.http.get<any>('http://localhost:3000/api/users').subscribe((data) => {
-      data.result.forEach((element: any) => {
-        const newUser = new UserModel(
-          0,
-          [],
-          '',
-          element.username,
-          element.email,
-          element.id
-        );
+  isUserInOnlineUsers(userIdToCheck: number): boolean {
+    const userIndex = this.onlineUsers.findIndex(
+      (user) => user?.userId === userIdToCheck
+    );
+    return userIndex !== -1;
+  }
 
-        this.allUsers!.push(newUser);
+  async getOnlineUsers() {
+    this.friendService.getMessage().subscribe((data) => {
+      console.log('GELEN DATA');
+      console.log(data);
+      this.onlineUsers = [];
+      data.forEach((element) => {
+        this.onlineUsers.push(element);
       });
     });
+  }
+
+  async getAllUsers() {
+    const data: any = await lastValueFrom(
+      this.http.get('http://localhost:3000/api/users')
+    );
+
+    this.allUsers = data.result;
+    this.allUsers.forEach((element) => {
+      element!.status = 'offline';
+    });
+    console.log('this.allUsers');
+    console.log(this.allUsers);
   }
 
   openPlayerModal(user: any) {

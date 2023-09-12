@@ -3,3 +3,7 @@
   padding: 15px;
   justify-content: center;
 }
+
+li:hover {
+  background-color: #f19f05;
+}

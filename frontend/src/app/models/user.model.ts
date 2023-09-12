@@ -5,6 +5,7 @@ export class UserModel {
   role?: string;
   username: string;
   email: string;
+  status: string = 'offline';
 
   constructor(
     gamesWon: number,
