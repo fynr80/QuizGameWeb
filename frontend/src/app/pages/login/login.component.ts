@@ -1,6 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
+import { FriendService } from 'app/services/friend-service';
+import { UserModel } from 'app/models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,11 @@ export class LoginComponent {
   inputNickname: string | undefined;
   inputPassword: string | undefined;
 
-  constructor(public authService: AuthService, private router: Router) {}
+  constructor(
+    public friendService: FriendService,
+    public authService: AuthService,
+    private router: Router
+  ) {}
 
   // TODO: bug -> if you click on login button and then on register button, the login button is still clicked
   async submit() {
@@ -41,6 +47,10 @@ export class LoginComponent {
       this.showErrorMessage = true;
     } else {
       this.router.navigate(['/homepage']);
+
+      var connectedUser: UserModel = user;
+
+      this.friendService.sendLoginMessage(connectedUser!.id!);
     }
   }
 }

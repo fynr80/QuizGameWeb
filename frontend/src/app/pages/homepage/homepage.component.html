@@ -17,7 +17,13 @@
           (click)="openPlayerModal(user)"
         >
           {{ user!.username }}
-          <span class="onlinedot"></span>
+          <mat-icon *ngIf="isUserInOnlineUsers(user!.id!)"
+            >check_circle</mat-icon
+          >
+
+          <mat-icon *ngIf="!isUserInOnlineUsers(user!.id!)"
+            >highlight_off</mat-icon
+          >
         </button>
       </div>
     </div>

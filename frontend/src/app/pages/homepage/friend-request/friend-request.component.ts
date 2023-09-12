@@ -39,8 +39,6 @@ export class FriendRequestComponent {
       this.friendRequests.push(newUser);
     });
 
-    console.log(this.friendRequests);
-
     //this.http.get<any>(url);
     /*this.http
       .get<any>('http://localhost:3000/api/users/requests', {

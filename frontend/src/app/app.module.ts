@@ -28,6 +28,10 @@ import { QuestionEditModalComponent } from './pages/admin/question-edit-modal/qu
 import { QuestionCreateModalComponent } from './pages/admin/question-create-modal/question-create-modal.component';
 import { UserListComponent } from './pages/admin/user-list/user-list.component';
 import { MatIconModule } from '@angular/material/icon';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { FriendService } from './services/friend-service';
+
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
   declarations: [
@@ -60,6 +64,7 @@ import { MatIconModule } from '@angular/material/icon';
     BrowserAnimationsModule,
     NgbModule,
     FormsModule,
+    SocketIoModule.forRoot(config),
     RouterModule.forRoot([
       { path: 'registration', component: RegistrationComponent },
       { path: 'login', component: LoginComponent },
@@ -77,7 +82,7 @@ import { MatIconModule } from '@angular/material/icon';
       { path: 'admin', component: AdminComponent },
     ]),
   ],
-  providers: [],
+  providers: [FriendService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
