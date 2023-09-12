@@ -8,14 +8,13 @@ import {
 } from '@nestjs/websockets';
 
 import { Server, Socket } from 'socket.io';
+
 interface User {
   socketId: string;
   userId: number;
 }
-const onlineUsers = [];
-const userss = {};
 
-const users: [User?] = [];
+const onlineUsers: [User?] = [];
 
 @WebSocketGateway()
 export class MyGateway implements OnModuleInit {
@@ -27,48 +26,41 @@ export class MyGateway implements OnModuleInit {
     this.server.on('connection', (socket) => {
       console.log(socket.id);
       console.log('New client connected');
-      const user: User = users.find((user) => user.socketId === 'default');
+      const user: User = onlineUsers.find(
+        (user) => user.socketId === 'default',
+      );
 
       if (user) {
         console.log('Zaten var olan userin socketi degisti');
-        console.log(users);
+        console.log(onlineUsers);
 
         user.socketId = socket.id;
-        console.log(users);
+        console.log(onlineUsers);
       } else {
         console.log('Yeni bir user geldi');
       }
 
-      /*socket.on('login', function (data) {
-        console.log('user ' + data.userId + ' logged in');
-        onlineUsers.push(data.userId);
-
-        users[socket.id] = data.userId;
-        users[2] = data.userId;
-        this.server.emit('onlineUsers', onlineUsers);
-
-        console.log(onlineUsers);
-      });*/
-
       socket.on('disconnect', function () {
         // remove saved socket from users object
-        console.log(users);
+        console.log(onlineUsers);
 
-        const user: User = users.find((user) => user.socketId === socket.id);
+        const user: User = onlineUsers.find(
+          (user) => user.socketId === socket.id,
+        );
         console.log('userr ' + user + ' disconnected');
         console.log('BULUNNAN MAP');
         console.log(user);
-        const indexOfMap = users.findIndex(
+        const indexOfMap = onlineUsers.findIndex(
           (user) => user.socketId == socket.id,
         );
 
         if (indexOfMap !== -1) {
-          users[indexOfMap].socketId = 'default';
+          onlineUsers[indexOfMap].socketId = 'default';
           //users.splice(indexOfMap, 1);
           console.log(
             `Giris yaptiktan sonra refresh yapti ve socket id updated`,
           );
-          console.log(users);
+          console.log(onlineUsers);
         } else {
           console.log(`Giris yapmadan refresh yapti`);
         }
@@ -83,7 +75,7 @@ export class MyGateway implements OnModuleInit {
     //users[socket.id] = body.userId;
     if (body.userId == -1) {
       console.log('CHECK');
-      this.server.emit('onlineUsers', users);
+      this.server.emit('onlineUsers', onlineUsers);
     } else {
       const newUser: User = { socketId: socket.id, userId: body.userId };
 
@@ -92,12 +84,11 @@ export class MyGateway implements OnModuleInit {
       console.log('GIRIS YAPAN MAP');
 
       console.log(map);
-      users.push(newUser);
+      onlineUsers.push(newUser);
       console.log('TOPLAM MAP');
-      console.log(users);
+      console.log(onlineUsers);
 
-      onlineUsers.push(body.userId);
-      this.server.emit('onlineUsers', users);
+      this.server.emit('onlineUsers', onlineUsers);
     }
   }
 
@@ -109,15 +100,17 @@ export class MyGateway implements OnModuleInit {
     console.log('Logout yapan user class');
     console.log(logoutUser);
 
-    const indexOfMap = users.findIndex((user) => user.socketId == socket.id);
+    const indexOfMap = onlineUsers.findIndex(
+      (user) => user.socketId == socket.id,
+    );
 
     if (indexOfMap !== -1) {
-      users.splice(indexOfMap, 1);
+      onlineUsers.splice(indexOfMap, 1);
       console.log(`Logout user deleted from users array`);
     } else {
       console.log(`Logout user not found in users array`);
     }
 
-    this.server.emit('onlineUsers', users);
+    this.server.emit('onlineUsers', onlineUsers);
   }
 }
