@@ -52,7 +52,7 @@ export class QuestionEditComponent {
     modalRef.componentInstance.questionn = question;
   }
 
-  fillInput(question: questionModal) {
+  /*fillInput(question: questionModal) {
     question.answers!.forEach((element, index) => {
       this.answers[index] = element;
     });
@@ -138,7 +138,7 @@ export class QuestionEditComponent {
   }
   checkCorrectAnswers(answer: string) {
     this.trueAnswer = answer;
-  }
+  }*/
 
   async deleteQuestion(id: number | undefined) {
     const url = this.apiUrl + '/' + id;

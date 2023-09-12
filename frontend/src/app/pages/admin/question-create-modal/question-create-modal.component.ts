@@ -12,7 +12,9 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 export class QuestionCreateModalComponent {
   @Input() questionn: questionModal | undefined;
   showErrorMessage: boolean = false;
-  errorMessage!: string;
+  errorMessage: string =
+    'Bitte alle Felder Ausfüllen und die richtige Antwort auswählen';
+
   answers: string[] = ['', '', '', ''];
 
   checkboxValues: boolean[] = [false, false, false, false];
@@ -28,7 +30,67 @@ export class QuestionCreateModalComponent {
   closeModal() {
     this.modalService.dismissAll();
   }
-  fillInput(question: questionModal) {
+  async changeQuestion() {
+    const id = this.questionn!.id;
+    const url = this.apiUrl + '/' + id;
+
+    const description: string = this.questionn!.description!;
+
+    const answers: String[] = this.questionn?.answers!;
+    const correctAnswers: String[] = [this.questionn?.correctAnswers![0]!];
+    if (
+      description == '' ||
+      correctAnswers[0] == '' ||
+      answers[0] == '' ||
+      answers[1] == '' ||
+      answers[2] == '' ||
+      answers[3] == ''
+    ) {
+      this.showErrorMessage = true;
+      return;
+    }
+    await lastValueFrom(
+      this.http.put<any>(url, {
+        id,
+        description,
+        answers,
+        correctAnswers,
+      })
+    );
+    console.log('Question changed');
+    window.location.reload();
+  }
+
+  checkCorrectAnswers(answer: string) {
+    this.trueAnswer = answer;
+  }
+
+  /*async createQuestion() {
+    const description: string = this.question;
+
+    const answers: String[] = this.answers;
+
+    const correctAnswers: String[] = [this.trueAnswer];
+
+    await lastValueFrom(
+      this.http.post<any>(this.apiUrl, {
+        description,
+        answers,
+        correctAnswers,
+      })
+    );
+    console.log('Question added');
+    window.location.reload();
+  }*/
+
+  /*async deleteQuestion(id: number | undefined) {
+    const url = this.apiUrl + '/' + id;
+    await lastValueFrom(this.http.delete<any>(url));
+    console.log('Question deleted');
+    window.location.reload();
+  }*/
+}
+/*fillInput(question: questionModal) {
     question.answers!.forEach((element, index) => {
       this.answers[index] = element;
     });
@@ -67,55 +129,4 @@ export class QuestionCreateModalComponent {
         break;
       }
     }
-  }
-
-  async changeQuestion() {
-    const id = this.questionn!.id;
-    const url = this.apiUrl + '/' + id;
-
-    const description: string = this.questionn!.description!;
-
-    const answers: String[] = this.questionn?.answers!;
-    const correctAnswers: String[] = [this.questionn?.correctAnswers![0]!];
-
-    await lastValueFrom(
-      this.http.put<any>(url, {
-        id,
-        description,
-        answers,
-        correctAnswers,
-      })
-    );
-    console.log('Question changed');
-    window.location.reload();
-  }
-
-  async createQuestion() {
-    const description: string = this.question;
-
-    const answers: String[] = this.answers;
-
-    const correctAnswers: String[] = [this.trueAnswer];
-
-    await lastValueFrom(
-      this.http.post<any>(this.apiUrl, {
-        description,
-        answers,
-        correctAnswers,
-      })
-    );
-    console.log('Question added');
-    window.location.reload();
-  }
-
-  checkCorrectAnswers(answer: string) {
-    this.trueAnswer = answer;
-  }
-
-  async deleteQuestion(id: number | undefined) {
-    const url = this.apiUrl + '/' + id;
-    await lastValueFrom(this.http.delete<any>(url));
-    console.log('Question deleted');
-    window.location.reload();
-  }
-}
+  }*/

@@ -60,6 +60,14 @@
           </button>
         </div>
       </div>
+      <div
+        *ngIf="showErrorMessage"
+        class="alert alert-danger"
+        role="alert"
+        style="margin: 10px"
+      >
+        <h4>{{ errorMessage }}</h4>
+      </div>
     </div>
   </div>
 </div>
