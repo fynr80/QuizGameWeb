@@ -38,14 +38,5 @@ export class FriendRequestComponent {
 
       this.friendRequests.push(newUser);
     });
-
-    //this.http.get<any>(url);
-    /*this.http
-      .get<any>('http://localhost:3000/api/users/requests', {
-        params: { userId: this.userModel!.id },
-      })
-      .subscribe((data) => {
-        console.log(data);
-      });*/
   }
 }

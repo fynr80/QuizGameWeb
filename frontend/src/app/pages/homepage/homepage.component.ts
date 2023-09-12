@@ -80,12 +80,8 @@ export class HomepageComponent {
   }
 
   async getAcceptGameRequest() {
-    console.log('Hallo grifm');
     this.friendService.getAcceptGameRequest().subscribe((data) => {
-      console.log('Socketten gelen gönderenin idsi');
-
       if (data) {
-        console.log(data);
         this.toggleQuizGameStart = true;
         this.toggleQuizGame = false;
 

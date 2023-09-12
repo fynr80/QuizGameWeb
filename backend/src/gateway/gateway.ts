@@ -31,25 +31,21 @@ export class MyGateway implements OnModuleInit {
       );
 
       if (user) {
-        console.log('Zaten var olan userin socketi degisti');
+        console.log('User exist');
         console.log(onlineUsers);
 
         user.socketId = socket.id;
         console.log(onlineUsers);
       } else {
-        console.log('Yeni bir user geldi');
+        console.log('New User');
       }
 
       socket.on('disconnect', function () {
         // remove saved socket from users object
-        console.log(onlineUsers);
 
         const user: User = onlineUsers.find(
           (user) => user.socketId === socket.id,
         );
-        console.log('userr ' + user + ' disconnected');
-        console.log('BULUNNAN MAP');
-        console.log(user);
         const indexOfMap = onlineUsers.findIndex(
           (user) => user.socketId == socket.id,
         );
@@ -57,12 +53,10 @@ export class MyGateway implements OnModuleInit {
         if (indexOfMap !== -1) {
           onlineUsers[indexOfMap].socketId = 'default';
           //users.splice(indexOfMap, 1);
-          console.log(
-            `Giris yaptiktan sonra refresh yapti ve socket id updated`,
-          );
+          console.log(`Reload Exists User`);
           console.log(onlineUsers);
         } else {
-          console.log(`Giris yapmadan refresh yapti`);
+          console.log(`Reload User`);
         }
 
         //delete users[socket.id];
@@ -74,19 +68,13 @@ export class MyGateway implements OnModuleInit {
   onLogin(@MessageBody() body: any, @ConnectedSocket() socket: Socket) {
     //users[socket.id] = body.userId;
     if (body.userId == -1) {
-      console.log('CHECK');
       this.server.emit('onlineUsers', onlineUsers);
     } else {
       const newUser: User = { socketId: socket.id, userId: body.userId };
 
       const map = new Map<string, number>();
       map.set(socket.id, body.userId);
-      console.log('GIRIS YAPAN MAP');
-
-      console.log(map);
       onlineUsers.push(newUser);
-      console.log('TOPLAM MAP');
-      console.log(onlineUsers);
 
       this.server.emit('onlineUsers', onlineUsers);
     }
@@ -98,17 +86,10 @@ export class MyGateway implements OnModuleInit {
 
     const friendId = body.friendId;
     const userId = body.userId;
-    console.log('friendId');
-    console.log(friendId);
-    console.log('userId');
-    console.log(userId);
 
     const friendUser: User = onlineUsers.find(
       (user) => user.userId === friendId,
     );
-
-    console.log('Friendin socketi');
-    console.log(friendUser);
 
     this.server.to(friendUser.socketId).emit('gameRequest', body.userId);
   }
@@ -134,11 +115,7 @@ export class MyGateway implements OnModuleInit {
 
   @SubscribeMessage('logout')
   onLogout(@MessageBody() body: any, @ConnectedSocket() socket: Socket) {
-    console.log('Logout yapan userin idsi');
-    console.log(body);
     const logoutUser: User = { socketId: socket.id, userId: body.userId };
-    console.log('Logout yapan user class');
-    console.log(logoutUser);
 
     const indexOfMap = onlineUsers.findIndex(
       (user) => user.socketId == socket.id,

@@ -26,9 +26,6 @@ export class PlayerModalComponent {
     this.authService.getSession().subscribe((data) => {
       this.userModel = data;
     });
-
-    console.log('userModel from constructor from andere');
-    console.log(this.userModel);
   }
 
   closeModal() {
@@ -47,8 +44,6 @@ export class PlayerModalComponent {
   async addFriend() {
     const apiUrl = 'http://localhost:3000/api/users';
     const url = `${apiUrl}/${this.userModel?.id}/friend-requests`;
-    console.log('this.user?.id');
-    console.log(this.user?.id);
     var a = await lastValueFrom(
       this.http.post<any>(url, {
         friendId: this.user?.id,

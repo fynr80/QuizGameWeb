@@ -28,7 +28,6 @@ export class FriendService {
   }
 
   getAcceptGameRequest() {
-    console.log('getAcceptGameRequest from client');
     return this.socket.fromEvent<number>('acceptGameRequest');
   }
 

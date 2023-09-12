@@ -23,9 +23,7 @@ export class QuestionCreateModalComponent {
 
   trueAnswer: string = '';
 
-  constructor(public http: HttpClient, private modalService: NgbModal) {
-    console.log('this.questionn');
-  }
+  constructor(public http: HttpClient, private modalService: NgbModal) {}
   apiUrl: string = 'http://localhost:3000/api/questions';
   closeModal() {
     this.modalService.dismissAll();
