@@ -17,6 +17,7 @@ interface User {
   styleUrls: ['./homepage.component.css'],
 })
 export class HomepageComponent {
+  checkIngame: boolean = false;
   toggleQuizGame: boolean = true;
   toggleProfil: boolean = false;
   toggleStatistik: boolean = false;
@@ -82,6 +83,7 @@ export class HomepageComponent {
   async getAcceptGameRequest() {
     this.friendService.getAcceptGameRequest().subscribe((data) => {
       if (data) {
+        this, (this.checkIngame = true);
         this.toggleQuizGameStart = true;
         this.toggleQuizGame = false;
 
@@ -110,7 +112,13 @@ export class HomepageComponent {
   }
 
   showQuizGame() {
-    this.toggleQuizGame = true;
+    if (this.checkIngame) {
+      this.toggleQuizGame = false;
+      this.toggleQuizGameStart = true;
+    } else {
+      this.toggleQuizGame = true;
+      this.toggleQuizGameStart = false;
+    }
     this.toggleProfil = false;
     this.toggleStatistik = false;
     this.toggleVerlauf = false;
@@ -122,6 +130,7 @@ export class HomepageComponent {
     this.toggleStatistik = false;
     this.toggleVerlauf = false;
     this.toggleFriendRequest = false;
+    this.toggleQuizGameStart = false;
   }
   showStatistik() {
     this.toggleQuizGame = false;
@@ -129,13 +138,14 @@ export class HomepageComponent {
     this.toggleStatistik = true;
     this.toggleVerlauf = false;
     this.toggleFriendRequest = false;
+    this.toggleQuizGameStart = false;
   }
   showVerlauf() {
     this.toggleQuizGame = false;
     this.toggleProfil = false;
     this.toggleStatistik = false;
     this.toggleFriendRequest = false;
-
+    this.toggleQuizGameStart = false;
     this.toggleVerlauf = true;
   }
   showFriendRequest() {
@@ -144,5 +154,6 @@ export class HomepageComponent {
     this.toggleStatistik = false;
     this.toggleVerlauf = false;
     this.toggleFriendRequest = true;
+    this.toggleQuizGameStart = false;
   }
 }

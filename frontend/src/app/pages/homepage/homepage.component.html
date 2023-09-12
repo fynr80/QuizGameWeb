@@ -18,13 +18,15 @@
           (click)="openPlayerModal(user)"
         >
           {{ user!.username }}
-          <mat-icon *ngIf="isUserInOnlineUsers(user!.id!)"
-            >check_circle</mat-icon
-          >
-
-          <mat-icon *ngIf="!isUserInOnlineUsers(user!.id!)"
-            >highlight_off</mat-icon
-          >
+          <span
+            *ngIf="isUserInOnlineUsers(user!.id!)"
+            class="onlinedot mx-2"
+            style="background-color: #1cd607"
+          ></span>
+          <span
+            *ngIf="!isUserInOnlineUsers(user!.id!)"
+            class="onlinedot mx-2"
+          ></span>
         </button>
       </div>
     </div>
@@ -136,7 +138,7 @@
 <footer class="row d-flex justify-content-center m-3">
   <div class="col-md-6 shadow box d-flex align-items-center">
     Spielerstatus:
-    <span class="onlinedot mx-2" style="background-color: #3a6b35"></span>
+    <span class="onlinedot mx-2" style="background-color: #1cd607"></span>
     online
     <span class="onlinedot mx-2"></span>
     offline
