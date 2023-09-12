@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PlayerModalComponent } from './player-modal/player-modal.component';
 import { FriendService } from 'app/services/friend-service';
 import { lastValueFrom } from 'rxjs';
+import { QuizRequestModalComponent } from './quiz-request-modal/quiz-request-modal.component';
 interface User {
   socketId: string;
   userId: number;
@@ -16,12 +17,12 @@ interface User {
   styleUrls: ['./homepage.component.css'],
 })
 export class HomepageComponent {
-  toggleQuizGame = true;
-  toggleProfil = false;
-  toggleStatistik = false;
-  toggleVerlauf = false;
-
-  toggleFriendRequest = false;
+  toggleQuizGame: boolean = true;
+  toggleProfil: boolean = false;
+  toggleStatistik: boolean = false;
+  toggleVerlauf: boolean = false;
+  toggleFriendRequest: boolean = false;
+  toggleQuizGameStart: boolean = false;
 
   //users: string[] = [];
   onlineUsers: [User?] = [];
@@ -37,8 +38,10 @@ export class HomepageComponent {
     private friendService: FriendService
   ) {
     this.getAllUsers();
-    console.log('Online Userss');
+
     this.getOnlineUsers();
+    this.getGameRequest();
+    this.getAcceptGameRequest();
     this.friendService.sendLoginMessage(-1);
 
     this.authService.getSession().subscribe((data) => {
@@ -53,10 +56,12 @@ export class HomepageComponent {
     return userIndex !== -1;
   }
 
+  isSelf(userIdToCheck: number): boolean {
+    return this.userModel?.id === userIdToCheck;
+  }
+
   async getOnlineUsers() {
     this.friendService.getMessage().subscribe((data) => {
-      console.log('GELEN DATA');
-      console.log(data);
       this.onlineUsers = [];
       data.forEach((element) => {
         this.onlineUsers.push(element);
@@ -64,17 +69,43 @@ export class HomepageComponent {
     });
   }
 
+  async getGameRequest() {
+    this.friendService.getGameRequestMessage().subscribe((data) => {
+      if (data) {
+        const modalRef = this.modalService.open(QuizRequestModalComponent);
+
+        modalRef.componentInstance.userIds = data;
+      }
+    });
+  }
+
+  async getAcceptGameRequest() {
+    console.log('Hallo grifm');
+    this.friendService.getAcceptGameRequest().subscribe((data) => {
+      console.log('Socketten gelen gönderenin idsi');
+
+      if (data) {
+        console.log(data);
+        this.toggleQuizGameStart = true;
+        this.toggleQuizGame = false;
+
+        //const modalRef = this.modalService.open(QuizRequestModalComponent);
+      }
+    });
+  }
+
   async getAllUsers() {
     const data: any = await lastValueFrom(
       this.http.get('http://localhost:3000/api/users')
     );
-
     this.allUsers = data.result;
+
     this.allUsers.forEach((element) => {
       element!.status = 'offline';
+      if (this.userModel?.id === element?.id) {
+        this.allUsers.splice(this.allUsers.indexOf(element), 1);
+      }
     });
-    console.log('this.allUsers');
-    console.log(this.allUsers);
   }
 
   openPlayerModal(user: any) {

@@ -30,6 +30,8 @@ import { UserListComponent } from './pages/admin/user-list/user-list.component';
 import { MatIconModule } from '@angular/material/icon';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { FriendService } from './services/friend-service';
+import { QuizStartComponent } from './pages/homepage/quiz-start/quiz-start.component';
+import { QuizRequestModalComponent } from './pages/homepage/quiz-request-modal/quiz-request-modal.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -54,6 +56,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     QuestionEditModalComponent,
     QuestionCreateModalComponent,
     UserListComponent,
+    QuizStartComponent,
+    QuizRequestModalComponent,
   ],
   imports: [
     HttpClientModule,

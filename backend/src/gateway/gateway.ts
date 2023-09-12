@@ -92,6 +92,46 @@ export class MyGateway implements OnModuleInit {
     }
   }
 
+  @SubscribeMessage('gameRequest')
+  onGameRequest(@MessageBody() body: any, @ConnectedSocket() socket: Socket) {
+    //users[socket.id] = body.userId;
+
+    const friendId = body.friendId;
+    const userId = body.userId;
+    console.log('friendId');
+    console.log(friendId);
+    console.log('userId');
+    console.log(userId);
+
+    const friendUser: User = onlineUsers.find(
+      (user) => user.userId === friendId,
+    );
+
+    console.log('Friendin socketi');
+    console.log(friendUser);
+
+    this.server.to(friendUser.socketId).emit('gameRequest', body.userId);
+  }
+
+  @SubscribeMessage('acceptGameRequest')
+  onAcceptGameRequest(
+    @MessageBody() body: any,
+    @ConnectedSocket() socket: Socket,
+  ) {
+    const friendId = body.friendId;
+    const userId = body.userId;
+
+    const friendUser: User = onlineUsers.find(
+      (user) => user.userId === friendId,
+    );
+
+    const user: User = onlineUsers.find((user) => user.userId === userId);
+
+    this.server
+      .to([user.socketId, friendUser.socketId])
+      .emit('acceptGameRequest', [body.friendId, body.userId]);
+  }
+
   @SubscribeMessage('logout')
   onLogout(@MessageBody() body: any, @ConnectedSocket() socket: Socket) {
     console.log('Logout yapan userin idsi');

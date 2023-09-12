@@ -3,6 +3,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { UserModel } from 'app/models/user.model';
 import { AuthService } from 'app/pages/login/auth.service';
+import { FriendService } from 'app/services/friend-service';
 import { lastValueFrom } from 'rxjs';
 
 @Component({
@@ -19,7 +20,8 @@ export class PlayerModalComponent {
   constructor(
     private modalService: NgbModal,
     private http: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
+    private friendService: FriendService
   ) {
     this.authService.getSession().subscribe((data) => {
       this.userModel = data;
@@ -31,6 +33,15 @@ export class PlayerModalComponent {
 
   closeModal() {
     this.modalService.dismissAll();
+  }
+
+  sendGameRequest() {
+    console.log('sendGameRequest');
+    this.friendService.sendGameRequestMessage(
+      this.userModel?.id!,
+      this.user!.id!
+    );
+    this.closeModal();
   }
 
   async addFriend() {

@@ -13,6 +13,7 @@
       </h2>
       <div class="list-group list-group-flush" *ngFor="let user of allUsers">
         <button
+          *ngIf="!isSelf(user!.id!)"
           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
           (click)="openPlayerModal(user)"
         >
@@ -72,6 +73,13 @@
     <div
       class="shadow box"
       [ngClass]="toggleQuizGame ? ['displayShow'] : ['displayHide']"
+    >
+      <app-quiz-start></app-quiz-start>
+    </div>
+
+    <div
+      class="shadow box"
+      [ngClass]="toggleQuizGameStart ? ['displayShow'] : ['displayHide']"
     >
       <app-quiz-game></app-quiz-game>
     </div>

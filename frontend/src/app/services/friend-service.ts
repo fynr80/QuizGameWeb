@@ -12,8 +12,27 @@ export class FriendService {
   sendLogoutMessage(userId: number) {
     this.socket.emit('logout', { userId: userId });
   }
+  sendGameRequestMessage(userId: number, friendId: number) {
+    this.socket.emit('gameRequest', { userId: userId, friendId: friendId });
+  }
+
+  getGameRequestMessage() {
+    return this.socket.fromEvent<number>('gameRequest');
+  }
+
+  sendAcceptGameRequest(userId: number, friendId: number) {
+    this.socket.emit('acceptGameRequest', {
+      userId: userId,
+      friendId: friendId,
+    });
+  }
+
+  getAcceptGameRequest() {
+    console.log('getAcceptGameRequest from client');
+    return this.socket.fromEvent<number>('acceptGameRequest');
+  }
+
   getMessage() {
-    console.log('QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ');
     return this.socket.fromEvent<Array<any>>('onlineUsers');
   }
 }
