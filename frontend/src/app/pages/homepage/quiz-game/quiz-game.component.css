@@ -34,7 +34,5 @@ button:hover,
   display: none !important;
 }
 .displayShow {
-  overflow-y: scroll;
-  height: 500px;
   display: block !important;
 }

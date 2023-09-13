@@ -20,6 +20,7 @@ export class QuizGameComponent {
   userSubmit: boolean = false;
   userModel: UserModel | undefined;
   counterArr = new Array<boolean>(10);
+  showStatistic: boolean = false;
   constructor(
     private authService: AuthService,
     private friendService: FriendService
@@ -31,6 +32,7 @@ export class QuizGameComponent {
   }
 
   buttonclicked(answer: string, num: number) {
+    console.log(this.randomQuestions.length);
     this.userSubmit = true;
     if (this.userModel?.id == this.friendId) {
       this.newid = this.userId;
@@ -45,8 +47,13 @@ export class QuizGameComponent {
       this.userSubmit = false;
     }
     this.counterArr[num] = this.checkValue(answer, num);
-    console.log(this.counterArr);
     this.friendService.sendOnSubmitAnswer(this.newid);
+    console.log(this.questionNumber);
+    if (this.questionNumber == 1) {
+      console.log('sdfsdfs');
+      this.showStatistic == true;
+      this.toogleGameStart == false;
+    }
   }
 
   async getOnSubmitAnswer() {

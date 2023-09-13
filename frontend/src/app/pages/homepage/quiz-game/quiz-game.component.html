@@ -22,5 +22,25 @@
     </button>
   </div>
 </div>
+<div
+  class="bg-warning"
+  [ngClass]="toogleGameStart ? ['displayHide'] : ['displayShow']"
+  style="
+    border-radius: 20px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    flex-direction: column;
+  "
+>
+  <div class="header">
+    <h1 class="text-dark">QuizGame</h1>
+  </div>
+  <div class="body">
+    <p style="font-size: larger">Warten auf gegner</p>
+  </div>
+</div>
 
-<h1 [ngClass]="toogleGameStart ? ['displayHide'] : ['displayShow']">Waiting</h1>
+<div [ngClass]="!showStatistic ? ['displayHide'] : ['displayShow']">Test</div>
