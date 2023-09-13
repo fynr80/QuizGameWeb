@@ -34,16 +34,16 @@ export class QuizGameComponent {
     this.userSubmit = true;
     if (this.userModel?.id == this.friendId) {
       this.newid = this.userId;
+      this.toogleGameStart = !this.toogleGameStart;
     } else {
       this.newid = this.friendId;
+      this.toogleGameStart = !this.toogleGameStart;
     }
     if (this.friendSubmit == true) {
       this.questionNumber++;
       this.friendSubmit = false;
       this.userSubmit = false;
-      this.toogleGameStart = !this.toogleGameStart;
     }
-    this.toogleGameStart = !this.toogleGameStart;
     this.counterArr[num] = this.checkValue(answer, num);
     console.log(this.counterArr);
     this.friendService.sendOnSubmitAnswer(this.newid);
@@ -59,7 +59,6 @@ export class QuizGameComponent {
         this.questionNumber++;
         this.userSubmit = false;
         this.friendSubmit = false;
-        this.toogleGameStart = !this.toogleGameStart;
       }
     });
   }
