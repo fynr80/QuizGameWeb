@@ -3,7 +3,6 @@ import { questionModal } from 'app/models/question.model';
 import { UserModel } from 'app/models/user.model';
 import { AuthService } from 'app/pages/login/auth.service';
 import { FriendService } from 'app/services/friend-service';
-import { count } from 'rxjs';
 
 @Component({
   selector: 'app-quiz-game',
@@ -11,10 +10,11 @@ import { count } from 'rxjs';
   styleUrls: ['./quiz-game.component.css'],
 })
 export class QuizGameComponent {
-  i: number = 0;
   @Input() randomQuestions: [questionModal?] = [];
   @Input() friendId!: number;
   @Input() userId!: number;
+  @Input() toogleGameStart!: boolean;
+  questionNumber: number = 0;
   newid: number = 0;
   friendSubmit: boolean = false;
   userSubmit: boolean = false;
@@ -29,6 +29,7 @@ export class QuizGameComponent {
     });
     this.getOnSubmitAnswer();
   }
+
   buttonclicked(answer: string, num: number) {
     this.userSubmit = true;
     if (this.userModel?.id == this.friendId) {
@@ -37,10 +38,12 @@ export class QuizGameComponent {
       this.newid = this.friendId;
     }
     if (this.friendSubmit == true) {
-      this.i++;
+      this.questionNumber++;
       this.friendSubmit = false;
       this.userSubmit = false;
+      this.toogleGameStart = !this.toogleGameStart;
     }
+    this.toogleGameStart = !this.toogleGameStart;
     this.counterArr[num] = this.checkValue(answer, num);
     console.log(this.counterArr);
     this.friendService.sendOnSubmitAnswer(this.newid);
@@ -50,11 +53,13 @@ export class QuizGameComponent {
     this.friendService.getOnSubmitAnswer().subscribe((data) => {
       if (data) {
         this.friendSubmit = true;
+        this.toogleGameStart = !this.toogleGameStart;
       }
       if (this.userSubmit == true) {
-        this.i++;
+        this.questionNumber++;
         this.userSubmit = false;
         this.friendSubmit = false;
+        this.toogleGameStart = !this.toogleGameStart;
       }
     });
   }

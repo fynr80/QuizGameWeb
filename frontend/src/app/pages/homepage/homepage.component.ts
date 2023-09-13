@@ -25,6 +25,7 @@ export class HomepageComponent {
   toggleVerlauf: boolean = false;
   toggleFriendRequest: boolean = false;
   toggleQuizGameStart: boolean = false;
+  toogleGameStart: boolean = false;
   randomQuestions: [questionModal?] = [];
   friendId: number = 0;
   userId: number = 0;
@@ -91,6 +92,10 @@ export class HomepageComponent {
         this.randomQuestions = data[2];
         this.friendId = data[1];
         this.userId = data[0];
+
+        if (this.userModel?.id == this.userId) {
+          this.toogleGameStart = true;
+        }
       }
     });
   }

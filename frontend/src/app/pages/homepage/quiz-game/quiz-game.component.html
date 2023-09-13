@@ -1,20 +1,26 @@
 <h2 class="bg-warning text-dark titelText">Quiz Game</h2>
 <!-- Body -->
-<div class="shadow box" style="height: 90%; border-radius: 25px; padding: 10px">
+<div
+  [ngClass]="toogleGameStart ? ['displayShow'] : ['displayHide']"
+  class="shadow box"
+  style="height: 90%; border-radius: 25px; padding: 10px"
+>
   <!-- Question -->
   <div class="questionField">
-    <h4>{{ this.randomQuestions[i]?.description }}</h4>
+    <h4>{{ this.randomQuestions[questionNumber]?.description }}</h4>
   </div>
   <hr />
 
   <!-- Answers -->
   <div>
     <button
-      (click)="buttonclicked(answer, i)"
+      (click)="buttonclicked(answer, questionNumber)"
       class="answerField"
-      *ngFor="let answer of this.randomQuestions[i]?.answers"
+      *ngFor="let answer of this.randomQuestions[questionNumber]?.answers"
     >
       <h5>{{ answer }}</h5>
     </button>
   </div>
 </div>
+
+<h1 [ngClass]="toogleGameStart ? ['displayHide'] : ['displayShow']">Waiting</h1>
