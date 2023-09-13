@@ -21,6 +21,7 @@ export class QuizGameComponent {
   userModel: UserModel | undefined;
   counterArr = new Array<boolean>(10);
   showStatistic: boolean = false;
+  sum: number = 0;
   constructor(
     private authService: AuthService,
     private friendService: FriendService
@@ -48,11 +49,9 @@ export class QuizGameComponent {
     }
     this.counterArr[num] = this.checkValue(answer, num);
     this.friendService.sendOnSubmitAnswer(this.newid);
-    console.log(this.questionNumber);
     if (this.questionNumber == 1) {
-      console.log('sdfsdfs');
-      this.showStatistic == true;
-      this.toogleGameStart == false;
+      this.showStatistic = true;
+      this.sum = this.pointCalc();
     }
   }
 
@@ -61,11 +60,10 @@ export class QuizGameComponent {
       if (data) {
         this.friendSubmit = true;
         this.toogleGameStart = !this.toogleGameStart;
-      }
-      if (this.userSubmit == true) {
-        this.questionNumber++;
-        this.userSubmit = false;
-        this.friendSubmit = false;
+        if (this.questionNumber == 1) {
+          this.showStatistic = true;
+          this.sum = this.pointCalc();
+        }
       }
     });
   }
@@ -78,5 +76,15 @@ export class QuizGameComponent {
       }
     });
     return result;
+  }
+
+  pointCalc() {
+    let sum = 0;
+    this.counterArr.forEach((element) => {
+      if (element) {
+        sum++;
+      }
+    });
+    return sum;
   }
 }

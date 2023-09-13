@@ -1,7 +1,7 @@
 <h2 class="bg-warning text-dark titelText">Quiz Game</h2>
 <!-- Body -->
 <div
-  [ngClass]="toogleGameStart ? ['displayShow'] : ['displayHide']"
+  *ngIf="!toogleGameStart && !showStatistic"
   class="shadow box"
   style="height: 90%; border-radius: 25px; padding: 10px"
 >
@@ -24,16 +24,8 @@
 </div>
 <div
   class="bg-warning"
-  [ngClass]="toogleGameStart ? ['displayHide'] : ['displayShow']"
-  style="
-    border-radius: 20px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    flex-direction: column;
-  "
+  *ngIf="toogleGameStart && !showStatistic"
+  style="border-radius: 20px; height: 80%; padding: 20px"
 >
   <div class="header">
     <h1 class="text-dark">QuizGame</h1>
@@ -43,4 +35,4 @@
   </div>
 </div>
 
-<div [ngClass]="!showStatistic ? ['displayHide'] : ['displayShow']">Test</div>
+<div *ngIf="showStatistic">{{ sum }}</div>

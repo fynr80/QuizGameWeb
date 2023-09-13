@@ -29,10 +29,3 @@ button:hover,
   background-image: linear-gradient(to right, #00dbde 0%, #fc00ff 100%);
   box-shadow: 5px 5px 10px #00dbde;
 }
-
-.displayHide {
-  display: none !important;
-}
-.displayShow {
-  display: block !important;
-}
