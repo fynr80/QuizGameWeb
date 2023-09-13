@@ -101,16 +101,17 @@ export class MyGateway implements OnModuleInit {
   ) {
     const friendId = body.friendId;
     const userId = body.userId;
-
     const friendUser: User = onlineUsers.find(
       (user) => user.userId === friendId,
     );
-
     const user: User = onlineUsers.find((user) => user.userId === userId);
-
     this.server
       .to([user.socketId, friendUser.socketId])
-      .emit('acceptGameRequest', [body.friendId, body.userId]);
+      .emit('acceptGameRequest', [
+        body.friendId,
+        body.userId,
+        body.randomQuestions,
+      ]);
   }
 
   @SubscribeMessage('logout')

@@ -1,9 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { questionModal } from 'app/models/question.model';
 import { UserModel } from 'app/models/user.model';
 import { AuthService } from 'app/pages/login/auth.service';
 import { FriendService } from 'app/services/friend-service';
-
 @Component({
   selector: 'app-quiz-request-modal',
   templateUrl: './quiz-request-modal.component.html',
@@ -13,20 +14,24 @@ export class QuizRequestModalComponent {
   @Input() userIds: number | undefined;
 
   userModel: UserModel | undefined;
+  //randomQuestions: [questionModal?] = [];
 
   constructor(
     private modalService: NgbModal,
     private friendService: FriendService,
-    private authService: AuthService
+    private authService: AuthService,
+    public http: HttpClient
   ) {
     this.authService.getSession().subscribe((data) => {
       this.userModel = data;
     });
   }
   acceptRequest() {
+    //this.getRandomQuestions();
     this.friendService.sendAcceptGameRequest(
       this.userIds!,
       this.userModel!.id!
+      //this.randomQuestions
     );
     this.closeModal();
   }

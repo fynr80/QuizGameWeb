@@ -1,10 +1,13 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { questionModal } from 'app/models/question.model';
 import { Socket } from 'ngx-socket-io';
 import { map } from 'rxjs/operators';
 
 @Injectable()
 export class FriendService {
-  constructor(private socket: Socket) {}
+  //randomQuestions: [questionModal?] = [];
+  constructor(private socket: Socket, public http: HttpClient) {}
 
   sendLoginMessage(userId: number) {
     this.socket.emit('login', { userId: userId });
@@ -21,17 +24,55 @@ export class FriendService {
   }
 
   sendAcceptGameRequest(userId: number, friendId: number) {
-    this.socket.emit('acceptGameRequest', {
-      userId: userId,
-      friendId: friendId,
+    this.getRandomQuestions().then((randomQuestions) => {
+      this.socket.emit('acceptGameRequest', {
+        userId: userId,
+        friendId: friendId,
+        randomQuestions: randomQuestions,
+      });
     });
   }
 
   getAcceptGameRequest() {
-    return this.socket.fromEvent<number>('acceptGameRequest');
+    return this.socket.fromEvent<Array<any>>('acceptGameRequest');
   }
 
   getMessage() {
     return this.socket.fromEvent<Array<any>>('onlineUsers');
+  }
+
+  apiUrl: string = 'http://localhost:3000/api/questions';
+  async getRandomQuestions() {
+    return new Promise<questionModal[]>((resolve, reject) => {
+      const randomQuestions: questionModal[] = [];
+      this.http.get<any>(this.apiUrl).subscribe(
+        (data) => {
+          const shuffledQuestions = this.shuffle(data.result);
+          const selectedQuestions = shuffledQuestions.slice(0, 2);
+          selectedQuestions.forEach((element: any) => {
+            const newQuestion = new questionModal(
+              element.id,
+              element.description,
+              element.answers,
+              element.correctAnswers
+            );
+
+            randomQuestions.push(newQuestion);
+          });
+          resolve(randomQuestions);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+  shuffle([...arr]) {
+    let m = arr.length;
+    while (m) {
+      const i = Math.floor(Math.random() * m--);
+      [arr[m], arr[i]] = [arr[i], arr[m]];
+    }
+    return arr;
   }
 }

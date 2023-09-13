@@ -19,7 +19,7 @@ export class QuestionsController {
   constructor(private readonly questionService: QuestionsService) {}
 
   @Get()
-  @Roles('admin')
+  //@Roles('admin')
   @UseGuards(AuthenticatedGuard, RolesGuard)
   async getAllQuestions() {
     const result = await this.questionService.getAllQuestions();

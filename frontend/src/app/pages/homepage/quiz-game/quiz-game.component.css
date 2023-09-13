@@ -14,10 +14,17 @@
 
 .answerField {
   display: flex;
+  width: 95%;
   align-items: center;
   justify-content: center;
   border-radius: 15px;
   padding: 10px;
   background-color: rgb(255, 193, 7);
   margin: 15px;
+  border: 0px;
+}
+
+button:hover {
+  background-image: linear-gradient(to right, #00dbde 0%, #fc00ff 100%);
+  box-shadow: 5px 5px 10px #00dbde;
 }

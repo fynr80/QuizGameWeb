@@ -3,23 +3,17 @@
 <div class="shadow box" style="height: 90%; border-radius: 25px; padding: 10px">
   <!-- Question -->
   <div class="questionField">
-    <h4>Hauptstadt von Deutschland</h4>
+    <h4>{{ this.randomQuestions[0]?.description }}</h4>
   </div>
   <hr />
 
   <!-- Answers -->
   <div>
-    <div class="answerField">
-      <h5>Istanbul</h5>
-    </div>
-    <div class="answerField">
-      <h5>Berlin</h5>
-    </div>
-    <div class="answerField">
-      <h5>Wiesbaden</h5>
-    </div>
-    <div class="answerField">
-      <h5>Florida</h5>
-    </div>
+    <button
+      class="answerField"
+      *ngFor="let answer of this.randomQuestions[0]?.answers"
+    >
+      <h5>{{ answer }}</h5>
+    </button>
   </div>
 </div>

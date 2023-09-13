@@ -7,6 +7,7 @@ import { PlayerModalComponent } from './player-modal/player-modal.component';
 import { FriendService } from 'app/services/friend-service';
 import { lastValueFrom } from 'rxjs';
 import { QuizRequestModalComponent } from './quiz-request-modal/quiz-request-modal.component';
+import { questionModal } from 'app/models/question.model';
 interface User {
   socketId: string;
   userId: number;
@@ -24,8 +25,7 @@ export class HomepageComponent {
   toggleVerlauf: boolean = false;
   toggleFriendRequest: boolean = false;
   toggleQuizGameStart: boolean = false;
-
-  //users: string[] = [];
+  randomQuestions: [questionModal?] = [];
   onlineUsers: [User?] = [];
 
   userModel: UserModel | undefined;
@@ -39,7 +39,6 @@ export class HomepageComponent {
     private friendService: FriendService
   ) {
     this.getAllUsers();
-
     this.getOnlineUsers();
     this.getGameRequest();
     this.getAcceptGameRequest();
@@ -86,8 +85,7 @@ export class HomepageComponent {
         this, (this.checkIngame = true);
         this.toggleQuizGameStart = true;
         this.toggleQuizGame = false;
-
-        //const modalRef = this.modalService.open(QuizRequestModalComponent);
+        this.randomQuestions = data[2];
       }
     });
   }
