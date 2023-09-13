@@ -94,6 +94,16 @@ export class MyGateway implements OnModuleInit {
     this.server.to(friendUser.socketId).emit('gameRequest', body.userId);
   }
 
+  @SubscribeMessage('submitAnswer')
+  onSubmitAnswer(@MessageBody() body: any, @ConnectedSocket() socket: Socket) {
+    const friendId = body.friendId;
+
+    const friendUser: User = onlineUsers.find(
+      (user) => user.userId === friendId,
+    );
+    this.server.to(friendUser.socketId).emit('submitAnswer', true);
+  }
+
   @SubscribeMessage('acceptGameRequest')
   onAcceptGameRequest(
     @MessageBody() body: any,

@@ -19,8 +19,15 @@ export class FriendService {
     this.socket.emit('gameRequest', { userId: userId, friendId: friendId });
   }
 
+  sendOnSubmitAnswer(friendId: number) {
+    this.socket.emit('submitAnswer', { friendId: friendId });
+  }
   getGameRequestMessage() {
     return this.socket.fromEvent<number>('gameRequest');
+  }
+
+  getOnSubmitAnswer() {
+    return this.socket.fromEvent<boolean>('submitAnswer');
   }
 
   sendAcceptGameRequest(userId: number, friendId: number) {
@@ -48,7 +55,7 @@ export class FriendService {
       this.http.get<any>(this.apiUrl).subscribe(
         (data) => {
           const shuffledQuestions = this.shuffle(data.result);
-          const selectedQuestions = shuffledQuestions.slice(0, 2);
+          const selectedQuestions = shuffledQuestions.slice(0, 5);
           selectedQuestions.forEach((element: any) => {
             const newQuestion = new questionModal(
               element.id,

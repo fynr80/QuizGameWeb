@@ -26,6 +26,8 @@ export class HomepageComponent {
   toggleFriendRequest: boolean = false;
   toggleQuizGameStart: boolean = false;
   randomQuestions: [questionModal?] = [];
+  friendId: number = 0;
+  userId: number = 0;
   onlineUsers: [User?] = [];
 
   userModel: UserModel | undefined;
@@ -82,10 +84,13 @@ export class HomepageComponent {
   async getAcceptGameRequest() {
     this.friendService.getAcceptGameRequest().subscribe((data) => {
       if (data) {
+        console.log(data);
         this, (this.checkIngame = true);
         this.toggleQuizGameStart = true;
         this.toggleQuizGame = false;
         this.randomQuestions = data[2];
+        this.friendId = data[1];
+        this.userId = data[0];
       }
     });
   }

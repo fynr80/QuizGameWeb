@@ -3,15 +3,16 @@
 <div class="shadow box" style="height: 90%; border-radius: 25px; padding: 10px">
   <!-- Question -->
   <div class="questionField">
-    <h4>{{ this.randomQuestions[0]?.description }}</h4>
+    <h4>{{ this.randomQuestions[i]?.description }}</h4>
   </div>
   <hr />
 
   <!-- Answers -->
   <div>
     <button
+      (click)="buttonclicked(answer, i)"
       class="answerField"
-      *ngFor="let answer of this.randomQuestions[0]?.answers"
+      *ngFor="let answer of this.randomQuestions[i]?.answers"
     >
       <h5>{{ answer }}</h5>
     </button>

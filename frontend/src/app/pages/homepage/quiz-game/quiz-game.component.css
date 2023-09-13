@@ -24,7 +24,8 @@
   border: 0px;
 }
 
-button:hover {
+button:hover,
+:focus {
   background-image: linear-gradient(to right, #00dbde 0%, #fc00ff 100%);
   box-shadow: 5px 5px 10px #00dbde;
 }
