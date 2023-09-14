@@ -34,7 +34,7 @@ export class HomepageComponent {
   userModel: UserModel | undefined;
 
   allUsers: [UserModel?] = [];
-
+  allFriends: [UserModel?] = [];
   constructor(
     private authService: AuthService,
     public http: HttpClient,
@@ -46,7 +46,7 @@ export class HomepageComponent {
     this.getGameRequest();
     this.getAcceptGameRequest();
     this.friendService.sendLoginMessage(-1);
-
+    this.getAllFriends();
     this.authService.getSession().subscribe((data) => {
       this.userModel = data;
     });
@@ -76,7 +76,6 @@ export class HomepageComponent {
     this.friendService.getGameRequestMessage().subscribe((data) => {
       if (data) {
         const modalRef = this.modalService.open(QuizRequestModalComponent);
-
         modalRef.componentInstance.userIds = data;
       }
     });
@@ -113,6 +112,35 @@ export class HomepageComponent {
       if (this.userModel?.id === element?.id) {
         this.allUsers.splice(this.allUsers.indexOf(element), 1);
       }
+    });
+  }
+
+  async getAllFriends() {
+    this.getData2().then(async (data) => {
+      const apiUrl = 'http://localhost:3000/api/users';
+      const url = `${apiUrl}/${data.id}/getFriends`;
+      var data1 = await lastValueFrom(this.http.get<any>(url));
+      data1.forEach((element: any) => {
+        const newUser = new UserModel(
+          0,
+          0,
+          0,
+          [],
+          '',
+          element.username,
+          element.email,
+          element.id
+        );
+        this.allFriends.push(newUser);
+      });
+    });
+  }
+  async getData2() {
+    return new Promise<UserModel>((resolve) => {
+      this.authService.getSession().subscribe((data) => {
+        this.userModel = data;
+        resolve(data);
+      });
     });
   }
 

@@ -19,6 +19,19 @@ export class FriendService {
     this.socket.emit('gameRequest', { userId: userId, friendId: friendId });
   }
 
+  sendAcceptFriendRequest(userId: number, friendId: number) {
+    this.socket.emit('acceptFriendRequest', {
+      userId: userId,
+      friendId: friendId,
+    });
+  }
+  sendFriendRequestMessage(userName: string, userId: number, friendId: number) {
+    this.socket.emit('friendRequest', {
+      userName: userName,
+      userId: userId,
+      friendId: friendId,
+    });
+  }
   sendOnSubmitAnswer(friendId: number, enemySum: number) {
     this.socket.emit('submitAnswer', {
       friendId: friendId,
@@ -27,6 +40,12 @@ export class FriendService {
   }
   getGameRequestMessage() {
     return this.socket.fromEvent<number>('gameRequest');
+  }
+  getAcceptFriendRequest() {
+    return this.socket.fromEvent<Array<number>>('acceptFriendRequest');
+  }
+  getFriendRequestMessage() {
+    return this.socket.fromEvent<any>('friendRequest');
   }
 
   getOnSubmitAnswer() {

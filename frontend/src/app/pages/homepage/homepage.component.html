@@ -128,12 +128,22 @@
   <div class="col-md-2 shadow box" style="overflow-y: scroll">
     <div class="row">
       <h2 class="d-flex justify-content-center">Freundesliste</h2>
-      <div class="list-group list-group-flush">
-        <button type="button" class="list-group-item list-group-item-action">
-          Cras justo odio
-        </button>
-        <button type="button" class="list-group-item list-group-item-action">
-          Dapibus ac facilisis in
+      <div class="list-group list-group-flush" *ngFor="let user of allFriends">
+        <button
+          *ngIf="!isSelf(user!.id!)"
+          class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+          (click)="openPlayerModal(user)"
+        >
+          {{ user!.username }}
+          <span
+            *ngIf="isUserInOnlineUsers(user!.id!)"
+            class="onlinedot mx-2"
+            style="background-color: #1cd607"
+          ></span>
+          <span
+            *ngIf="!isUserInOnlineUsers(user!.id!)"
+            class="onlinedot mx-2"
+          ></span>
         </button>
       </div>
     </div>

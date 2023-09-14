@@ -91,8 +91,8 @@ export class QuizGameComponent {
               this.createQuizForHistory(
                 this.userModel?.username!,
                 data.username,
-                //      this.userModel?.id!,
-                //      this.friendId,
+                //this.userModel?.id!,
+                //this.friendId,
                 this.userModel?.username!
               );
             });
@@ -101,9 +101,9 @@ export class QuizGameComponent {
               this.createQuizForHistory(
                 this.userModel?.username!,
                 data.username,
-                //    this.userModel?.id!,
-                //    this.friendId,
-                this.userModel?.username!
+                data.username
+                //this.userModel?.id!,
+                //this.friendId,
               );
             });
           } else {
@@ -111,9 +111,9 @@ export class QuizGameComponent {
               this.createQuizForHistory(
                 this.userModel?.username!,
                 data.username,
+                'unentschieden'
                 //   this.userModel?.id!,
                 //    this.friendId,
-                this.userModel?.username!
               );
             });
           }

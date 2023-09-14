@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  Delete,
   Body,
   Param,
   ParseIntPipe,
@@ -21,11 +22,16 @@ export class UsersController {
     return { result };
   }
 
+  // Read all friends
+  @Get(':id/getFriends')
+  async getAllFriends(@Param('id', ParseIntPipe) id: number) {
+    const result = await this.userService.getAllFriends(id);
+
+    return result;
+  }
+
   // Read by Name
   @Get(':id') async findById(@Param('id', ParseIntPipe) id: number) {
-    console.log('id in controller');
-    console.log(id);
-    console.log(this.userService.findById(id));
     return await this.userService.findById(id);
   }
 
@@ -65,11 +71,29 @@ export class UsersController {
     return { msg: 'Friend request has been succesfully sent.' };
   }
 
+  @Post(':id/add-new-friend')
+  async addNewFriend(
+    @Param('id', ParseIntPipe) id: number,
+    @Body('friendId') friendId,
+  ) {
+    await this.userService.addRealFriend(id, friendId);
+    return { msg: 'Friend  has been succesfully added.' };
+  }
+
   // Get all friend requests for particular user
   @Get(':id/friend-requests')
   async getFriendRequests(@Param('id', ParseIntPipe) id: number) {
     const result = await this.userService.getRequests(id);
     return result;
+  }
+
+  @Put(':id/updateFriend-requests')
+  async deleteFriendRequests(
+    @Param('id', ParseIntPipe) id: number,
+    @Body('friendId') friendId,
+  ) {
+    await this.userService.updateRequests(id, friendId);
+    return { msg: 'Request successfully deleted' };
   }
 
   @Post('invite')

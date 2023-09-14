@@ -32,7 +32,18 @@ export class UsersService {
       select: ['id', 'username'],
     });
   }
-
+  async getAllFriends(id: number): Promise<User[]> {
+    const user = await this.userRepository.findOne({
+      where: {
+        id: id,
+      },
+      relations: {
+        friends: true,
+      },
+    });
+    console.log(user.friends);
+    return user.friends;
+  }
   async create(username: string, password: string) {
     const userExists = await this.userRepository.findOne({
       where: {
@@ -148,6 +159,29 @@ export class UsersService {
     return user.friendRequests;
   }
 
+  async updateRequests(userId: number, friendId: number) {
+    const friend = await this.userRepository.findOne({
+      where: {
+        id: friendId,
+      },
+    });
+    const user = await this.userRepository.findOne({
+      where: {
+        id: userId,
+      },
+      relations: {
+        friendRequests: true,
+      },
+    });
+    user.friendRequests = user.friendRequests.filter(
+      (obj) => obj.id !== friend.id,
+    );
+    await this.userRepository.save(user);
+    return {
+      message: 'User succesfully deleted',
+    };
+  }
+
   async addFriend(userId: number, friendId: number): Promise<User> {
     const friend = await this.userRepository.findOne({
       where: {
@@ -168,6 +202,30 @@ export class UsersService {
     friend.friendRequests.push(user);
 
     return await this.userRepository.save(friend);
+  }
+
+  async addRealFriend(userId: number, friendId: number): Promise<User> {
+    const friend = await this.userRepository.findOne({
+      where: {
+        id: friendId,
+      },
+    });
+
+    const user = await this.userRepository.findOne({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!user.friends) {
+      user.friends = [];
+    }
+    /*if (user.friends.indexOf(friend) === -1) {
+      user.friends.push(friend);
+    }*/
+    user.friends.push(friend);
+    console.log('friendADDED');
+    return await this.userRepository.save(user);
   }
 
   async updateUsername(newUserName: string, id: number) {

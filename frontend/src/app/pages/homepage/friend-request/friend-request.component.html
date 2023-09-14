@@ -1,9 +1,21 @@
 <ul class="list-group" *ngFor="let user of friendRequests">
   <li class="list-group-item d-flex justify-content-between">
-    {{ user!.username }}
+    {{ user.username }}
     <div>
-      <button type="button" class="btn btn-danger">Delete</button>
-      <button type="button" class="btn btn-success">Confirm</button>
+      <button
+        (click)="deleteRequest(user)"
+        type="button"
+        class="btn btn-danger"
+      >
+        Delete
+      </button>
+      <button
+        (click)="acceptRequest(user)"
+        type="button"
+        class="btn btn-success"
+      >
+        Confirm
+      </button>
     </div>
   </li>
 </ul>

@@ -41,6 +41,17 @@ export class PlayerModalComponent {
     this.closeModal();
   }
 
+  sendFriendRequest() {
+    console.log('sendFriendRequest');
+    this.addFriend();
+    this.friendService.sendFriendRequestMessage(
+      this.userModel?.username!,
+      this.userModel?.id!,
+      this.user!.id!
+    );
+    this.closeModal();
+  }
+
   async addFriend() {
     const apiUrl = 'http://localhost:3000/api/users';
     const url = `${apiUrl}/${this.userModel?.id}/friend-requests`;

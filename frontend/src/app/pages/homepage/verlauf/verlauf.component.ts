@@ -15,13 +15,13 @@ export class VerlaufComponent {
   userModel: UserModel | undefined;
   userone = 'Userone';
   usertwo = 'Usertwo';
+  uentschieden: string = 'unentschieden';
   quizzes: [QuizModel?] = [];
 
   constructor(public http: HttpClient, private authService: AuthService) {
     this.getData2().then((data) => {
       this.getData(data).then((data) => {
         this.quizzes = data;
-        console.log(this.quizzes[0]?.username1);
       });
     });
   }

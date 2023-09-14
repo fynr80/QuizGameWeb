@@ -82,8 +82,6 @@ export class MyGateway implements OnModuleInit {
 
   @SubscribeMessage('gameRequest')
   onGameRequest(@MessageBody() body: any, @ConnectedSocket() socket: Socket) {
-    //users[socket.id] = body.userId;
-
     const friendId = body.friendId;
     const userId = body.userId;
 
@@ -92,6 +90,16 @@ export class MyGateway implements OnModuleInit {
     );
 
     this.server.to(friendUser.socketId).emit('gameRequest', body.userId);
+  }
+
+  @SubscribeMessage('friendRequest')
+  onFriendRequest(@MessageBody() body: any, @ConnectedSocket() socket: Socket) {
+    const friendId = body.friendId;
+    const friendUser: User = onlineUsers.find(
+      (user) => user.userId === friendId,
+    );
+
+    this.server.to(friendUser.socketId).emit('friendRequest', body);
   }
 
   @SubscribeMessage('submitAnswer')
@@ -142,5 +150,21 @@ export class MyGateway implements OnModuleInit {
     }
 
     this.server.emit('onlineUsers', onlineUsers);
+  }
+
+  @SubscribeMessage('acceptFriendRequest')
+  onAcceptFriendRequest(
+    @MessageBody() body: any,
+    @ConnectedSocket() socket: Socket,
+  ) {
+    const friendId = body.friendId;
+    const userId = body.userId;
+    const friendUser: User = onlineUsers.find(
+      (user) => user.userId === friendId,
+    );
+    const user: User = onlineUsers.find((user) => user.userId === userId);
+    this.server
+      .to([user.socketId, friendUser.socketId])
+      .emit('acceptFriendRequest', [body.friendId, body.userId]);
   }
 }
