@@ -19,6 +19,14 @@ export class UsersService {
     });
   }
 
+  async findById(id: number): Promise<User | null> {
+    return await this.userRepository.findOne({
+      where: {
+        id: id,
+      },
+    });
+  }
+
   async getAllUsers(): Promise<User[]> {
     return await this.userRepository.find({
       select: ['id', 'username'],
@@ -47,6 +55,8 @@ export class UsersService {
     newUser.friendRequests = [];
     newUser.gamesWon = 0;
     newUser.history = [];
+    newUser.gamesLost = 0;
+    newUser.gamesDraw = 0;
 
     await this.userRepository.save(newUser);
 
@@ -64,6 +74,38 @@ export class UsersService {
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
     user.password = hashedPassword;
+    await this.userRepository.save(user);
+  }
+
+  async increaseWinNumber(userId: number) {
+    const user = await this.userRepository.findOne({
+      where: {
+        id: userId,
+      },
+    });
+
+    user.gamesWon++;
+    await this.userRepository.save(user);
+  }
+
+  async increaseDrawNumber(userId: number) {
+    const user = await this.userRepository.findOne({
+      where: {
+        id: userId,
+      },
+    });
+
+    user.gamesDraw++;
+    await this.userRepository.save(user);
+  }
+
+  async increaseLostNumber(userId: number) {
+    const user = await this.userRepository.findOne({
+      where: {
+        id: userId,
+      },
+    });
+    user.gamesLost++;
     await this.userRepository.save(user);
   }
 

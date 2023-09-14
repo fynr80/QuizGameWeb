@@ -1,8 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { questionModal } from 'app/models/question.model';
 import { UserModel } from 'app/models/user.model';
 import { AuthService } from 'app/pages/login/auth.service';
 import { FriendService } from 'app/services/friend-service';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-quiz-game',
@@ -28,7 +30,8 @@ export class QuizGameComponent {
 
   constructor(
     private authService: AuthService,
-    private friendService: FriendService
+    private friendService: FriendService,
+    public http: HttpClient
   ) {
     this.authService.getSession().subscribe((data) => {
       this.userModel = data;
@@ -72,8 +75,9 @@ export class QuizGameComponent {
         } else {
           this.isWin = 0;
         }
-        console.log('this.isWin');
+        this.updateUsersQuizResultNumber(this.userModel?.id!, this.isWin);
 
+        console.log('this.isWin');
         console.log(this.isWin);
         this.showStatistic = true;
       }
@@ -90,11 +94,45 @@ export class QuizGameComponent {
         if (this.questionNumber == 5) {
           this.showStatistic = true;
           this.sum = this.pointCalc();
+          this.updateUsersQuizResultNumber(this.userModel?.id!, this.isWin);
+          if (this.isWin == 1) {
+            this.getUsersById(this.userId).then((data) => {
+              console.log('data.username');
+              console.log(data.username);
+              this.createQuizForHistory(
+                this.userModel?.username!,
+                data.username,
+                this.userModel?.username!
+              );
+            });
+          } else if (this.isWin == 2) {
+            this.getUsersById(this.userId).then((data) => {
+              this.createQuizForHistory(
+                this.userModel?.username!,
+                data.username,
+                data.username
+              );
+            });
+          } else {
+            this.getUsersById(this.userId).then((data) => {
+              this.createQuizForHistory(
+                this.userModel?.username!,
+                data.username,
+                'untentschiden'
+              );
+            });
+          }
         } else {
           this.toogleGameStart = !this.toogleGameStart;
         }
       }
     });
+  }
+
+  async getUsersById(id: number) {
+    const apiUrl: string = 'http://localhost:3000/api/users/' + id;
+
+    return await lastValueFrom(this.http.get<any>(apiUrl));
   }
 
   checkValue(answer: string, num: number) {
@@ -127,5 +165,36 @@ export class QuizGameComponent {
       sum = -1;
     }
     return sum;
+  }
+
+  async createQuizForHistory(
+    username1: string,
+    username2: string,
+    whoWin: string
+  ) {
+    const apiUrl: string = 'http://localhost:3000/api/quiz/create';
+    console.log('Quiz added' + username1 + username2 + whoWin);
+    await lastValueFrom(
+      this.http.post<any>(apiUrl, {
+        username1,
+        username2,
+        whoWin,
+      })
+    );
+  }
+
+  async updateUsersQuizResultNumber(userId: number, whoWin: number) {
+    console.log('updateUsersQuizResultNumber');
+    console.log(userId);
+
+    const apiUrl = 'http://localhost:3000/api/users';
+    const url = `${apiUrl}/${this.userModel?.id}/quiz-result`;
+
+    await lastValueFrom(
+      this.http.put<any>(url, {
+        whoWin,
+      })
+    );
+    console.log('Quiz result number of array string number  added');
   }
 }
