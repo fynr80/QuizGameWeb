@@ -21,11 +21,38 @@ export class UsersController {
     return { result };
   }
 
+  // Read by Name
+  @Get(':id') async findById(@Param('id', ParseIntPipe) id: number) {
+    console.log('id in controller');
+    console.log(id);
+    console.log(this.userService.findById(id));
+    return await this.userService.findById(id);
+  }
+
   // Update username
   @Put(':id')
   async updateUsername(@Param('id', ParseIntPipe) id: number, @Body() user) {
     this.userService.updateUsername(user.newUserName, id);
     return { msg: 'Username has been updated' };
+  }
+
+  // Update winLoose
+  @Put(':id/quiz-result')
+  async updateWinLoose(@Param('id', ParseIntPipe) id: number, @Body() whoWin) {
+    let whoWin1: number = whoWin.whoWin;
+
+    if (whoWin1 == 1) {
+      this.userService.increaseWinNumber(id);
+    } else if (whoWin1 == 2) {
+      console.log('verloren');
+
+      this.userService.increaseLostNumber(id);
+    } else {
+      console.log('unentschieden');
+
+      this.userService.increaseDrawNumber(id);
+    }
+    return { msg: 'User win Loose has been updated' };
   }
 
   // Create a new friend request to particular user

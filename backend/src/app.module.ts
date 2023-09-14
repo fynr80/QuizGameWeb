@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { QuestionsModule } from './questions/questions.module';
 import { GatewayModule } from './gateway/gateway.module';
+import { QuizModule } from './quiz/quiz.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { GatewayModule } from './gateway/gateway.module';
     UsersModule,
     QuestionsModule,
     GatewayModule,
+    QuizModule,
   ],
   controllers: [AppController],
   providers: [AppService],

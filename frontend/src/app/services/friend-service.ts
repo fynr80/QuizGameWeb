@@ -19,15 +19,18 @@ export class FriendService {
     this.socket.emit('gameRequest', { userId: userId, friendId: friendId });
   }
 
-  sendOnSubmitAnswer(friendId: number) {
-    this.socket.emit('submitAnswer', { friendId: friendId });
+  sendOnSubmitAnswer(friendId: number, enemySum: number) {
+    this.socket.emit('submitAnswer', {
+      friendId: friendId,
+      enemySum: enemySum,
+    });
   }
   getGameRequestMessage() {
     return this.socket.fromEvent<number>('gameRequest');
   }
 
   getOnSubmitAnswer() {
-    return this.socket.fromEvent<boolean>('submitAnswer');
+    return this.socket.fromEvent<number>('submitAnswer');
   }
 
   sendAcceptGameRequest(userId: number, friendId: number) {

@@ -35,6 +35,12 @@ export class User {
   @Column({ default: 0 })
   gamesWon: number;
 
+  @Column({ default: 0 })
+  gamesLost: number;
+
+  @Column({ default: 0 })
+  gamesDraw: number;
+
   @Column('simple-array', { default: '' })
   history: string[];
 }

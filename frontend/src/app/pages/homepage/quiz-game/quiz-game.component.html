@@ -14,7 +14,7 @@
   <!-- Answers -->
   <div>
     <button
-      (click)="buttonclicked(answer, questionNumber)"
+      (click)="buttonClicked(answer, questionNumber)"
       class="answerField"
       *ngFor="let answer of this.randomQuestions[questionNumber]?.answers"
     >
@@ -35,4 +35,6 @@
   </div>
 </div>
 
-<div *ngIf="showStatistic">{{ sum }}</div>
+<div *ngIf="showStatistic && isWin == 1">Gewinnen</div>
+<div *ngIf="showStatistic && isWin == 2">Verloren</div>
+<div *ngIf="showStatistic && isWin == 0">Unentschieden</div>

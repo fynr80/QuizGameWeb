@@ -97,11 +97,13 @@ export class MyGateway implements OnModuleInit {
   @SubscribeMessage('submitAnswer')
   onSubmitAnswer(@MessageBody() body: any, @ConnectedSocket() socket: Socket) {
     const friendId = body.friendId;
+    const enemySum = body.enemySum;
 
     const friendUser: User = onlineUsers.find(
       (user) => user.userId === friendId,
     );
-    this.server.to(friendUser.socketId).emit('submitAnswer', true);
+
+    this.server.to(friendUser.socketId).emit('submitAnswer', enemySum);
   }
 
   @SubscribeMessage('acceptGameRequest')
@@ -134,7 +136,7 @@ export class MyGateway implements OnModuleInit {
 
     if (indexOfMap !== -1) {
       onlineUsers.splice(indexOfMap, 1);
-      console.log(`Logout user deleted from users array`);
+      console.log(`Logsout user deleted from users array`);
     } else {
       console.log(`Logout user not found in users array`);
     }
