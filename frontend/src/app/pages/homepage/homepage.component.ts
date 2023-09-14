@@ -85,7 +85,6 @@ export class HomepageComponent {
   async getAcceptGameRequest() {
     this.friendService.getAcceptGameRequest().subscribe((data) => {
       if (data) {
-        console.log(data);
         this, (this.checkIngame = true);
         this.toggleQuizGameStart = true;
         this.toggleQuizGame = false;

@@ -29,6 +29,8 @@ export class FriendRequestComponent {
     a.forEach((element: any) => {
       const newUser = new UserModel(
         0,
+        0,
+        0,
         [],
         '',
         element.username,

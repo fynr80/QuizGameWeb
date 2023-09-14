@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import Chart from 'chart.js/auto';
+import { AuthService } from '../login/auth.service';
 
 @Component({
   selector: 'app-pie-chart',
@@ -8,9 +9,26 @@ import Chart from 'chart.js/auto';
 })
 export class PieChartComponent {
   chart: any;
-  ngOnInit(): void {
+  userWins: number = 0;
+  userLoses: number = 0;
+
+  constructor(private authService: AuthService) {}
+
+  async ngOnInit() {
+    await this.getData();
     this.createChart();
   }
+
+  async getData() {
+    return new Promise<void>((resolve) => {
+      this.authService.getSession().subscribe((data) => {
+        this.userWins = data.gamesWon;
+        this.userLoses = data.gamesLost;
+        resolve();
+      });
+    });
+  }
+
   createChart() {
     this.chart = new Chart('chartId', {
       type: 'pie',
@@ -18,7 +36,7 @@ export class PieChartComponent {
         labels: ['Gewonnen', 'Verloren'],
         datasets: [
           {
-            data: [5, 10],
+            data: [this.userWins, this.userLoses],
             backgroundColor: ['green', 'red'],
           },
         ],

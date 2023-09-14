@@ -40,7 +40,6 @@ export class QuizGameComponent {
   }
 
   buttonClicked(answer: string, num: number) {
-    console.log(this.randomQuestions.length);
     this.userSubmit = true;
     this.questionNumber++;
     if (this.userModel?.id == this.friendId) {
@@ -61,12 +60,6 @@ export class QuizGameComponent {
         this.sum = this.pointCalc();
       } else {
         this.sum = this.pointCalc();
-        console.log('this.sum');
-
-        console.log(this.sum);
-        console.log('this.enemySum');
-
-        console.log(this.enemySum);
 
         if (this.enemySum > this.sum) {
           this.isWin = 2;
@@ -77,8 +70,6 @@ export class QuizGameComponent {
         }
         this.updateUsersQuizResultNumber(this.userModel?.id!, this.isWin);
 
-        console.log('this.isWin');
-        console.log(this.isWin);
         this.showStatistic = true;
       }
     }
@@ -97,8 +88,6 @@ export class QuizGameComponent {
           this.updateUsersQuizResultNumber(this.userModel?.id!, this.isWin);
           if (this.isWin == 1) {
             this.getUsersById(this.userId).then((data) => {
-              console.log('data.username');
-              console.log(data.username);
               this.createQuizForHistory(
                 this.userModel?.username!,
                 data.username,
@@ -173,7 +162,6 @@ export class QuizGameComponent {
     whoWin: string
   ) {
     const apiUrl: string = 'http://localhost:3000/api/quiz/create';
-    console.log('Quiz added' + username1 + username2 + whoWin);
     await lastValueFrom(
       this.http.post<any>(apiUrl, {
         username1,
@@ -184,9 +172,6 @@ export class QuizGameComponent {
   }
 
   async updateUsersQuizResultNumber(userId: number, whoWin: number) {
-    console.log('updateUsersQuizResultNumber');
-    console.log(userId);
-
     const apiUrl = 'http://localhost:3000/api/users';
     const url = `${apiUrl}/${this.userModel?.id}/quiz-result`;
 
@@ -195,6 +180,5 @@ export class QuizGameComponent {
         whoWin,
       })
     );
-    console.log('Quiz result number of array string number  added');
   }
 }

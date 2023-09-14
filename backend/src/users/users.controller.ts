@@ -77,7 +77,7 @@ export class UsersController {
     return { msg: 'Duel challenge has been sent' };
   }
 
-  @Get('statistic')
+  /*@Get('statistic')
   async getStatistic() {
     return { msg: 'User statistic has been updated' };
   }
@@ -85,12 +85,18 @@ export class UsersController {
   @Post('statistic')
   async updateStatistic() {
     return { msg: 'User statistic has been updated' };
-  }
+  }*/
 
   @Post('updatePassword')
   async updatePassword(@Body('password') password, @Body('userName') userName) {
     this.userService.updatePassword(password, userName);
     return { msg: 'Passport has been updated' };
+  }
+
+  @Post('updateGamesStatistic')
+  async updateGamesStatistic(@Body('userId') userId) {
+    this.userService.updateGamesStatistic(userId);
+    return { msg: 'User Games Statistic has been updated' };
   }
 
   /*@Get(':userId')

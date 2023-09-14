@@ -22,20 +22,10 @@ export class VerlaufComponent {
   quizzes: [QuizModel?] = [];
 
   async getVerlauf(userName?: string) {
-    console.log('userName From verlauf');
-
-    console.log(userName);
-
     const apiUrl: string = 'http://localhost:3000/api/quiz/' + userName;
     await lastValueFrom(this.http.get<any>(apiUrl)).then((data) => {
-      console.log('data From verlauf');
-      console.log(data);
-
       this.quizzes = data;
     });
-    console.log('quizzes ');
-
-    console.log(this.quizzes);
   }
 
   async getUserr() {

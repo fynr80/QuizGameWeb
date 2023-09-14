@@ -1,5 +1,7 @@
 export class UserModel {
   gamesWon?: number;
+  gamesLost?: number;
+  gamesDraw?: number;
   history?: any[];
   id?: number;
   role?: string;
@@ -9,6 +11,8 @@ export class UserModel {
 
   constructor(
     gamesWon: number,
+    gamesLost: number,
+    gamesDraw: number,
     history: any[],
     role: string,
     username: string,
@@ -16,6 +20,8 @@ export class UserModel {
     id: number
   ) {
     this.gamesWon = gamesWon;
+    this.gamesLost = gamesLost;
+    this.gamesDraw = gamesDraw;
     this.history = history;
     this.id = id;
     this.role = role;

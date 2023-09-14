@@ -77,6 +77,18 @@ export class UsersService {
     await this.userRepository.save(user);
   }
 
+  async updateGamesStatistic(userId: number) {
+    const user = await this.userRepository.findOne({
+      where: {
+        id: userId,
+      },
+    });
+    user.gamesDraw = 0;
+    user.gamesLost = 0;
+    user.gamesWon = 0;
+    await this.userRepository.save(user);
+  }
+
   async increaseWinNumber(userId: number) {
     const user = await this.userRepository.findOne({
       where: {
