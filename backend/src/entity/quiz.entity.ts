@@ -18,6 +18,12 @@ export class Quiz {
   @Column()
   username2: string;
 
+  /*  @Column()
+  user1Id: number;
+
+  @Column()
+  user2Id: number;*/
+
   @Column()
   winnerUsername: string;
 }

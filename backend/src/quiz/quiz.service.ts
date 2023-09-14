@@ -19,11 +19,15 @@ export class QuizService {
   async createQuiz(
     username1: string,
     username2: string,
+    // user1Id: number,
+    // user2Id: number,
     winnerUsername: string,
   ): Promise<Quiz> {
     const quiz = new Quiz();
     quiz.username1 = username1;
     quiz.username2 = username2;
+    // quiz.user1Id = 0;
+    // quiz.user2Id = 0;
     quiz.winnerUsername = winnerUsername;
 
     return await this.quizRepository.save(quiz);

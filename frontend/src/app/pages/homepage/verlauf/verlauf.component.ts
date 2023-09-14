@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
+import { questionModal } from 'app/models/question.model';
 import { QuizModel } from 'app/models/quiz.model';
 import { UserModel } from 'app/models/user.model';
 import { AuthService } from 'app/pages/login/auth.service';
@@ -12,30 +13,33 @@ import { lastValueFrom } from 'rxjs';
 })
 export class VerlaufComponent {
   userModel: UserModel | undefined;
-
-  constructor(public http: HttpClient, private authService: AuthService) {
-    this.getUserr().then((data) => {
-      this.getVerlauf(data.username);
-    });
-  }
-
+  userone = 'Userone';
+  usertwo = 'Usertwo';
   quizzes: [QuizModel?] = [];
 
-  async getVerlauf(userName?: string) {
-    const apiUrl: string = 'http://localhost:3000/api/quiz/' + userName;
-    await lastValueFrom(this.http.get<any>(apiUrl)).then((data) => {
-      this.quizzes = data;
+  constructor(public http: HttpClient, private authService: AuthService) {
+    this.getData2().then((data) => {
+      this.getData(data).then((data) => {
+        this.quizzes = data;
+        console.log(this.quizzes[0]?.username1);
+      });
     });
   }
-
-  async getUserr() {
-    return new Promise<UserModel>((resolve, reject) => {
-      this.authService.getSession().subscribe((data) => {
+  async getData(d: UserModel) {
+    const apiUrl: string =
+      'http://localhost:3000/api/quiz/' + this.userModel?.username;
+    return new Promise<[QuizModel?]>((resolve) => {
+      lastValueFrom(this.http.get<any>(apiUrl)).then((data) => {
         resolve(data);
       });
     });
   }
-
-  userone = 'Userone';
-  usertwo = 'Usertwo';
+  async getData2() {
+    return new Promise<UserModel>((resolve) => {
+      this.authService.getSession().subscribe((data) => {
+        this.userModel = data;
+        resolve(data);
+      });
+    });
+  }
 }

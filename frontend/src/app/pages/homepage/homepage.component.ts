@@ -88,6 +88,9 @@ export class HomepageComponent {
         this, (this.checkIngame = true);
         this.toggleQuizGameStart = true;
         this.toggleQuizGame = false;
+        this.toggleProfil = false;
+        this.toggleStatistik = false;
+        this.toggleVerlauf = false;
         this.randomQuestions = data[2];
         this.friendId = data[1];
         this.userId = data[0];

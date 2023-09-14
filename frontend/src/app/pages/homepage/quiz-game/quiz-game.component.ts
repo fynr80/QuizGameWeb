@@ -91,6 +91,8 @@ export class QuizGameComponent {
               this.createQuizForHistory(
                 this.userModel?.username!,
                 data.username,
+                //      this.userModel?.id!,
+                //      this.friendId,
                 this.userModel?.username!
               );
             });
@@ -99,7 +101,9 @@ export class QuizGameComponent {
               this.createQuizForHistory(
                 this.userModel?.username!,
                 data.username,
-                data.username
+                //    this.userModel?.id!,
+                //    this.friendId,
+                this.userModel?.username!
               );
             });
           } else {
@@ -107,7 +111,9 @@ export class QuizGameComponent {
               this.createQuizForHistory(
                 this.userModel?.username!,
                 data.username,
-                'untentschiden'
+                //   this.userModel?.id!,
+                //    this.friendId,
+                this.userModel?.username!
               );
             });
           }
@@ -159,6 +165,8 @@ export class QuizGameComponent {
   async createQuizForHistory(
     username1: string,
     username2: string,
+    // user1Id: number,
+    //  user2Id: number,
     whoWin: string
   ) {
     const apiUrl: string = 'http://localhost:3000/api/quiz/create';
@@ -166,6 +174,8 @@ export class QuizGameComponent {
       this.http.post<any>(apiUrl, {
         username1,
         username2,
+        //   user1Id,
+        //    user2Id,
         whoWin,
       })
     );

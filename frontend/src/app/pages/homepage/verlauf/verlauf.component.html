@@ -6,9 +6,25 @@
 </h2>
 <div class="row d-flex justify-content-center">
   <div
+    *ngFor="let quiz of this.quizzes.slice().reverse()"
     class="m-2 col-md-8"
-    style="background-color: brown; text-align: center; border-radius: 15px"
+    [ngStyle]="{
+      'background-color':
+        quiz?.winnerUsername === this.userModel?.username
+          ? '#7CFC00'
+          : '#B22222',
+      'text-align': 'center',
+      'border-radius': '15px'
+    }"
   >
-    <h2>{{ userone }} vs {{ usertwo }}</h2>
+    <h2>
+      {{ quiz?.username1 }} vs {{ quiz?.username2 }}
+      <h2 *ngIf="quiz?.winnerUsername === this.userModel?.username">
+        Gewonnen
+      </h2>
+      <h2 *ngIf="!(quiz?.winnerUsername === this.userModel?.username)">
+        Verloren
+      </h2>
+    </h2>
   </div>
 </div>

@@ -27,8 +27,16 @@ export class QuizController {
   async createQuiz(
     @Body('username1') username1: string,
     @Body('username2') username2: string,
+    //  @Body('user1Id') user1Id: number,
+    //  @Body('user2Id') user2Id: number,
     @Body('whoWin') whoWin: string,
   ) {
-    return await this.quizService.createQuiz(username1, username2, whoWin);
+    return await this.quizService.createQuiz(
+      username1,
+      username2,
+      //  user1Id,
+      //  user2Id,
+      whoWin,
+    );
   }
 }

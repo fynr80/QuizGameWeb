@@ -25,7 +25,6 @@ export class StatistikComponent {
       this.userLoses = data.gamesLost;
       this.userDraw = data.gamesDraw;
       this.userAllGames = data.gamesWon + data.gamesLost + data.gamesDraw;
-      console.log(data);
     });
   }
 
