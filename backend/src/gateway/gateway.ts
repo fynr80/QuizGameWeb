@@ -31,11 +31,7 @@ export class MyGateway implements OnModuleInit {
       );
 
       if (user) {
-        console.log('User exist');
-        console.log(onlineUsers);
-
         user.socketId = socket.id;
-        console.log(onlineUsers);
       } else {
         console.log('New User');
       }
@@ -53,10 +49,10 @@ export class MyGateway implements OnModuleInit {
         if (indexOfMap !== -1) {
           onlineUsers[indexOfMap].socketId = 'default';
           //users.splice(indexOfMap, 1);
-          console.log(`Reload Exists User`);
-          console.log(onlineUsers);
+          /*console.log(`Reload Exists User`);
+          console.log(onlineUsers);*/
         } else {
-          console.log(`Reload User`);
+          //console.log(`Reload User`);
         }
 
         //delete users[socket.id];
@@ -144,7 +140,7 @@ export class MyGateway implements OnModuleInit {
 
     if (indexOfMap !== -1) {
       onlineUsers.splice(indexOfMap, 1);
-      console.log(`Logsout user deleted from users array`);
+      console.log(`Losgsout user deleted from users array`);
     } else {
       console.log(`Logout user not found in users array`);
     }

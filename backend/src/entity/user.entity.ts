@@ -29,7 +29,17 @@ export class User {
   friends: User[];
 
   @ManyToMany(() => User)
-  @JoinTable()
+  @JoinTable({
+    name: 'friendRequest',
+    joinColumn: {
+      name: 'to_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'from_id',
+      referencedColumnName: 'id',
+    },
+  })
   friendRequests: User[];
 
   @Column({ default: 0 })

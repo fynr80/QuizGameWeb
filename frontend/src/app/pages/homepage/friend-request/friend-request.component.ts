@@ -105,7 +105,7 @@ export class FriendRequestComponent {
         this.userModel?.id == data[0]
           ? (friendId = data[1])
           : (friendId = data[0]);
-        console.log(friendId);
+        //console.log(friendId);
         const apiUrl = 'http://localhost:3000/api/users';
         const url = `${apiUrl}/${this.userModel?.id}/add-new-friend`;
         lastValueFrom(

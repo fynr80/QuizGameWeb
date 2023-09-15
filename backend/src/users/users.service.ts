@@ -41,7 +41,7 @@ export class UsersService {
         friends: true,
       },
     });
-    console.log(user.friends);
+
     return user.friends;
   }
   async create(username: string, password: string) {
@@ -187,6 +187,9 @@ export class UsersService {
       where: {
         id: friendId,
       },
+      relations: {
+        friendRequests: true,
+      },
     });
 
     const user = await this.userRepository.findOne({
@@ -200,6 +203,9 @@ export class UsersService {
     }
 
     friend.friendRequests.push(user);
+    console.log(
+      'Friend request added to ' + friend.username + 'from' + user.username,
+    );
 
     return await this.userRepository.save(friend);
   }
@@ -215,16 +221,19 @@ export class UsersService {
       where: {
         id: userId,
       },
+      relations: {
+        friends: true,
+      },
     });
 
     if (!user.friends) {
       user.friends = [];
     }
-    /*if (user.friends.indexOf(friend) === -1) {
-      user.friends.push(friend);
-    }*/
+
     user.friends.push(friend);
-    console.log('friendADDED');
+
+    console.log('Friend ' + friend.username + ' added to ' + user.username);
+
     return await this.userRepository.save(user);
   }
 
