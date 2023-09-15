@@ -35,7 +35,7 @@ button:hover,
   justify-content: center;
   background-color: green;
   border-radius: 20px;
-  height: 85%;
+  height: 75%;
 }
 .centerItems {
   display: flex;

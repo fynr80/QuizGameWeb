@@ -54,3 +54,16 @@
 >
   <h2>Unentschieden</h2>
 </div>
+<div
+  *ngIf="showStatistic"
+  style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+  "
+>
+  <button type="button" class="btn btn-secondary" (click)="refresh()">
+    <h2>Beenden</h2>
+  </button>
+</div>

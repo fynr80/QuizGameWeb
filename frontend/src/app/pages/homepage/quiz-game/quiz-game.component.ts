@@ -162,6 +162,10 @@ export class QuizGameComponent {
     return sum;
   }
 
+  refresh() {
+    window.location.reload();
+  }
+
   async createQuizForHistory(
     username1: string,
     username2: string,
