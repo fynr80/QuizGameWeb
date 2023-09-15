@@ -76,8 +76,9 @@ export class UsersController {
     @Param('id', ParseIntPipe) id: number,
     @Body('friendId') friendId,
   ) {
-    await this.userService.addRealFriend(id, friendId);
-    return { msg: 'Friend  has been succesfully added.' };
+    console.log('await this.userService.addRealFriend(id, friendId)');
+
+    return await this.userService.addRealFriend(id, friendId);
   }
 
   // Get all friend requests for particular user

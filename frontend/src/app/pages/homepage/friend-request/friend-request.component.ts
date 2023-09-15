@@ -26,7 +26,7 @@ export class FriendRequestComponent {
     this.authService.getSession().subscribe((data) => {
       this.userModel = data;
       this.getRequests();
-      this.getAcceptFriendRequest();
+      // this.getAcceptFriendRequest();
     });
   }
 
@@ -96,24 +96,5 @@ export class FriendRequestComponent {
       friendUserModal.id!
     );
     this.deleteRequest(friendUserModal);
-  }
-  async getAcceptFriendRequest() {
-    let friendId: number = 0;
-
-    this.friendService.getAcceptFriendRequest().subscribe((data) => {
-      if (data) {
-        this.userModel?.id == data[0]
-          ? (friendId = data[1])
-          : (friendId = data[0]);
-        //console.log(friendId);
-        const apiUrl = 'http://localhost:3000/api/users';
-        const url = `${apiUrl}/${this.userModel?.id}/add-new-friend`;
-        lastValueFrom(
-          this.http.post<any>(url, {
-            friendId: friendId,
-          })
-        );
-      }
-    });
   }
 }

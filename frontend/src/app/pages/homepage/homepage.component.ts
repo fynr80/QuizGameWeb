@@ -46,6 +46,7 @@ export class HomepageComponent {
     this.getGameRequest();
     this.getAcceptGameRequest();
     this.friendService.sendLoginMessage(-1);
+    this.getAcceptFriendRequest();
     //this.getAllFriends();
     this.authService.getSession().subscribe((data) => {
       this.userModel = data;
@@ -142,6 +143,26 @@ export class HomepageComponent {
     console.log(sonucDizi);*/
   }
 
+  async getAcceptFriendRequest() {
+    let friendId: number = 0;
+
+    this.friendService.getAcceptFriendRequest().subscribe(async (data) => {
+      if (data) {
+        this.userModel?.id == data[0]
+          ? (friendId = data[1])
+          : (friendId = data[0]);
+        //console.log(friendId);
+        const apiUrl = 'http://localhost:3000/api/users';
+        const url = `${apiUrl}/${this.userModel?.id}/add-new-friend`;
+        await lastValueFrom(
+          this.http.post<any>(url, {
+            friendId: friendId,
+          })
+        );
+        this.getAllUsers();
+      }
+    });
+  }
   /*async getAllFriends() {
     this.getData2().then(async (data) => {
       const apiUrl = 'http://localhost:3000/api/users';
