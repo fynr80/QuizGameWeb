@@ -30,7 +30,15 @@
   >
     Freund hinzufügen
   </button>
-  <button type="button" class="btn btn-primary" (click)="sendGameRequest()">
+  <button
+    *ngIf="isOnline"
+    type="button"
+    class="btn btn-primary"
+    (click)="sendGameRequest()"
+  >
+    Duell herausfordern
+  </button>
+  <button *ngIf="!isOnline" type="button" class="btn btn-secondary">
     Duell herausfordern
   </button>
 </div>

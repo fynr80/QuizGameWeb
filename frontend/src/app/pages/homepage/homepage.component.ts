@@ -131,18 +131,17 @@ export class HomepageComponent {
   }
 
   async getAcceptFriendRequest() {
-    let friendId: number = 0;
-
     this.friendService.getAcceptFriendRequest().subscribe(async (data) => {
       if (data) {
         this.getAllUsers();
       }
     });
   }
-  openPlayerModal(user: any, isFriend: boolean) {
+  openPlayerModal(user: any, isFriend: boolean, isOnline: boolean) {
     const modalRef = this.modalService.open(PlayerModalComponent);
     modalRef.componentInstance.user = user;
     modalRef.componentInstance.isFriend = isFriend;
+    modalRef.componentInstance.isOnline = isOnline;
   }
 
   showQuizGame() {

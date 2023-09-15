@@ -15,7 +15,7 @@
         <button
           *ngIf="!isSelf(user!.id!)"
           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-          (click)="openPlayerModal(user, false)"
+          (click)="openPlayerModal(user, false, isUserInOnlineUsers(user!.id!))"
         >
           {{ user!.username }}
           <span
@@ -132,7 +132,7 @@
         <button
           *ngIf="!isSelf(user!.id!)"
           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-          (click)="openPlayerModal(user, true)"
+          (click)="openPlayerModal(user, true, isUserInOnlineUsers(user!.id!))"
         >
           {{ user!.username }}
           <span
