@@ -33,6 +33,7 @@ import { FriendService } from './services/friend-service';
 import { QuizStartComponent } from './pages/homepage/quiz-start/quiz-start.component';
 import { QuizRequestModalComponent } from './pages/homepage/quiz-request-modal/quiz-request-modal.component';
 import { LoginGuard } from './guards/login.guard';
+import { AdminGuard } from './guards/admin.guard';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -85,7 +86,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
         component: HomepageComponent,
         canActivate: [AuthGuard],
       },
-      { path: 'admin', component: AdminComponent },
+      { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
     ]),
   ],
   providers: [FriendService],
