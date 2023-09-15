@@ -91,6 +91,19 @@ export class FriendRequestComponent {
   }
 
   async acceptRequest(friendUserModal: UserModel) {
+    const apiUrl = 'http://localhost:3000/api/users';
+    let url = `${apiUrl}/${this.userModel?.id}/add-new-friend`;
+    await lastValueFrom(
+      this.http.post<any>(url, {
+        friendId: friendUserModal.id,
+      })
+    );
+    url = `${apiUrl}/${friendUserModal.id}/add-new-friend`;
+    await lastValueFrom(
+      this.http.post<any>(url, {
+        friendId: this.userModel?.id,
+      })
+    );
     this.friendService.sendAcceptFriendRequest(
       this.userModel?.id!,
       friendUserModal.id!

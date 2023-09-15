@@ -167,8 +167,14 @@ export class MyGateway implements OnModuleInit {
       (user) => user.userId === friendId,
     );
     const user: User = onlineUsers.find((user) => user.userId === userId);
-    this.server
-      .to([user.socketId, friendUser.socketId])
-      .emit('acceptFriendRequest', [body.friendId, body.userId]);
+    if (friendUser?.socketId?.length > 0) {
+      this.server
+        .to([user.socketId, friendUser.socketId])
+        .emit('acceptFriendRequest', [body.friendId, body.userId]);
+    } else {
+      this.server
+        .to(user.socketId)
+        .emit('acceptFriendRequest', [body.friendId, body.userId]);
+    }
   }
 }

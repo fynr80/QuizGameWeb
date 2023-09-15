@@ -128,19 +128,6 @@ export class HomepageComponent {
     );
 
     this.allUsers = allExceptFriends;
-
-    /*this.allFriends.forEach((element) => {
-      console.log(element);
-    });
-    console.log('-------------------');
-    this.allUsers.forEach((element) => {
-      console.log(element);
-    });
-
-    const sonucDizi: any[] = this.allUsers.filter(
-      (user1) => !this.allFriends.some((user2) => user2!.id === user1!.id)
-    );
-    console.log(sonucDizi);*/
   }
 
   async getAcceptFriendRequest() {
@@ -148,40 +135,10 @@ export class HomepageComponent {
 
     this.friendService.getAcceptFriendRequest().subscribe(async (data) => {
       if (data) {
-        this.userModel?.id == data[0]
-          ? (friendId = data[1])
-          : (friendId = data[0]);
-        //console.log(friendId);
-        const apiUrl = 'http://localhost:3000/api/users';
-        const url = `${apiUrl}/${this.userModel?.id}/add-new-friend`;
-        await lastValueFrom(
-          this.http.post<any>(url, {
-            friendId: friendId,
-          })
-        );
         this.getAllUsers();
       }
     });
   }
-  /*async getAllFriends() {
-    this.getData2().then(async (data) => {
-      const apiUrl = 'http://localhost:3000/api/users';
-      const url = `${apiUrl}/${data.id}/getFriends`;
-      var data1 = await lastValueFrom(this.http.get<any>(url));
-      console.log(data1);
-
-      this.allFriends = data1;
-    });
-  } */
-  async getData2() {
-    return new Promise<UserModel>((resolve) => {
-      this.authService.getSession().subscribe((data) => {
-        this.userModel = data;
-        resolve(data);
-      });
-    });
-  }
-
   openPlayerModal(user: any, isFriend: boolean) {
     const modalRef = this.modalService.open(PlayerModalComponent);
     modalRef.componentInstance.user = user;
