@@ -91,6 +91,7 @@ export class HomepageComponent {
         this.toggleProfil = false;
         this.toggleStatistik = false;
         this.toggleVerlauf = false;
+        this.toggleFriendRequest = false;
         this.randomQuestions = data[2];
         this.friendId = data[1];
         this.userId = data[0];

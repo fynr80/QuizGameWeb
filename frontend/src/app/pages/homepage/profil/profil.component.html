@@ -7,11 +7,15 @@
 
 <!-- Body -->
 <div class="d-flex align-items-start my-3">
-  <span class="material-icons" style="font-size: 140px">person</span>
+  <span
+    class="material-icons"
+    style="font-size: 140px; background-color: lightblue; border-radius: 100%"
+    >person</span
+  >
   <div class="mx-3 my-3">
     <h3>Username: {{ userModel?.username }}</h3>
-    <h3>E-Mail: {{ userModel?.email }}</h3>
     <h3>Gewonnen: {{ userModel?.gamesWon }}</h3>
+    <h3>Verloren: {{ userModel?.gamesLost }}</h3>
   </div>
 </div>
 <!-- Bottom -->

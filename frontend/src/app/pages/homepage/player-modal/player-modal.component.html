@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h5 class="modal-title">Spielerprofil</h5>
+  <h5 class="modal-title">Spielerprofil von {{ user!.username }}</h5>
 
   <button
     type="button"
@@ -10,11 +10,15 @@
 </div>
 <div class="modal-body">
   <div class="d-flex align-items-start">
-    <span class="material-icons" style="font-size: 140px">person</span>
+    <span
+      class="material-icons"
+      style="font-size: 140px; background-color: lightblue; border-radius: 100%"
+      >person</span
+    >
     <div class="row mx-3 my-3">
       <h5>Username: {{ user!.username }}</h5>
-
-      <h5>Punkte: {{ user!.gamesWon }}</h5>
+      <h5>Gewonnen: {{ user!.gamesWon }}</h5>
+      <h5>Verloren: {{ user!.gamesLost }}</h5>
     </div>
   </div>
 </div>

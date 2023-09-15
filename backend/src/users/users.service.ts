@@ -29,7 +29,7 @@ export class UsersService {
 
   async getAllUsers(): Promise<User[]> {
     return await this.userRepository.find({
-      select: ['id', 'username'],
+      select: ['id', 'username', 'gamesWon', 'gamesLost'],
     });
   }
   async getAllFriends(id: number): Promise<User[]> {
