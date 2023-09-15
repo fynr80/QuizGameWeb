@@ -6,7 +6,7 @@
 </h2>
 <div
   class="row d-flex justify-content-center"
-  style="height: 415px; overflow-y: scroll"
+  style="height: 425px; overflow-y: scroll"
 >
   <div
     *ngFor="let quiz of this.quizzes.slice().reverse()"
@@ -15,6 +15,8 @@
       'background-color':
         quiz?.winnerUsername === this.userModel?.username
           ? '#7CFC00'
+          : quiz?.winnerUsername === 'unentschieden'
+          ? '#808080'
           : '#B22222',
       'text-align': 'center',
       'border-radius': '15px'
@@ -25,9 +27,15 @@
       <h2 *ngIf="quiz?.winnerUsername === this.userModel?.username">
         Gewonnen
       </h2>
-      <h2 *ngIf="!(quiz?.winnerUsername === this.userModel?.username)">
+      <h2
+        *ngIf="
+          !(quiz?.winnerUsername === this.userModel?.username) &&
+          !(quiz?.winnerUsername === unentschieden)
+        "
+      >
         Verloren
       </h2>
+      <h2 *ngIf="quiz?.winnerUsername === unentschieden">Unentschieden</h2>
     </h2>
   </div>
 </div>

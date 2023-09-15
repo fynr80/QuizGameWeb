@@ -167,7 +167,6 @@ export class HomepageComponent {
   }
   showStatistik() {
     this.friendService.sendStatistic(this.userModel?.id!);
-
     this.toggleQuizGame = false;
     this.toggleProfil = false;
     this.toggleStatistik = true;
@@ -176,6 +175,7 @@ export class HomepageComponent {
     this.toggleQuizGameStart = false;
   }
   showVerlauf() {
+    this.friendService.sendGameHistory(this.userModel?.id!);
     this.toggleQuizGame = false;
     this.toggleProfil = false;
     this.toggleStatistik = false;
