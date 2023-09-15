@@ -52,6 +52,11 @@ export class MyGateway implements OnModuleInit {
           /*console.log(`Reload Exists User`);
           console.log(onlineUsers);*/
         } else {
+          console.log(`Reload User not found in users array`);
+          onlineUsers.splice(indexOfMap, 1);
+
+          this.server.emit('onlineUsers', onlineUsers);
+
           //console.log(`Reload User`);
         }
 

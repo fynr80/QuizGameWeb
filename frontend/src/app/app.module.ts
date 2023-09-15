@@ -32,6 +32,7 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { FriendService } from './services/friend-service';
 import { QuizStartComponent } from './pages/homepage/quiz-start/quiz-start.component';
 import { QuizRequestModalComponent } from './pages/homepage/quiz-request-modal/quiz-request-modal.component';
+import { LoginGuard } from './guards/login.guard';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -71,11 +72,12 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     SocketIoModule.forRoot(config),
     RouterModule.forRoot([
       { path: 'registration', component: RegistrationComponent },
-      { path: 'login', component: LoginComponent },
+      { path: 'login', canActivate: [LoginGuard], component: LoginComponent },
       {
         path: '',
         redirectTo: '/login',
         pathMatch: 'full',
+        canActivate: [LoginGuard],
       },
       { path: 'passwordForgot', component: PasswordForgotComponent },
       {

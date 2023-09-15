@@ -46,7 +46,7 @@ export class HomepageComponent {
     this.getGameRequest();
     this.getAcceptGameRequest();
     this.friendService.sendLoginMessage(-1);
-    this.getAllFriends();
+    //this.getAllFriends();
     this.authService.getSession().subscribe((data) => {
       this.userModel = data;
     });
@@ -113,28 +113,45 @@ export class HomepageComponent {
         this.allUsers.splice(this.allUsers.indexOf(element), 1);
       }
     });
+
+    const user: any = await lastValueFrom(this.authService.getSession());
+
+    const allFriends: any = await lastValueFrom(
+      this.http.get(`http://localhost:3000/api/users/${user.id}/getFriends`)
+    );
+
+    this.allFriends = allFriends;
+
+    const allExceptFriends: any = this.allUsers.filter(
+      (user1) => !this.allFriends.some((user2) => user2!.id === user1!.id)
+    );
+
+    this.allUsers = allExceptFriends;
+
+    /*this.allFriends.forEach((element) => {
+      console.log(element);
+    });
+    console.log('-------------------');
+    this.allUsers.forEach((element) => {
+      console.log(element);
+    });
+
+    const sonucDizi: any[] = this.allUsers.filter(
+      (user1) => !this.allFriends.some((user2) => user2!.id === user1!.id)
+    );
+    console.log(sonucDizi);*/
   }
 
-  async getAllFriends() {
+  /*async getAllFriends() {
     this.getData2().then(async (data) => {
       const apiUrl = 'http://localhost:3000/api/users';
       const url = `${apiUrl}/${data.id}/getFriends`;
       var data1 = await lastValueFrom(this.http.get<any>(url));
-      data1.forEach((element: any) => {
-        const newUser = new UserModel(
-          0,
-          0,
-          0,
-          [],
-          '',
-          element.username,
-          element.email,
-          element.id
-        );
-        this.allFriends.push(newUser);
-      });
+      console.log(data1);
+
+      this.allFriends = data1;
     });
-  }
+  } */
   async getData2() {
     return new Promise<UserModel>((resolve) => {
       this.authService.getSession().subscribe((data) => {
@@ -144,9 +161,10 @@ export class HomepageComponent {
     });
   }
 
-  openPlayerModal(user: any) {
+  openPlayerModal(user: any, isFriend: boolean) {
     const modalRef = this.modalService.open(PlayerModalComponent);
     modalRef.componentInstance.user = user;
+    modalRef.componentInstance.isFriend = isFriend;
   }
 
   showQuizGame() {

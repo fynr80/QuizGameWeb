@@ -14,6 +14,7 @@ import { lastValueFrom } from 'rxjs';
 })
 export class PlayerModalComponent {
   @Input() user: UserModel | undefined;
+  @Input() isFriend: boolean | undefined;
 
   userModel: UserModel | undefined;
 
