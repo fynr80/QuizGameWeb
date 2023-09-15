@@ -25,6 +25,14 @@ export class FriendService {
       friendId: friendId,
     });
   }
+
+  sendStatistic(userId: number) {
+    this.socket.emit('statistic', { userId: userId });
+  }
+
+  getStatistic() {
+    return this.socket.fromEvent<number>('statistic');
+  }
   sendFriendRequestMessage(userName: string, userId: number, friendId: number) {
     this.socket.emit('friendRequest', {
       userName: userName,

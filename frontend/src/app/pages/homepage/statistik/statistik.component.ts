@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { UserModel } from 'app/models/user.model';
 import { AuthService } from 'app/pages/login/auth.service';
+import { FriendService } from 'app/services/friend-service';
 import { lastValueFrom } from 'rxjs';
 
 @Component({
@@ -17,7 +18,12 @@ export class StatistikComponent {
   userAllGames = 0;
   userId = 0;
 
-  constructor(private authService: AuthService, public http: HttpClient) {
+  constructor(
+    private authService: AuthService,
+    public http: HttpClient,
+    private friendService: FriendService
+  ) {
+    this.getStatistic();
     this.authService.getSession().subscribe((data) => {
       this.userModal = data;
       this.userId = data.id;
@@ -25,6 +31,22 @@ export class StatistikComponent {
       this.userLoses = data.gamesLost;
       this.userDraw = data.gamesDraw;
       this.userAllGames = data.gamesWon + data.gamesLost + data.gamesDraw;
+    });
+  }
+
+  getStatistic() {
+    this.friendService.getStatistic().subscribe(async (userId) => {
+      if (userId) {
+        const data: any = await lastValueFrom(
+          this.http.get(`http://localhost:3000/api/users/${userId}`)
+        );
+        this.userModal = data;
+        this.userId = data.id;
+        this.userWins = data.gamesWon;
+        this.userLoses = data.gamesLost;
+        this.userDraw = data.gamesDraw;
+        this.userAllGames = data.gamesWon + data.gamesLost + data.gamesDraw;
+      }
     });
   }
 
@@ -38,8 +60,8 @@ export class StatistikComponent {
         }
       )
     );
-    console.log('User password updated');
-    this.authService.signOut('', '');
+    //this.friendService.sendStatistic(this.userModal?.id!);
+
     window.location.reload();
 
     return a;

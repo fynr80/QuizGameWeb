@@ -27,14 +27,30 @@
   *ngIf="toogleGameStart && !showStatistic"
   style="border-radius: 20px; height: 80%; padding: 20px"
 >
-  <div class="header">
-    <h1 class="text-dark">QuizGame</h1>
-  </div>
-  <div class="body">
+  <div class="header centerItems"><h1 class="text-dark">QuizGame</h1></div>
+  <div class="body centerItems">
     <p style="font-size: larger">Warten auf gegner</p>
   </div>
 </div>
 
-<div *ngIf="showStatistic && isWin == 1">Gewinnen</div>
-<div *ngIf="showStatistic && isWin == 2">Verloren</div>
-<div *ngIf="showStatistic && isWin == 0">Unentschieden</div>
+<div
+  *ngIf="showStatistic && isWin == 1"
+  class="endScreen"
+  style="background-color: green"
+>
+  <h2>Gewonnen</h2>
+</div>
+<div
+  *ngIf="showStatistic && isWin == 2"
+  class="endScreen"
+  style="background-color: red"
+>
+  <h2>Verloren</h2>
+</div>
+<div
+  *ngIf="showStatistic && isWin == 0"
+  class="endScreen"
+  style="background-color: gray"
+>
+  <h2>Unentschieden</h2>
+</div>

@@ -177,4 +177,13 @@ export class MyGateway implements OnModuleInit {
         .emit('acceptFriendRequest', [body.friendId, body.userId]);
     }
   }
+
+  @SubscribeMessage('statistic') onSendStatistic(
+    @MessageBody() body: any,
+    @ConnectedSocket() socket: Socket,
+  ) {
+    const userId = body.userId;
+    const user: User = onlineUsers.find((user) => user.userId === userId);
+    this.server.to(user.socketId).emit('statistic', body.userId);
+  }
 }

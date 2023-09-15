@@ -100,18 +100,12 @@
     </div>
 
     <!-- StatistikArea -->
-    <div
-      class="shadow box"
-      [ngClass]="toggleStatistik ? ['displayShow'] : ['displayHide']"
-    >
+    <div class="shadow box" *ngIf="toggleStatistik">
       <app-statistik> </app-statistik>
     </div>
 
     <!-- VerlaufArea -->
-    <div
-      class="shadow box"
-      [ngClass]="toggleVerlauf ? ['displayShow'] : ['displayHide']"
-    >
+    <div class="shadow box" *ngIf="toggleVerlauf">
       <app-verlauf></app-verlauf>
     </div>
 
