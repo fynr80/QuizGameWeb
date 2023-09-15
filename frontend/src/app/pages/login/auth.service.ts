@@ -31,20 +31,18 @@ export class AuthService {
     return a;
   }
 
-  public async isAuthenticatedd(): Promise<Boolean> {
+  public async isAuthenticatedd(): Promise<any> {
     try {
       var a = await lastValueFrom(
         this.http.get<any>('http://localhost:3000/api/auth/getSession')
       );
+      console.log('isAuthenticatedd');
+      console.log(a);
+      console.log(a.username);
 
-      let userData = localStorage.getItem('userInfo');
-      if (a) {
-        return true;
-      }
-
-      return false;
+      return a;
     } catch (error) {
-      return false;
+      return a;
     }
   }
 

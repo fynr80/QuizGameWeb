@@ -9,12 +9,18 @@ export class AuthGuard {
   constructor(private authService: AuthService, private router: Router) {}
 
   async canActivate(): Promise<boolean> {
-    if (!(await this.authService.isAuthenticatedd())) {
+    const a: any = await this.authService.isAuthenticatedd();
+    if (!a) {
       this.router.navigate(['/login']);
 
       return false;
     } else {
-      return true;
+      if (a.role === 'admin') {
+        this.router.navigate(['/admin']);
+        return false;
+      } else {
+        return true;
+      }
     }
   }
 }

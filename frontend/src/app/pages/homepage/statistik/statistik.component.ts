@@ -24,14 +24,6 @@ export class StatistikComponent {
     private friendService: FriendService
   ) {
     this.getStatistic();
-    this.authService.getSession().subscribe((data) => {
-      this.userModal = data;
-      this.userId = data.id;
-      this.userWins = data.gamesWon;
-      this.userLoses = data.gamesLost;
-      this.userDraw = data.gamesDraw;
-      this.userAllGames = data.gamesWon + data.gamesLost + data.gamesDraw;
-    });
   }
 
   getStatistic() {
