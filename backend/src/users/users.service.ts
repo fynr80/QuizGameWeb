@@ -237,6 +237,30 @@ export class UsersService {
     return await this.userRepository.save(user);
   }
 
+  async deleteFriend(userId: number, friendId: number): Promise<User> {
+    const friend = await this.userRepository.findOne({
+      where: {
+        id: friendId,
+      },
+      relations: {
+        friends: true,
+      },
+    });
+
+    const user = await this.userRepository.findOne({
+      where: {
+        id: userId,
+      },
+      relations: {
+        friends: true,
+      },
+    });
+    user.friends = user.friends.filter((obj) => obj.id !== friend.id);
+    friend.friends = friend.friends.filter((obj) => obj.id !== user.id);
+    await this.userRepository.save(friend);
+    return await this.userRepository.save(user);
+  }
+
   async updateUsername(newUserName: string, id: number) {
     const user = await this.userRepository.findOne({
       where: {

@@ -81,6 +81,16 @@ export class UsersController {
     return await this.userService.addRealFriend(id, friendId);
   }
 
+  @Put(':id/delete-friend')
+  async deleteFriend(
+    @Param('id', ParseIntPipe) id: number,
+    @Body('friendId') friendId,
+  ) {
+    console.log('await this.userService.addRealFriend(id, friendId)');
+
+    return await this.userService.deleteFriend(id, friendId);
+  }
+
   // Get all friend requests for particular user
   @Get(':id/friend-requests')
   async getFriendRequests(@Param('id', ParseIntPipe) id: number) {

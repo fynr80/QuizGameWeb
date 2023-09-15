@@ -43,9 +43,7 @@ export class PlayerModalComponent {
   }
 
   sendFriendRequest() {
-    console.log('sendFriendRequest');
     this.addFriend();
-
     this.friendService.sendFriendRequestMessage(
       this.userModel?.username!,
       this.userModel?.id!,
@@ -64,5 +62,20 @@ export class PlayerModalComponent {
     );
 
     console.log('Friend Request created');
+  }
+
+  async deleteFriend() {
+    const apiUrl = 'http://localhost:3000/api/users';
+    const url = `${apiUrl}/${this.userModel?.id}/delete-friend`;
+    var a = await lastValueFrom(
+      this.http.put<any>(url, {
+        friendId: this.user?.id,
+      })
+    );
+    this.friendService.sendAcceptFriendRequest(
+      this.userModel?.id!,
+      this.user?.id!
+    );
+    this.closeModal();
   }
 }
