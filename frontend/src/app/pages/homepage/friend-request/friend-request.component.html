@@ -1,11 +1,15 @@
 <ul class="list-group" *ngFor="let user of friendRequests">
-  <li class="list-group-item d-flex justify-content-between">
+  <li
+    class="list-group-item d-flex justify-content-between"
+    style="margin-bottom: 10px"
+  >
     {{ user.username }}
     <div>
       <button
         (click)="deleteRequest(user)"
         type="button"
         class="btn btn-danger"
+        style="margin-right: 5px"
       >
         Delete
       </button>
