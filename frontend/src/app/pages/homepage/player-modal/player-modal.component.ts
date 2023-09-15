@@ -45,6 +45,7 @@ export class PlayerModalComponent {
   sendFriendRequest() {
     console.log('sendFriendRequest');
     this.addFriend();
+
     this.friendService.sendFriendRequestMessage(
       this.userModel?.username!,
       this.userModel?.id!,

@@ -53,9 +53,9 @@ export class MyGateway implements OnModuleInit {
           console.log(onlineUsers);*/
         } else {
           console.log(`Reload User not found in users array`);
-          onlineUsers.splice(indexOfMap, 1);
+          /*onlineUsers.splice(indexOfMap, 1);
 
-          this.server.emit('onlineUsers', onlineUsers);
+          this.server.emit('onlineUsers', onlineUsers);*/
 
           //console.log(`Reload User`);
         }
@@ -99,8 +99,11 @@ export class MyGateway implements OnModuleInit {
     const friendUser: User = onlineUsers.find(
       (user) => user.userId === friendId,
     );
-
-    this.server.to(friendUser.socketId).emit('friendRequest', body);
+    if (friendUser?.socketId?.length > 0) {
+      this.server.to(friendUser.socketId).emit('friendRequest', body);
+    } else {
+      console.log('User Not Online');
+    }
   }
 
   @SubscribeMessage('submitAnswer')
