@@ -15,14 +15,6 @@ export class ProfilComponent {
     public authService: AuthService,
     public friendService: FriendService
   ) {}
-
-  ngOnInit() {}
-
-  username = 'this.userModel.username';
-  email = 'this.userModel.username';
-  points = 1231;
-  changeUsername() {}
-  changePassword() {}
   signOut() {
     this.friendService.sendLogoutMessage(this.userModel!.id!);
     this.authService.signOut('', '');

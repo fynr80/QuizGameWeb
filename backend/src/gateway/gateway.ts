@@ -186,4 +186,13 @@ export class MyGateway implements OnModuleInit {
     const user: User = onlineUsers.find((user) => user.userId === userId);
     this.server.to(user.socketId).emit('statistic', body.userId);
   }
+
+  @SubscribeMessage('gameHistory') onSendGameHistory(
+    @MessageBody() body: any,
+    @ConnectedSocket() socket: Socket,
+  ) {
+    const userId = body.userId;
+    const user: User = onlineUsers.find((user) => user.userId === userId);
+    this.server.to(user.socketId).emit('gameHistory', body.userId);
+  }
 }

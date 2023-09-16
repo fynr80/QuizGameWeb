@@ -33,6 +33,14 @@ export class FriendService {
   getStatistic() {
     return this.socket.fromEvent<number>('statistic');
   }
+
+  sendGameHistory(userId: number) {
+    this.socket.emit('gameHistory', { userId: userId });
+  }
+
+  getGameHistory() {
+    return this.socket.fromEvent<number>('gameHistory');
+  }
   sendFriendRequestMessage(userName: string, userId: number, friendId: number) {
     this.socket.emit('friendRequest', {
       userName: userName,

@@ -91,6 +91,7 @@ export class HomepageComponent {
         this.toggleProfil = false;
         this.toggleStatistik = false;
         this.toggleVerlauf = false;
+        this.toggleFriendRequest = false;
         this.randomQuestions = data[2];
         this.friendId = data[1];
         this.userId = data[0];
@@ -167,7 +168,6 @@ export class HomepageComponent {
   }
   showStatistik() {
     this.friendService.sendStatistic(this.userModel?.id!);
-
     this.toggleQuizGame = false;
     this.toggleProfil = false;
     this.toggleStatistik = true;
@@ -176,6 +176,7 @@ export class HomepageComponent {
     this.toggleQuizGameStart = false;
   }
   showVerlauf() {
+    this.friendService.sendGameHistory(this.userModel?.id!);
     this.toggleQuizGame = false;
     this.toggleProfil = false;
     this.toggleStatistik = false;

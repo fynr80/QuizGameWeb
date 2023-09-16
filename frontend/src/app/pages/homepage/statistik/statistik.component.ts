@@ -52,10 +52,7 @@ export class StatistikComponent {
         }
       )
     );
-    //this.friendService.sendStatistic(this.userModal?.id!);
-
-    window.location.reload();
-
+    this.friendService.sendStatistic(this.userModal?.id!);
     return a;
   }
 }
