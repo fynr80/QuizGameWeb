@@ -159,6 +159,7 @@ export class HomepageComponent {
     this.toggleFriendRequest = false;
   }
   showProfil() {
+    this.friendService.sendStatistic(this.userModel?.id!);
     this.toggleQuizGame = false;
     this.toggleProfil = true;
     this.toggleStatistik = false;
