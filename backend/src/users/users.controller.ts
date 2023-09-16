@@ -144,10 +144,4 @@ export class UsersController {
 
     return result;
   } */
-
-  @Post('admin')
-  async creaetAdmin() {
-    await this.userService.createAdmin();
-    return { msg: 'admin created' };
-  }
 }

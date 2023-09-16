@@ -55,7 +55,7 @@ export class QuizGameComponent {
     }
     this.counterArr[num] = this.checkValue(answer, num);
 
-    if (this.questionNumber == 5) {
+    if (this.questionNumber == 10) {
       if (this.enemySum == 0) {
         this.sum = this.pointCalc();
       } else {
@@ -82,7 +82,7 @@ export class QuizGameComponent {
       if (data != null) {
         this.friendSubmit = true;
         this.enemySum = data;
-        if (this.questionNumber == 5) {
+        if (this.questionNumber == 10) {
           this.showStatistic = true;
           this.sum = this.pointCalc();
           this.updateUsersQuizResultNumber(this.userModel?.id!, this.isWin);

@@ -93,7 +93,7 @@ export class FriendService {
       this.http.get<any>(this.apiUrl).subscribe(
         (data) => {
           const shuffledQuestions = this.shuffle(data.result);
-          const selectedQuestions = shuffledQuestions.slice(0, 5);
+          const selectedQuestions = shuffledQuestions.slice(0, 10);
           selectedQuestions.forEach((element: any) => {
             const newQuestion = new questionModal(
               element.id,

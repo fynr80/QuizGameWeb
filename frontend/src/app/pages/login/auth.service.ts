@@ -46,16 +46,11 @@ export class AuthService {
     }
   }
 
-  async register(
-    username: string,
-    password: string,
-    email: string
-  ): Promise<void> {
+  async register(username: string, password: string): Promise<void> {
     var a = await lastValueFrom(
       this.http.post<any>('http://localhost:3000/api/auth/register', {
         username: username,
         password: password,
-        email: email,
       })
     );
     console.log('User created');

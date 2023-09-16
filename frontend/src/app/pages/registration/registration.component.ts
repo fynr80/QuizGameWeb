@@ -11,23 +11,19 @@ export class RegistrationComponent {
   inputPassword: string = '';
   repeatPassword: string = '';
   inputUsername: string = '';
-  inputEmail: string = '';
+
   showErrorMessage: boolean = false;
   errorMessage!: string;
 
   constructor(public authService: AuthService, private router: Router) {}
 
-  // TODO: email validation
-  // TODO: implement email already used in backend
   async submit() {
     if (
-      this.inputEmail == undefined ||
       this.inputPassword == undefined ||
       this.inputUsername == undefined ||
       this.repeatPassword == undefined ||
       this.inputUsername == '' ||
       this.repeatPassword == '' ||
-      this.inputEmail == '' ||
       this.inputPassword == ''
     ) {
       this.errorMessage = 'Bitte füllen Sie alle Felder aus';
@@ -41,7 +37,7 @@ export class RegistrationComponent {
         this.showErrorMessage = false;
 
         var user = await this.authService
-          .register(this.inputUsername, this.inputPassword!, this.inputEmail!)
+          .register(this.inputUsername, this.inputPassword!)
           .catch((err) => {
             this.errorMessage = 'username oder email bereits vergeben';
             this.showErrorMessage = true;
