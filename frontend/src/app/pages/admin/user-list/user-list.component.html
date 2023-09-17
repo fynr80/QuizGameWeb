@@ -12,10 +12,10 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col">#</th>
+            <th scope="col">UID</th>
             <th scope="col">Username</th>
             <th scope="col">GamesWon</th>
-            <th scope="col">Role</th>
+            <th scope="col">GamesLost</th>
           </tr>
         </thead>
         <tbody>
@@ -23,7 +23,17 @@
             <td>{{ user!.id }}</td>
             <td>{{ user!.username }}</td>
             <td>{{ user!.gamesWon }}</td>
-            <td>{{ user!.role }}</td>
+            <td>{{ user!.gamesLost }}</td>
+            <td>
+              <button
+                *ngIf="!(user?.id == 1)"
+                style="border: none; background: none; float: right"
+                class="material-icons"
+                (click)="deleteUser(user!.username!)"
+              >
+                delete
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
