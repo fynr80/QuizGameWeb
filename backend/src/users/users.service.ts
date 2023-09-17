@@ -16,19 +16,23 @@ export class UsersService {
   ) {}
 
   async findByName(name: string): Promise<User | null> {
-    return await this.userRepository.findOne({
+    const user = await this.userRepository.findOne({
       where: {
         username: name,
       },
     });
+    this.checkUserExist(user);
+    return user;
   }
 
   async findById(id: number): Promise<User | null> {
-    return await this.userRepository.findOne({
+    const user = await this.userRepository.findOne({
       where: {
         id: id,
       },
     });
+    this.checkUserExist(user);
+    return user;
   }
 
   async getAllUsers(): Promise<User[]> {
@@ -301,9 +305,7 @@ export class UsersService {
 
   async checkUserExist(user: User) {
     if (!user) {
-      throw new NotFoundException(
-        `Benutzer mit ID ${user.id} wurde nicht gefunden`,
-      );
+      throw new NotFoundException(`Benutzer mit ID wurde nicht gefunden`);
     }
   }
 }
