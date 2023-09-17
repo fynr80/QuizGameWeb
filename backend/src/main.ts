@@ -22,7 +22,9 @@ async function bootstrap() {
     .setTitle('QuizDuel')
     .setDescription('The QuizDuel API description')
     .setVersion('1.0')
-    .addTag('quizduel')
+    .addTag('Benutzer')
+    .addTag('Quiz')
+    .addTag('Fragen')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);

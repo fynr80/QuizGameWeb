@@ -10,13 +10,26 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from 'src/entity/user.entity';
+import {
+  ApiBody,
+  ApiInternalServerErrorResponse,
+  ApiOkResponse,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @Controller('api/users')
+@ApiTags('Benutzer')
+@ApiOkResponse({ description: 'Alles hat Funktioniert' })
+@ApiInternalServerErrorResponse({
+  description: 'Ein Fehler ist aufgetreten',
+})
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
   // Read all users
   @Get()
+  @ApiOkResponse({ description: 'Alle Benutzer geholt' })
   async getAllUsers() {
     const result = await this.userService.getAllUsers();
     return { result };
@@ -24,26 +37,57 @@ export class UsersController {
 
   // Read all friends
   @Get(':id/getFriends')
+  @ApiParam({ name: 'id', description: 'Die ID des Benutzers' })
+  @ApiOkResponse({ description: 'Freundesliste des Benutzer geholt' })
+  @ApiInternalServerErrorResponse({
+    description: 'Ein Fehler ist aufgetreten',
+  })
   async getAllFriends(@Param('id', ParseIntPipe) id: number) {
     const result = await this.userService.getAllFriends(id);
-
     return result;
   }
 
   // Read by Name
-  @Get(':id') async findById(@Param('id', ParseIntPipe) id: number) {
+  @Get(':id')
+  @ApiParam({ name: 'id', description: 'Die ID des Benutzers' })
+  async findById(@Param('id', ParseIntPipe) id: number) {
     return await this.userService.findById(id);
   }
 
   // Update username
   @Put(':id')
+  @ApiParam({ name: 'id', description: 'Die ID des Benutzers' })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        username: {
+          type: 'string',
+          description: 'Der neue Benutzername',
+        },
+      },
+    },
+  })
+  @ApiOkResponse({ description: 'Username wurde aktualisiert' })
   async updateUsername(@Param('id', ParseIntPipe) id: number, @Body() user) {
-    this.userService.updateUsername(user.newUserName, id);
-    return { msg: 'Username has been updated' };
+    const result = this.userService.updateUsername(user.newUserName, id);
+    return result;
   }
 
   // Update winLoose
   @Put(':id/quiz-result')
+  @ApiParam({ name: 'id', description: 'Die ID des Benutzers' })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        whoWin: {
+          type: 'string',
+          description: 'Der Benutzername des Gewinners',
+        },
+      },
+    },
+  })
   async updateWinLoose(@Param('id', ParseIntPipe) id: number, @Body() whoWin) {
     let whoWin1: number = whoWin.whoWin;
 
@@ -63,6 +107,18 @@ export class UsersController {
 
   // Create a new friend request to particular user
   @Post(':id/friend-requests')
+  @ApiParam({ name: 'id', description: 'Die ID des Benutzers' })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        friendId: {
+          type: 'string',
+          description: 'Der Benutzername des Freundes',
+        },
+      },
+    },
+  })
   async addFriendRequest(
     @Param('id', ParseIntPipe) id: number,
     @Body('friendId') friendId,
@@ -72,16 +128,38 @@ export class UsersController {
   }
 
   @Post(':id/add-new-friend')
+  @ApiParam({ name: 'id', description: 'Die ID des Benutzers' })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        friendId: {
+          type: 'string',
+          description: 'Der Benutzername des Freundes',
+        },
+      },
+    },
+  })
   async addNewFriend(
     @Param('id', ParseIntPipe) id: number,
     @Body('friendId') friendId,
   ) {
-    console.log('await this.userService.addRealFriend(id, friendId)');
-
     return await this.userService.addRealFriend(id, friendId);
   }
 
   @Put(':id/delete-friend')
+  @ApiParam({ name: 'id', description: 'Die ID des Benutzers' })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        friendId: {
+          type: 'string',
+          description: 'Der Benutzername des Freundes',
+        },
+      },
+    },
+  })
   async deleteFriend(
     @Param('id', ParseIntPipe) id: number,
     @Body('friendId') friendId,
@@ -93,12 +171,25 @@ export class UsersController {
 
   // Get all friend requests for particular user
   @Get(':id/friend-requests')
+  @ApiParam({ name: 'id', description: 'Die ID des Benutzers' })
   async getFriendRequests(@Param('id', ParseIntPipe) id: number) {
     const result = await this.userService.getRequests(id);
     return result;
   }
 
   @Put(':id/updateFriend-requests')
+  @ApiParam({ name: 'id', description: 'Die ID des Benutzers' })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        friendId: {
+          type: 'string',
+          description: 'Der Benutzername des Freundes',
+        },
+      },
+    },
+  })
   async deleteFriendRequests(
     @Param('id', ParseIntPipe) id: number,
     @Body('friendId') friendId,
@@ -107,12 +198,12 @@ export class UsersController {
     return { msg: 'Request successfully deleted' };
   }
 
-  @Post('invite')
+  /*@Post('invite')
   async invite() {
     return { msg: 'Duel challenge has been sent' };
   }
 
-  /*@Get('statistic')
+  @Get('statistic')
   async getStatistic() {
     return { msg: 'User statistic has been updated' };
   }
@@ -123,12 +214,28 @@ export class UsersController {
   }*/
 
   @Post('updatePassword')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        userName: {
+          type: 'string',
+          description: 'Der Benutzer userName',
+        },
+        password: {
+          type: 'string',
+          description: 'Das neue Passwort',
+        },
+      },
+    },
+  })
   async updatePassword(@Body('password') password, @Body('userName') userName) {
     this.userService.updatePassword(password, userName);
     return { msg: 'Passport has been updated' };
   }
 
   @Post('updateGamesStatistic')
+  @ApiParam({ name: 'id', description: 'Die ID des Benutzers' })
   async updateGamesStatistic(@Body('userId') userId) {
     this.userService.updateGamesStatistic(userId);
     return { msg: 'User Games Statistic has been updated' };

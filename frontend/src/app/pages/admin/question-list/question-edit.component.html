@@ -5,7 +5,21 @@
 </header>
 <div class="row d-flex justify-content-center">
   <!-- LeftSide -->
-  <div class="col-md-6">
+  <div class="row">
+    <button
+      class="col btn btn-warning btn-lg w-100 m-3"
+      (click)="getGeography()"
+    >
+      Geography
+    </button>
+    <button
+      class="col btn btn-warning btn-lg w-100 m-3"
+      (click)="getInformatik()"
+    >
+      Informatik
+    </button>
+  </div>
+  <div class="col-md-10">
     <div class="shadow mx-3 box">
       <h2 class="d-flex justify-content-center">Fragen</h2>
       <div
@@ -21,7 +35,7 @@
           <button
             style="border: none; background: none; float: right"
             class="material-icons"
-            (click)="deleteQuestion(question!.id)"
+            (click)="deleteQuestion($event, question!.id)"
           >
             delete
           </button>

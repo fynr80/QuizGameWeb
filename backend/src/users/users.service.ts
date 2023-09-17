@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { User } from '../entity/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -41,7 +45,7 @@ export class UsersService {
         friends: true,
       },
     });
-
+    this.checkUserExist(user);
     return user.friends;
   }
   async create(username: string, password: string) {
@@ -82,6 +86,7 @@ export class UsersService {
         username: userName,
       },
     });
+    this.checkUserExist(user);
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
     user.password = hashedPassword;
@@ -94,6 +99,7 @@ export class UsersService {
         id: userId,
       },
     });
+    this.checkUserExist(user);
     user.gamesDraw = 0;
     user.gamesLost = 0;
     user.gamesWon = 0;
@@ -106,7 +112,7 @@ export class UsersService {
         id: userId,
       },
     });
-
+    this.checkUserExist(user);
     user.gamesWon++;
     await this.userRepository.save(user);
   }
@@ -117,7 +123,7 @@ export class UsersService {
         id: userId,
       },
     });
-
+    this.checkUserExist(user);
     user.gamesDraw++;
     await this.userRepository.save(user);
   }
@@ -128,6 +134,7 @@ export class UsersService {
         id: userId,
       },
     });
+    this.checkUserExist(user);
     user.gamesLost++;
     await this.userRepository.save(user);
   }
@@ -138,9 +145,8 @@ export class UsersService {
         username: name,
       },
     });
-
+    this.checkUserExist(user);
     await this.userRepository.remove(user);
-
     return {
       message: 'User succesfully deleted',
     };
@@ -155,7 +161,7 @@ export class UsersService {
         friendRequests: true,
       },
     });
-
+    this.checkUserExist(user);
     return user.friendRequests;
   }
 
@@ -173,6 +179,8 @@ export class UsersService {
         friendRequests: true,
       },
     });
+    this.checkUserExist(user);
+    this.checkUserExist(friend);
     user.friendRequests = user.friendRequests.filter(
       (obj) => obj.id !== friend.id,
     );
@@ -191,13 +199,13 @@ export class UsersService {
         friendRequests: true,
       },
     });
-
     const user = await this.userRepository.findOne({
       where: {
         id: userId,
       },
     });
-
+    this.checkUserExist(user);
+    this.checkUserExist(friend);
     if (!friend.friendRequests) {
       friend.friendRequests = [];
     }
@@ -229,7 +237,8 @@ export class UsersService {
     if (!user.friends) {
       user.friends = [];
     }
-
+    this.checkUserExist(user);
+    this.checkUserExist(friend);
     user.friends.push(friend);
 
     console.log('Friend ' + friend.username + ' added to ' + user.username);
@@ -255,6 +264,8 @@ export class UsersService {
         friends: true,
       },
     });
+    this.checkUserExist(user);
+    this.checkUserExist(friend);
     user.friends = user.friends.filter((obj) => obj.id !== friend.id);
     friend.friends = friend.friends.filter((obj) => obj.id !== user.id);
     await this.userRepository.save(friend);
@@ -268,8 +279,8 @@ export class UsersService {
       },
     });
     user.username = newUserName;
-
-    await this.userRepository.save(user);
+    this.checkUserExist(user);
+    return await this.userRepository.save(user);
   }
 
   async createAdmin() {
@@ -286,5 +297,13 @@ export class UsersService {
     newUser.history = [];
 
     await this.userRepository.save(newUser);
+  }
+
+  async checkUserExist(user: User) {
+    if (!user) {
+      throw new NotFoundException(
+        `Benutzer mit ID ${user.id} wurde nicht gefunden`,
+      );
+    }
   }
 }

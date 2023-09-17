@@ -68,8 +68,8 @@ export class FriendService {
     return this.socket.fromEvent<number>('submitAnswer');
   }
 
-  sendAcceptGameRequest(userId: number, friendId: number) {
-    this.getRandomQuestions().then((randomQuestions) => {
+  sendAcceptGameRequest(userId: number, friendId: number, category: number) {
+    this.getRandomQuestions(category).then((randomQuestions) => {
       this.socket.emit('acceptGameRequest', {
         userId: userId,
         friendId: friendId,
@@ -86,11 +86,11 @@ export class FriendService {
     return this.socket.fromEvent<Array<any>>('onlineUsers');
   }
 
-  apiUrl: string = 'http://localhost:3000/api/questions';
-  async getRandomQuestions() {
+  async getRandomQuestions(category: number) {
+    const apiUrl: string = `http://localhost:3000/api/questions/${category}`;
     return new Promise<questionModal[]>((resolve, reject) => {
       const randomQuestions: questionModal[] = [];
-      this.http.get<any>(this.apiUrl).subscribe(
+      this.http.get<any>(apiUrl).subscribe(
         (data) => {
           const shuffledQuestions = this.shuffle(data.result);
           const selectedQuestions = shuffledQuestions.slice(0, 10);

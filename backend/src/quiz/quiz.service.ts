@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Quiz } from 'src/entity/quiz.entity';
 import { Repository } from 'typeorm';
@@ -11,9 +11,15 @@ export class QuizService {
   ) {}
 
   async getQuizByUserName(username: string): Promise<Quiz[]> {
-    return await this.quizRepository.find({
+    const quiz = await this.quizRepository.find({
       where: [{ username1: username }, { username2: username }],
     });
+    if (!quiz) {
+      throw new NotFoundException(
+        `Benutzer ${username} wurde nicht gefunden // oder hat keinen Verlauf`,
+      );
+    }
+    return quiz;
   }
 
   async createQuiz(

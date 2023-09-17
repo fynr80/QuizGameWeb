@@ -17,7 +17,7 @@ export class QuestionEditComponent {
   answers: string[] = ['', '', '', ''];
 
   checkboxValues: boolean[] = [false, false, false, false];
-
+  category: number = 1;
   question: string = '';
   id: number | undefined;
   allQuestions: [questionModal?] = [];
@@ -27,9 +27,21 @@ export class QuestionEditComponent {
   constructor(public http: HttpClient, private modalService: NgbModal) {
     this.getAllQuestions();
   }
-  apiUrl: string = 'http://localhost:3000/api/questions';
+
+  getInformatik() {
+    this.category = 0;
+    this.getAllQuestions();
+    console.log(this.allQuestions);
+  }
+  getGeography() {
+    this.category = 1;
+    this.getAllQuestions();
+    console.log(this.allQuestions);
+  }
   getAllQuestions() {
-    this.http.get<any>(this.apiUrl).subscribe((data) => {
+    const apiUrl: string = `http://localhost:3000/api/questions/${this.category}`;
+    this.allQuestions = [];
+    this.http.get<any>(apiUrl).subscribe((data) => {
       data.result.forEach((element: any) => {
         const newQuestion = new questionModal(
           element.id,
@@ -45,6 +57,7 @@ export class QuestionEditComponent {
 
   openQuestionEditModal() {
     const modalRef = this.modalService.open(QuestionEditModalComponent);
+    modalRef.componentInstance.category = this.category;
   }
 
   openQuestionCreateModal(question: questionModal) {
@@ -140,8 +153,10 @@ export class QuestionEditComponent {
     this.trueAnswer = answer;
   }*/
 
-  async deleteQuestion(id: number | undefined) {
-    const url = this.apiUrl + '/' + id;
+  async deleteQuestion(event: Event, id: number | undefined) {
+    event.stopPropagation(); // Stoppt die oberen html elemente (Openmodal)
+    const apiUrl: string = `http://localhost:3000/api/questions`;
+    const url = apiUrl + '/' + id;
     await lastValueFrom(this.http.delete<any>(url));
     console.log('Question deleted');
     window.location.reload();

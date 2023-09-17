@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { questionModal } from 'app/models/question.model';
 import { lastValueFrom } from 'rxjs';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -10,6 +10,8 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./question-edit-modal.component.css'],
 })
 export class QuestionEditModalComponent {
+  @Input() category: number | undefined; // Hier wird der Wert übergeben
+
   showErrorMessage: boolean = false;
   errorMessage: string =
     'Bitte alle Felder Ausfüllen und die richtige Antwort auswählen';
@@ -23,14 +25,14 @@ export class QuestionEditModalComponent {
   trueAnswer: string = '';
 
   constructor(public http: HttpClient, private modalService: NgbModal) {
-    this.getAllQuestions();
+    //this.getAllQuestions();
   }
   apiUrl: string = 'http://localhost:3000/api/questions';
 
   closeModal() {
     this.modalService.dismissAll();
   }
-  getAllQuestions() {
+  /*getAllQuestions() {
     this.http.get<any>(this.apiUrl).subscribe((data) => {
       data.result.forEach((element: any) => {
         const newQuestion = new questionModal(
@@ -43,7 +45,7 @@ export class QuestionEditModalComponent {
         this.allQuestions!.push(newQuestion);
       });
     });
-  }
+  }*/
 
   async createQuestion() {
     const description: string = this.question;
@@ -61,12 +63,13 @@ export class QuestionEditModalComponent {
       this.showErrorMessage = true;
       return;
     }
-
+    const c = this.category;
     await lastValueFrom(
       this.http.post<any>(this.apiUrl, {
         description,
         answers,
         correctAnswers,
+        c,
       })
     );
     console.log('Question added');

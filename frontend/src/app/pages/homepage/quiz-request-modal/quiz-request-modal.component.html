@@ -7,13 +7,18 @@
   <div class="d-flex align-items-start">
     <span class="material-icons" style="font-size: 140px">person</span>
     <div class="row mx-3 my-3">
-      <h5>Anfrage annehmen oder ablehnen</h5>
+      <h5>
+        Entweder eine Duellart auswählen und loslegen oder die Anfrage Ablehnen
+      </h5>
     </div>
   </div>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-primary" (click)="acceptRequest()">
-    Annehmen
+  <button type="button" class="btn btn-primary" (click)="acceptRequest(0)">
+    Informatik Duell
+  </button>
+  <button type="button" class="btn btn-primary" (click)="acceptRequest(1)">
+    Geographie Duell
   </button>
   <button type="button" class="btn btn-primary" (click)="declineRequest()">
     Ablehnen

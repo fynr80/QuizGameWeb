@@ -26,12 +26,11 @@ export class QuizRequestModalComponent {
       this.userModel = data;
     });
   }
-  acceptRequest() {
-    //this.getRandomQuestions();
+  acceptRequest(category: number) {
     this.friendService.sendAcceptGameRequest(
       this.userIds!,
-      this.userModel!.id!
-      //this.randomQuestions
+      this.userModel!.id!,
+      category
     );
     this.closeModal();
   }
